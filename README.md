@@ -1,7 +1,7 @@
-# E-Store:  _____ Video Store _____
+# E-Store:  Flags
 # Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
 
-An online E-store system built in Java 11=> and ___ _replace with other platform requirements_ ___
+An online E-store system built in Java 19.0.2 and ___ _replace with other platform requirements_ ___
   
 ## Team
 
@@ -12,7 +12,7 @@ An online E-store system built in Java 11=> and ___ _replace with other platform
 
 ## Prerequisites
 
-- Java 8=>11 (Make sure to have correct JAVA_HOME setup in your environment)
+- Java 19.0.2 (Make sure to have correct JAVA_HOME setup in your environment)
 - Maven
 -  _add any other tech stack requirements_
 

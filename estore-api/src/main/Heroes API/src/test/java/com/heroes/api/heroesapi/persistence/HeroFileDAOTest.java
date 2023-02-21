@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.persistence;
+package com.flags.api.flagsapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,21 +14,21 @@ import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heroes.api.heroesapi.model.Hero;
+import com.flags.api.flagsapi.model.Flag;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test the Hero File DAO class
+ * Test the Flag File DAO class
  * 
  * @author SWEN Faculty
  */
 @Tag("Persistence-tier")
-public class HeroFileDAOTest {
-    HeroFileDAO heroFileDAO;
-    Hero[] testHeroes;
+public class FlagFileDAOTest {
+    FlagFileDAO flagFileDAO;
+    Flag[] testFlags;
     ObjectMapper mockObjectMapper;
 
     /**
@@ -37,138 +37,138 @@ public class HeroFileDAOTest {
      * @throws IOException
      */
     @BeforeEach
-    public void setupHeroFileDAO() throws IOException {
+    public void setupFlagFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
-        testHeroes = new Hero[3];
-        testHeroes[0] = new Hero(99,"Wi-Fire");
-        testHeroes[1] = new Hero(100,"Galactic Agent");
-        testHeroes[2] = new Hero(101,"Ice Gladiator");
+        testFlags = new Flag[3];
+        testFlags[0] = new Flag(99,"Wi-Fire");
+        testFlags[1] = new Flag(100,"Galactic Agent");
+        testFlags[2] = new Flag(101,"Ice Gladiator");
 
         // When the object mapper is supposed to read from the file
-        // the mock object mapper will return the hero array above
+        // the mock object mapper will return the flag array above
         when(mockObjectMapper
-            .readValue(new File("doesnt_matter.txt"),Hero[].class))
-                .thenReturn(testHeroes);
-        heroFileDAO = new HeroFileDAO("doesnt_matter.txt",mockObjectMapper);
+            .readValue(new File("doesnt_matter.txt"),Flag[].class))
+                .thenReturn(testFlags);
+        flagFileDAO = new FlagFileDAO("doesnt_matter.txt",mockObjectMapper);
     }
 
     @Test
-    public void testGetHeroes() {
+    public void testGetFlags() {
         // Invoke
-        Hero[] heroes = heroFileDAO.getHeroes();
+        Flag[] flags = flagFileDAO.getFlags();
 
         // Analyze
-        assertEquals(heroes.length,testHeroes.length);
-        for (int i = 0; i < testHeroes.length;++i)
-            assertEquals(heroes[i],testHeroes[i]);
+        assertEquals(flags.length,testFlags.length);
+        for (int i = 0; i < testFlags.length;++i)
+            assertEquals(flags[i],testFlags[i]);
     }
 
     @Test
-    public void testFindHeroes() {
+    public void testFindFlags() {
         // Invoke
-        Hero[] heroes = heroFileDAO.findHeroes("la");
+        Flag[] flags = flagFileDAO.findFlags("la");
 
         // Analyze
-        assertEquals(heroes.length,2);
-        assertEquals(heroes[0],testHeroes[1]);
-        assertEquals(heroes[1],testHeroes[2]);
+        assertEquals(flags.length,2);
+        assertEquals(flags[0],testFlags[1]);
+        assertEquals(flags[1],testFlags[2]);
     }
 
     @Test
-    public void testGetHero() {
+    public void testGetFlag() {
         // Invoke
-        Hero hero = heroFileDAO.getHero(99);
+        Flag flag = flagFileDAO.getFlag(99);
 
         // Analzye
-        assertEquals(hero,testHeroes[0]);
+        assertEquals(flag,testFlags[0]);
     }
 
     @Test
-    public void testDeleteHero() {
+    public void testDeleteFlag() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> heroFileDAO.deleteHero(99),
+        boolean result = assertDoesNotThrow(() -> flagFileDAO.deleteFlag(99),
                             "Unexpected exception thrown");
 
         // Analzye
         assertEquals(result,true);
         // We check the internal tree map size against the length
-        // of the test heroes array - 1 (because of the delete)
-        // Because heroes attribute of HeroFileDAO is package private
+        // of the test flags array - 1 (because of the delete)
+        // Because flags attribute of FlagFileDAO is package private
         // we can access it directly
-        assertEquals(heroFileDAO.heroes.size(),testHeroes.length-1);
+        assertEquals(flagFileDAO.flags.size(),testFlags.length-1);
     }
 
     @Test
-    public void testCreateHero() {
+    public void testCreateFlag() {
         // Setup
-        Hero hero = new Hero(102,"Wonder-Person");
+        Flag flag = new Flag(102,"Wonder-Person");
 
         // Invoke
-        Hero result = assertDoesNotThrow(() -> heroFileDAO.createHero(hero),
+        Flag result = assertDoesNotThrow(() -> flagFileDAO.createFlag(flag),
                                 "Unexpected exception thrown");
 
         // Analyze
         assertNotNull(result);
-        Hero actual = heroFileDAO.getHero(hero.getId());
-        assertEquals(actual.getId(),hero.getId());
-        assertEquals(actual.getName(),hero.getName());
+        Flag actual = flagFileDAO.getFlag(flag.getId());
+        assertEquals(actual.getId(),flag.getId());
+        assertEquals(actual.getName(),flag.getName());
     }
 
     @Test
-    public void testUpdateHero() {
+    public void testUpdateFlag() {
         // Setup
-        Hero hero = new Hero(99,"Galactic Agent");
+        Flag flag = new Flag(99,"Galactic Agent");
 
         // Invoke
-        Hero result = assertDoesNotThrow(() -> heroFileDAO.updateHero(hero),
+        Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),
                                 "Unexpected exception thrown");
 
         // Analyze
         assertNotNull(result);
-        Hero actual = heroFileDAO.getHero(hero.getId());
-        assertEquals(actual,hero);
+        Flag actual = flagFileDAO.getFlag(flag.getId());
+        assertEquals(actual,flag);
     }
 
     @Test
     public void testSaveException() throws IOException{
         doThrow(new IOException())
             .when(mockObjectMapper)
-                .writeValue(any(File.class),any(Hero[].class));
+                .writeValue(any(File.class),any(Flag[].class));
 
-        Hero hero = new Hero(102,"Wi-Fire");
+        Flag flag = new Flag(102,"Wi-Fire");
 
         assertThrows(IOException.class,
-                        () -> heroFileDAO.createHero(hero),
+                        () -> flagFileDAO.createFlag(flag),
                         "IOException not thrown");
     }
 
     @Test
-    public void testGetHeroNotFound() {
+    public void testGetFlagNotFound() {
         // Invoke
-        Hero hero = heroFileDAO.getHero(98);
+        Flag flag = flagFileDAO.getFlag(98);
 
         // Analyze
-        assertEquals(hero,null);
+        assertEquals(flag,null);
     }
 
     @Test
-    public void testDeleteHeroNotFound() {
+    public void testDeleteFlagNotFound() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> heroFileDAO.deleteHero(98),
+        boolean result = assertDoesNotThrow(() -> flagFileDAO.deleteFlag(98),
                                                 "Unexpected exception thrown");
 
         // Analyze
         assertEquals(result,false);
-        assertEquals(heroFileDAO.heroes.size(),testHeroes.length);
+        assertEquals(flagFileDAO.flags.size(),testFlags.length);
     }
 
     @Test
-    public void testUpdateHeroNotFound() {
+    public void testUpdateFlagNotFound() {
         // Setup
-        Hero hero = new Hero(98,"Bolt");
+        Flag flag = new Flag(98,"Bolt");
 
         // Invoke
-        Hero result = assertDoesNotThrow(() -> heroFileDAO.updateHero(hero),
+        Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),
                                                 "Unexpected exception thrown");
 
         // Analyze
@@ -183,15 +183,15 @@ public class HeroFileDAOTest {
         // exception was raised during JSON object deseerialization
         // into Java objects
         // When the Mock Object Mapper readValue method is called
-        // from the HeroFileDAO load method, an IOException is
+        // from the FlagFileDAO load method, an IOException is
         // raised
         doThrow(new IOException())
             .when(mockObjectMapper)
-                .readValue(new File("doesnt_matter.txt"),Hero[].class);
+                .readValue(new File("doesnt_matter.txt"),Flag[].class);
 
         // Invoke & Analyze
         assertThrows(IOException.class,
-                        () -> new HeroFileDAO("doesnt_matter.txt",mockObjectMapper),
+                        () -> new FlagFileDAO("doesnt_matter.txt",mockObjectMapper),
                         "IOException not thrown");
     }
 }

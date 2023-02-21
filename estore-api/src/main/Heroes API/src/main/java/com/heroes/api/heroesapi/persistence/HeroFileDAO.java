@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.persistence;
+package com.flags.api.flagsapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +12,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.heroes.api.heroesapi.model.Hero;
+import com.flags.api.flagsapi.model.Flag;
 
 /**
- * Implements the functionality for JSON file-based peristance for Heroes
+ * Implements the functionality for JSON file-based peristance for Flags
  * 
  * {@literal @}Component Spring annotation instantiates a single instance of this
  * class and injects the instance into other classes as needed
@@ -23,33 +23,33 @@ import com.heroes.api.heroesapi.model.Hero;
  * @author SWEN Faculty
  */
 @Component
-public class HeroFileDAO implements HeroDAO {
-    private static final Logger LOG = Logger.getLogger(HeroFileDAO.class.getName());
-    Map<Integer,Hero> heroes;   // Provides a local cache of the hero objects
+public class FlagFileDAO implements FlagDAO {
+    private static final Logger LOG = Logger.getLogger(FlagFileDAO.class.getName());
+    Map<Integer,Flag> flags;   // Provides a local cache of the flag objects
                                 // so that we don't need to read from the file
                                 // each time
-    private ObjectMapper objectMapper;  // Provides conversion between Hero
+    private ObjectMapper objectMapper;  // Provides conversion between Flag
                                         // objects and JSON text format written
                                         // to the file
-    private static int nextId;  // The next Id to assign to a new hero
+    private static int nextId;  // The next Id to assign to a new flag
     private String filename;    // Filename to read from and write to
 
     /**
-     * Creates a Hero File Data Access Object
+     * Creates a Flag File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public HeroFileDAO(@Value("${heroes.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public FlagFileDAO(@Value("${flags.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        load();  // load the heroes from the file
+        load();  // load the flags from the file
     }
 
     /**
-     * Generates the next id for a new {@linkplain Hero hero}
+     * Generates the next id for a new {@linkplain Flag flag}
      * 
      * @return The next id
      */
@@ -60,56 +60,56 @@ public class HeroFileDAO implements HeroDAO {
     }
 
     /**
-     * Generates an array of {@linkplain Hero heroes} from the tree map
+     * Generates an array of {@linkplain Flag flags} from the tree map
      * 
-     * @return  The array of {@link Hero heroes}, may be empty
+     * @return  The array of {@link Flag flags}, may be empty
      */
-    private Hero[] getHeroesArray() {
-        return getHeroesArray(null);
+    private Flag[] getFlagsArray() {
+        return getFlagsArray(null);
     }
 
     /**
-     * Generates an array of {@linkplain Hero heroes} from the tree map for any
-     * {@linkplain Hero heroes} that contains the text specified by containsText
+     * Generates an array of {@linkplain Flag flags} from the tree map for any
+     * {@linkplain Flag flags} that contains the text specified by containsText
      * <br>
-     * If containsText is null, the array contains all of the {@linkplain Hero heroes}
+     * If containsText is null, the array contains all of the {@linkplain Flag flags}
      * in the tree map
      * 
-     * @return  The array of {@link Hero heroes}, may be empty
+     * @return  The array of {@link Flag flags}, may be empty
      */
-    private Hero[] getHeroesArray(String containsText) { // if containsText == null, no filter
-        ArrayList<Hero> heroArrayList = new ArrayList<>();
+    private Flag[] getFlagsArray(String containsText) { // if containsText == null, no filter
+        ArrayList<Flag> flagArrayList = new ArrayList<>();
 
-        for (Hero hero : heroes.values()) {
-            if (containsText == null || hero.getName().contains(containsText)) {
-                heroArrayList.add(hero);
+        for (Flag flag : flags.values()) {
+            if (containsText == null || flag.getName().contains(containsText)) {
+                flagArrayList.add(flag);
             }
         }
 
-        Hero[] heroArray = new Hero[heroArrayList.size()];
-        heroArrayList.toArray(heroArray);
-        return heroArray;
+        Flag[] flagArray = new Flag[flagArrayList.size()];
+        flagArrayList.toArray(flagArray);
+        return flagArray;
     }
 
     /**
-     * Saves the {@linkplain Hero heroes} from the map into the file as an array of JSON objects
+     * Saves the {@linkplain Flag flags} from the map into the file as an array of JSON objects
      * 
-     * @return true if the {@link Hero heroes} were written successfully
+     * @return true if the {@link Flag flags} were written successfully
      * 
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Hero[] heroArray = getHeroesArray();
+        Flag[] flagArray = getFlagsArray();
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
-        objectMapper.writeValue(new File(filename),heroArray);
+        objectMapper.writeValue(new File(filename),flagArray);
         return true;
     }
 
     /**
-     * Loads {@linkplain Hero heroes} from the JSON file into the map
+     * Loads {@linkplain Flag flags} from the JSON file into the map
      * <br>
      * Also sets next id to one more than the greatest id found in the file
      * 
@@ -118,19 +118,19 @@ public class HeroFileDAO implements HeroDAO {
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
-        heroes = new TreeMap<>();
+        flags = new TreeMap<>();
         nextId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
+        // Deserializes the JSON objects from the file into an array of flags
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        Hero[] heroArray = objectMapper.readValue(new File(filename),Hero[].class);
+        Flag[] flagArray = objectMapper.readValue(new File(filename),Flag[].class);
 
-        // Add each hero to the tree map and keep track of the greatest id
-        for (Hero hero : heroArray) {
-            heroes.put(hero.getId(),hero);
-            if (hero.getId() > nextId)
-                nextId = hero.getId();
+        // Add each flag to the tree map and keep track of the greatest id
+        for (Flag flag : flagArray) {
+            flags.put(flag.getId(),flag);
+            if (flag.getId() > nextId)
+                nextId = flag.getId();
         }
         // Make the next id one greater than the maximum from the file
         ++nextId;
@@ -141,9 +141,9 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero[] getHeroes() {
-        synchronized(heroes) {
-            return getHeroesArray();
+    public Flag[] getFlags() {
+        synchronized(flags) {
+            return getFlagsArray();
         }
     }
 
@@ -151,9 +151,9 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero[] findHeroes(String containsText) {
-        synchronized(heroes) {
-            return getHeroesArray(containsText);
+    public Flag[] findFlags(String containsText) {
+        synchronized(flags) {
+            return getFlagsArray(containsText);
         }
     }
 
@@ -161,10 +161,10 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero getHero(int id) {
-        synchronized(heroes) {
-            if (heroes.containsKey(id))
-                return heroes.get(id);
+    public Flag getFlag(int id) {
+        synchronized(flags) {
+            if (flags.containsKey(id))
+                return flags.get(id);
             else
                 return null;
         }
@@ -174,14 +174,14 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero createHero(Hero hero) throws IOException {
-        synchronized(heroes) {
-            // We create a new hero object because the id field is immutable
+    public Flag createFlag(Flag flag) throws IOException {
+        synchronized(flags) {
+            // We create a new flag object because the id field is immutable
             // and we need to assign the next unique id
-            Hero newHero = new Hero(nextId(),hero.getName());
-            heroes.put(newHero.getId(),newHero);
+            Flag newFlag = new Flag(nextId(),flag.getName());
+            flags.put(newFlag.getId(),newFlag);
             save(); // may throw an IOException
-            return newHero;
+            return newFlag;
         }
     }
 
@@ -189,14 +189,14 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero updateHero(Hero hero) throws IOException {
-        synchronized(heroes) {
-            if (heroes.containsKey(hero.getId()) == false)
-                return null;  // hero does not exist
+    public Flag updateFlag(Flag flag) throws IOException {
+        synchronized(flags) {
+            if (flags.containsKey(flag.getId()) == false)
+                return null;  // flag does not exist
 
-            heroes.put(hero.getId(),hero);
+            flags.put(flag.getId(),flag);
             save(); // may throw an IOException
-            return hero;
+            return flag;
         }
     }
 
@@ -204,10 +204,10 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public boolean deleteHero(int id) throws IOException {
-        synchronized(heroes) {
-            if (heroes.containsKey(id)) {
-                heroes.remove(id);
+    public boolean deleteFlag(int id) throws IOException {
+        synchronized(flags) {
+            if (flags.containsKey(id)) {
+                flags.remove(id);
                 return save();
             }
             else

@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.controller;
+package com.flags.api.flagsapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import com.heroes.api.heroesapi.persistence.HeroDAO;
-import com.heroes.api.heroesapi.model.Hero;
+import com.flags.api.flagsapi.persistence.FlagDAO;
+import com.flags.api.flagsapi.model.Flag;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -17,267 +17,267 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Test the Hero Controller class
+ * Test the Flag Controller class
  * 
  * @author SWEN Faculty
  */
 @Tag("Controller-tier")
-public class HeroControllerTest {
-    private HeroController heroController;
-    private HeroDAO mockHeroDAO;
+public class FlagControllerTest {
+    private FlagController flagController;
+    private FlagDAO mockFlagDAO;
 
     /**
-     * Before each test, create a new HeroController object and inject
-     * a mock Hero DAO
+     * Before each test, create a new FlagController object and inject
+     * a mock Flag DAO
      */
     @BeforeEach
-    public void setupHeroController() {
-        mockHeroDAO = mock(HeroDAO.class);
-        heroController = new HeroController(mockHeroDAO);
+    public void setupFlagController() {
+        mockFlagDAO = mock(FlagDAO.class);
+        flagController = new FlagController(mockFlagDAO);
     }
 
     @Test
-    public void testGetHero() throws IOException {  // getHero may throw IOException
+    public void testGetFlag() throws IOException {  // getFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Galactic Agent");
-        // When the same id is passed in, our mock Hero DAO will return the Hero object
-        when(mockHeroDAO.getHero(hero.getId())).thenReturn(hero);
+        Flag flag = new Flag(99,"Galactic Agent");
+        // When the same id is passed in, our mock Flag DAO will return the Flag object
+        when(mockFlagDAO.getFlag(flag.getId())).thenReturn(flag);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.getHero(hero.getId());
+        ResponseEntity<Flag> response = flagController.getFlag(flag.getId());
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(hero,response.getBody());
+        assertEquals(flag,response.getBody());
     }
 
     @Test
-    public void testGetHeroNotFound() throws Exception { // createHero may throw IOException
+    public void testGetFlagNotFound() throws Exception { // createFlag may throw IOException
         // Setup
-        int heroId = 99;
-        // When the same id is passed in, our mock Hero DAO will return null, simulating
-        // no hero found
-        when(mockHeroDAO.getHero(heroId)).thenReturn(null);
+        int flagId = 99;
+        // When the same id is passed in, our mock Flag DAO will return null, simulating
+        // no flag found
+        when(mockFlagDAO.getFlag(flagId)).thenReturn(null);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.getHero(heroId);
+        ResponseEntity<Flag> response = flagController.getFlag(flagId);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
-    public void testGetHeroHandleException() throws Exception { // createHero may throw IOException
+    public void testGetFlagHandleException() throws Exception { // createFlag may throw IOException
         // Setup
-        int heroId = 99;
-        // When getHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).getHero(heroId);
+        int flagId = 99;
+        // When getFlag is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).getFlag(flagId);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.getHero(heroId);
+        ResponseEntity<Flag> response = flagController.getFlag(flagId);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     /*****************************************************************
-     * The following tests will fail until all HeroController methods
+     * The following tests will fail until all FlagController methods
      * are implemented.
      ****************************************************************/
 
     @Test
-    public void testCreateHero() throws IOException {  // createHero may throw IOException
+    public void testCreateFlag() throws IOException {  // createFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Wi-Fire");
-        // when createHero is called, return true simulating successful
+        Flag flag = new Flag(99,"Wi-Fire");
+        // when createFlag is called, return true simulating successful
         // creation and save
-        when(mockHeroDAO.createHero(hero)).thenReturn(hero);
+        when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.createHero(hero);
+        ResponseEntity<Flag> response = flagController.createFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
-        assertEquals(hero,response.getBody());
+        assertEquals(flag,response.getBody());
     }
 
     @Test
-    public void testCreateHeroFailed() throws IOException {  // createHero may throw IOException
+    public void testCreateFlagFailed() throws IOException {  // createFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Bolt");
-        // when createHero is called, return false simulating failed
+        Flag flag = new Flag(99,"Bolt");
+        // when createFlag is called, return false simulating failed
         // creation and save
-        when(mockHeroDAO.createHero(hero)).thenReturn(null);
+        when(mockFlagDAO.createFlag(flag)).thenReturn(null);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.createHero(hero);
+        ResponseEntity<Flag> response = flagController.createFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
 
     @Test
-    public void testCreateHeroHandleException() throws IOException {  // createHero may throw IOException
+    public void testCreateFlagHandleException() throws IOException {  // createFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Ice Gladiator");
+        Flag flag = new Flag(99,"Ice Gladiator");
 
-        // When createHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).createHero(hero);
+        // When createFlag is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).createFlag(flag);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.createHero(hero);
+        ResponseEntity<Flag> response = flagController.createFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     @Test
-    public void testUpdateHero() throws IOException { // updateHero may throw IOException
+    public void testUpdateFlag() throws IOException { // updateFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Wi-Fire");
-        // when updateHero is called, return true simulating successful
+        Flag flag = new Flag(99,"Wi-Fire");
+        // when updateFlag is called, return true simulating successful
         // update and save
-        when(mockHeroDAO.updateHero(hero)).thenReturn(hero);
-        ResponseEntity<Hero> response = heroController.updateHero(hero);
-        hero.setName("Bolt");
+        when(mockFlagDAO.updateFlag(flag)).thenReturn(flag);
+        ResponseEntity<Flag> response = flagController.updateFlag(flag);
+        flag.setName("Bolt");
 
         // Invoke
-        response = heroController.updateHero(hero);
+        response = flagController.updateFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(hero,response.getBody());
+        assertEquals(flag,response.getBody());
     }
 
     @Test
-    public void testUpdateHeroFailed() throws IOException { // updateHero may throw IOException
+    public void testUpdateFlagFailed() throws IOException { // updateFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Galactic Agent");
-        // when updateHero is called, return true simulating successful
+        Flag flag = new Flag(99,"Galactic Agent");
+        // when updateFlag is called, return true simulating successful
         // update and save
-        when(mockHeroDAO.updateHero(hero)).thenReturn(null);
+        when(mockFlagDAO.updateFlag(flag)).thenReturn(null);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.updateHero(hero);
+        ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
-    public void testUpdateHeroHandleException() throws IOException { // updateHero may throw IOException
+    public void testUpdateFlagHandleException() throws IOException { // updateFlag may throw IOException
         // Setup
-        Hero hero = new Hero(99,"Galactic Agent");
-        // When updateHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).updateHero(hero);
+        Flag flag = new Flag(99,"Galactic Agent");
+        // When updateFlag is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).updateFlag(flag);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.updateHero(hero);
+        ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     @Test
-    public void testGetHeroes() throws IOException { // getHeroes may throw IOException
+    public void testGetFlags() throws IOException { // getFlags may throw IOException
         // Setup
-        Hero[] heroes = new Hero[2];
-        heroes[0] = new Hero(99,"Bolt");
-        heroes[1] = new Hero(100,"The Great Iguana");
-        // When getHeroes is called return the heroes created above
-        when(mockHeroDAO.getHeroes()).thenReturn(heroes);
+        Flag[] flags = new Flag[2];
+        flags[0] = new Flag(99,"Bolt");
+        flags[1] = new Flag(100,"The Great Iguana");
+        // When getFlags is called return the flags created above
+        when(mockFlagDAO.getFlags()).thenReturn(flags);
 
         // Invoke
-        ResponseEntity<Hero[]> response = heroController.getHeroes();
+        ResponseEntity<Flag[]> response = flagController.getFlags();
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(heroes,response.getBody());
+        assertEquals(flags,response.getBody());
     }
 
     @Test
-    public void testGetHeroesHandleException() throws IOException { // getHeroes may throw IOException
+    public void testGetFlagsHandleException() throws IOException { // getFlags may throw IOException
         // Setup
-        // When getHeroes is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).getHeroes();
+        // When getFlags is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).getFlags();
 
         // Invoke
-        ResponseEntity<Hero[]> response = heroController.getHeroes();
+        ResponseEntity<Flag[]> response = flagController.getFlags();
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     @Test
-    public void testSearchHeroes() throws IOException { // findHeroes may throw IOException
+    public void testSearchFlags() throws IOException { // findFlags may throw IOException
         // Setup
         String searchString = "la";
-        Hero[] heroes = new Hero[2];
-        heroes[0] = new Hero(99,"Galactic Agent");
-        heroes[1] = new Hero(100,"Ice Gladiator");
-        // When findHeroes is called with the search string, return the two
-        /// heroes above
-        when(mockHeroDAO.findHeroes(searchString)).thenReturn(heroes);
+        Flag[] flags = new Flag[2];
+        flags[0] = new Flag(99,"Galactic Agent");
+        flags[1] = new Flag(100,"Ice Gladiator");
+        // When findFlags is called with the search string, return the two
+        /// flags above
+        when(mockFlagDAO.findFlags(searchString)).thenReturn(flags);
 
         // Invoke
-        ResponseEntity<Hero[]> response = heroController.searchHeroes(searchString);
+        ResponseEntity<Flag[]> response = flagController.searchFlags(searchString);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(heroes,response.getBody());
+        assertEquals(flags,response.getBody());
     }
 
     @Test
-    public void testSearchHeroesHandleException() throws IOException { // findHeroes may throw IOException
+    public void testSearchFlagsHandleException() throws IOException { // findFlags may throw IOException
         // Setup
         String searchString = "an";
-        // When createHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).findHeroes(searchString);
+        // When createFlag is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).findFlags(searchString);
 
         // Invoke
-        ResponseEntity<Hero[]> response = heroController.searchHeroes(searchString);
+        ResponseEntity<Flag[]> response = flagController.searchFlags(searchString);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     @Test
-    public void testDeleteHero() throws IOException { // deleteHero may throw IOException
+    public void testDeleteFlag() throws IOException { // deleteFlag may throw IOException
         // Setup
-        int heroId = 99;
-        // when deleteHero is called return true, simulating successful deletion
-        when(mockHeroDAO.deleteHero(heroId)).thenReturn(true);
+        int flagId = 99;
+        // when deleteFlag is called return true, simulating successful deletion
+        when(mockFlagDAO.deleteFlag(flagId)).thenReturn(true);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.deleteHero(heroId);
+        ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
-    public void testDeleteHeroNotFound() throws IOException { // deleteHero may throw IOException
+    public void testDeleteFlagNotFound() throws IOException { // deleteFlag may throw IOException
         // Setup
-        int heroId = 99;
-        // when deleteHero is called return false, simulating failed deletion
-        when(mockHeroDAO.deleteHero(heroId)).thenReturn(false);
+        int flagId = 99;
+        // when deleteFlag is called return false, simulating failed deletion
+        when(mockFlagDAO.deleteFlag(flagId)).thenReturn(false);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.deleteHero(heroId);
+        ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
-    public void testDeleteHeroHandleException() throws IOException { // deleteHero may throw IOException
+    public void testDeleteFlagHandleException() throws IOException { // deleteFlag may throw IOException
         // Setup
-        int heroId = 99;
-        // When deleteHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(mockHeroDAO).deleteHero(heroId);
+        int flagId = 99;
+        // When deleteFlag is called on the Mock Flag DAO, throw an IOException
+        doThrow(new IOException()).when(mockFlagDAO).deleteFlag(flagId);
 
         // Invoke
-        ResponseEntity<Hero> response = heroController.deleteHero(heroId);
+        ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());

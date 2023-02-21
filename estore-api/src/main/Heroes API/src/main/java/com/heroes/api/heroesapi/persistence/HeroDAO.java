@@ -1,82 +1,82 @@
-package com.heroes.api.heroesapi.persistence;
+package com.flags.api.flagsapi.persistence;
 
 import java.io.IOException;
-import com.heroes.api.heroesapi.model.Hero;
+import com.flags.api.flagsapi.model.Flag;
 
 /**
- * Defines the interface for Hero object persistence
+ * Defines the interface for Flag object persistence
  * 
  * @author SWEN Faculty
  */
-public interface HeroDAO {
+public interface FlagDAO {
     /**
-     * Retrieves all {@linkplain Hero heroes}
+     * Retrieves all {@linkplain Flag flags}
      * 
-     * @return An array of {@link Hero hero} objects, may be empty
+     * @return An array of {@link Flag flag} objects, may be empty
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Hero[] getHeroes() throws IOException;
+    Flag[] getFlages() throws IOException;
 
     /**
-     * Finds all {@linkplain Hero heroes} whose name contains the given text
+     * Finds all {@linkplain Flag flags} whose name contains the given text
      * 
      * @param containsText The text to match against
      * 
-     * @return An array of {@link Hero heroes} whose nemes contains the given text, may be empty
+     * @return An array of {@link Flag flags} whose nemes contains the given text, may be empty
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Hero[] findHeroes(String containsText) throws IOException;
+    Flag[] findFlages(String containsText) throws IOException;
 
     /**
-     * Retrieves a {@linkplain Hero hero} with the given id
+     * Retrieves a {@linkplain Flag flag} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to get
+     * @param id The id of the {@link Flag flag} to get
      * 
-     * @return a {@link Hero hero} object with the matching id
+     * @return a {@link Flag flag} object with the matching id
      * <br>
-     * null if no {@link Hero hero} with a matching id is found
+     * null if no {@link Flag flag} with a matching id is found
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Hero getHero(int id) throws IOException;
+    Flag getFlag(int id) throws IOException;
 
     /**
-     * Creates and saves a {@linkplain Hero hero}
+     * Creates and saves a {@linkplain Flag flag}
      * 
-     * @param hero {@linkplain Hero hero} object to be created and saved
+     * @param flag {@linkplain Flag flag} object to be created and saved
      * <br>
-     * The id of the hero object is ignored and a new uniqe id is assigned
+     * The id of the flag object is ignored and a new uniqe id is assigned
      *
-     * @return new {@link Hero hero} if successful, false otherwise 
+     * @return new {@link Flag flag} if successful, false otherwise 
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Hero createHero(Hero hero) throws IOException;
+    Flag createFlag(Flag flag) throws IOException;
 
     /**
-     * Updates and saves a {@linkplain Hero hero}
+     * Updates and saves a {@linkplain Flag flag}
      * 
-     * @param {@link Hero hero} object to be updated and saved
+     * @param {@link Flag flag} object to be updated and saved
      * 
-     * @return updated {@link Hero hero} if successful, null if
-     * {@link Hero hero} could not be found
+     * @return updated {@link Flag flag} if successful, null if
+     * {@link Flag flag} could not be found
      * 
      * @throws IOException if underlying storage cannot be accessed
      */
-    Hero updateHero(Hero hero) throws IOException;
+    Flag updateFlag(Flag flag) throws IOException;
 
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Deletes a {@linkplain Flag flag} with the given id
      * 
-     * @param id The id of the {@link Hero hero}
+     * @param id The id of the {@link Flag flag}
      * 
-     * @return true if the {@link Hero hero} was deleted
+     * @return true if the {@link Flag flag} was deleted
      * <br>
-     * false if hero with the given id does not exist
+     * false if flag with the given id does not exist
      * 
      * @throws IOException if underlying storage cannot be accessed
      */
-    boolean deleteHero(int id) throws IOException;
+    boolean deleteFlag(int id) throws IOException;
 }

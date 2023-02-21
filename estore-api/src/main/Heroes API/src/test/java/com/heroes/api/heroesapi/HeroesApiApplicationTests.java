@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi;
+package com.flags.api.flagsapi;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Tag("Controller-tier")
 @SpringBootTest
-class HeroesApiApplicationTests {
+class FlagsApiApplicationTests {
 
 	@Test
 	void testContextLoads() {

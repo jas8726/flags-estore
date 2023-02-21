@@ -1,13 +1,13 @@
-package com.heroes.api.heroesapi;
+package com.flags.api.flagsapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HeroesApiApplication {
+public class FlagsApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HeroesApiApplication.class, args);
+		SpringApplication.run(FlagsApiApplication.class, args);
 	}
 
 }

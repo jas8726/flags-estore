@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.controller;
+package com.flags.api.flagsapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.heroes.api.heroesapi.persistence.HeroDAO;
-import com.heroes.api.heroesapi.model.Hero;
+import com.flags.api.flagsapi.persistence.FlagDAO;
+import com.flags.api.flagsapi.model.Flag;
 
 /**
- * Handles the REST API requests for the Hero resource
+ * Handles the REST API requests for the Flag resource
  * <p>
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
@@ -29,38 +29,38 @@ import com.heroes.api.heroesapi.model.Hero;
  */
 
 @RestController
-@RequestMapping("heroes")
-public class HeroController {
-    private static final Logger LOG = Logger.getLogger(HeroController.class.getName());
-    private HeroDAO heroDao;
+@RequestMapping("flags")
+public class FlagController {
+    private static final Logger LOG = Logger.getLogger(FlagController.class.getName());
+    private FlagDAO flagDao;
 
     /**
      * Creates a REST API controller to reponds to requests
      * 
-     * @param heroDao The {@link HeroDAO Hero Data Access Object} to perform CRUD operations
+     * @param flagDao The {@link FlagDAO Flag Data Access Object} to perform CRUD operations
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public HeroController(HeroDAO heroDao) {
-        this.heroDao = heroDao;
+    public FlagController(FlagDAO flagDao) {
+        this.flagDao = flagDao;
     }
 
     /**
-     * Responds to the GET request for a {@linkplain Hero hero} for the given id
+     * Responds to the GET request for a {@linkplain Flag flag} for the given id
      * 
-     * @param id The id used to locate the {@link Hero hero}
+     * @param id The id used to locate the {@link Flag flag}
      * 
-     * @return ResponseEntity with {@link Hero hero} object and HTTP status of OK if found<br>
+     * @return ResponseEntity with {@link Flag flag} object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Hero> getHero(@PathVariable int id) {
-        LOG.info("GET /heroes/" + id);
+    public ResponseEntity<Flag> getFlag(@PathVariable int id) {
+        LOG.info("GET /flags/" + id);
         try {
-            Hero hero = heroDao.getHero(id);
-            if (hero != null)
-                return new ResponseEntity<Hero>(hero,HttpStatus.OK);
+            Flag flag = flagDao.getFlag(id);
+            if (flag != null)
+                return new ResponseEntity<Flag>(flag,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,20 +71,20 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes}
+     * Responds to the GET request for all {@linkplain Flag flags}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Flag flag} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Hero[]> getHeroes() {
-        LOG.info("GET /heroes");
+    public ResponseEntity<Flag[]> getFlags() {
+        LOG.info("GET /flags");
 
         try {
-            Hero[] heroArray = heroDao.getHeroes();
-            if (heroArray != null)
-                return new ResponseEntity<Hero[]>(heroArray,HttpStatus.OK);
+            Flag[] flagArray = flagDao.getFlags();
+            if (flagArray != null)
+                return new ResponseEntity<Flag[]>(flagArray,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -95,26 +95,26 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes} whose name contains
+     * Responds to the GET request for all {@linkplain Flag flags} whose name contains
      * the text in name
      * 
-     * @param name The name parameter which contains the text used to find the {@link Hero heroes}
+     * @param name The name parameter which contains the text used to find the {@link Flag flags}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Flag flag} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * <p>
-     * Example: Find all heroes that contain the text "ma"
-     * GET http://localhost:8080/heroes/?name=ma
+     * Example: Find all flags that contain the text "ma"
+     * GET http://localhost:8080/flags/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Hero[]> searchHeroes(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+    public ResponseEntity<Flag[]> searchFlags(@RequestParam String name) {
+        LOG.info("GET /flags/?name="+name);
 
         try {
-            Hero[] hero = heroDao.findHeroes(name);
-            if (hero != null)
-                return new ResponseEntity<Hero[]>(hero,HttpStatus.OK);
+            Flag[] flag = flagDao.findFlags(name);
+            if (flag != null)
+                return new ResponseEntity<Flag[]>(flag,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -125,30 +125,30 @@ public class HeroController {
     }
 
     /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
+     * Creates a {@linkplain Flag flag} with the provided flag object
      * 
-     * @param hero - The {@link Hero hero} to create
+     * @param flag - The {@link Flag flag} to create
      * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
+     * @return ResponseEntity with created {@link Flag flag} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Flag flag} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Hero> createHero(@RequestBody Hero hero) {
-        LOG.info("POST /heroes " + hero);
+    public ResponseEntity<Flag> createFlag(@RequestBody Flag flag) {
+        LOG.info("POST /flags " + flag);
 
         try {
-            Hero newHero = heroDao.createHero( hero );
-            Hero[] searchHero = heroDao.getHeroes();
+            Flag newFlag = flagDao.createFlag( flag );
+            Flag[] searchFlag = flagDao.getFlags();
             int counter = 0;
-            for (int i = 0; i < searchHero.length; i++) {
-                if( newHero.equals( searchHero[i] ) )
+            for (int i = 0; i < searchFlag.length; i++) {
+                if( newFlag.equals( searchFlag[i] ) )
                     counter++;
             }
             if ( counter > 0 )
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             else
-                return new ResponseEntity<Hero>(newHero,HttpStatus.CREATED);
+                return new ResponseEntity<Flag>(newFlag,HttpStatus.CREATED);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -158,22 +158,22 @@ public class HeroController {
     }
 
     /**
-     * Updates the {@linkplain Hero hero} with the provided {@linkplain Hero hero} object, if it exists
+     * Updates the {@linkplain Flag flag} with the provided {@linkplain Flag flag} object, if it exists
      * 
-     * @param hero The {@link Hero hero} to update
+     * @param flag The {@link Flag flag} to update
      * 
-     * @return ResponseEntity with updated {@link Hero hero} object and HTTP status of OK if updated<br>
+     * @return ResponseEntity with updated {@link Flag flag} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Hero> updateHero(@RequestBody Hero hero) {
-        LOG.info("PUT /heroes " + hero);
+    public ResponseEntity<Flag> updateFlag(@RequestBody Flag flag) {
+        LOG.info("PUT /flags " + flag);
 
         try {
-            Hero newHero = heroDao.updateHero(hero);
-            if (newHero != null)
-                return new ResponseEntity<Hero>(newHero,HttpStatus.OK);
+            Flag newFlag = flagDao.updateFlag(flag);
+            if (newFlag != null)
+                return new ResponseEntity<Flag>(newFlag,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -184,21 +184,21 @@ public class HeroController {
     }
 
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Deletes a {@linkplain Flag flag} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to deleted
+     * @param id The id of the {@link Flag flag} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Hero> deleteHero(@PathVariable int id) {
-        LOG.info("DELETE /heroes/" + id);
+    public ResponseEntity<Flag> deleteFlag(@PathVariable int id) {
+        LOG.info("DELETE /flags/" + id);
 
         try {
-            if ( heroDao.deleteHero(id) )
-                return new ResponseEntity<Hero>(HttpStatus.OK);
+            if ( flagDao.deleteFlag(id) )
+                return new ResponseEntity<Flag>(HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

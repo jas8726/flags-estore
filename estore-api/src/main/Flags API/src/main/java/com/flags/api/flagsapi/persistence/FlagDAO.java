@@ -16,7 +16,7 @@ public interface FlagDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Flag[] getFlages() throws IOException;
+    Flag[] getFlags() throws IOException;
 
     /**
      * Finds all {@linkplain Flag flags} whose name contains the given text
@@ -27,7 +27,7 @@ public interface FlagDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Flag[] findFlages(String containsText) throws IOException;
+    Flag[] findFlags(String containsText) throws IOException;
 
     /**
      * Retrieves a {@linkplain Flag flag} with the given id

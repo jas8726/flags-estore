@@ -138,17 +138,13 @@ public class FlagController {
         LOG.info("POST /flags " + flag);
 
         try {
-            Flag newFlag = flagDao.createFlag( flag );
-            Flag[] searchFlag = flagDao.getFlags();
-            int counter = 0;
-            for (int i = 0; i < searchFlag.length; i++) {
-                if( newFlag.equals( searchFlag[i] ) )
-                    counter++;
-            }
-            if ( counter > 0 )
+            if (flagDao.findFlags(flag.getName()).length > 0) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-            else
-                return new ResponseEntity<Flag>(newFlag,HttpStatus.CREATED);
+            }
+            
+            Flag newFlag = flagDao.createFlag( flag );
+            return new ResponseEntity<Flag>(newFlag,HttpStatus.CREATED);
+                
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());

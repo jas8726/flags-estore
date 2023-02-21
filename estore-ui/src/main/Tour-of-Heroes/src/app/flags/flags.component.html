@@ -1,0 +1,21 @@
+<h2>My Flags</h2>
+
+<div>
+  <label for="new-flag">Flag name: </label>
+  <input id="new-flag" #flagName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(flagName.value); flagName.value=''">
+    Add flag
+  </button>
+</div>
+
+<ul class="flags">
+  <li *ngFor="let flag of flags">
+    <a routerLink="/detail/{{flag.id}}">
+      <span class="badge">{{flag.id}}</span> {{flag.name}}
+    </a>
+    <button type="button" class="delete" title="delete flag"
+      (click)="delete(flag)">x</button>
+  </li>
+</ul>

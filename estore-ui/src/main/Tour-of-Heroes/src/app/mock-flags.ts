@@ -1,6 +1,6 @@
-import { Hero } from './hero';
+import { Flag } from './flag';
 
-export const HEROES: Hero[] = [
+export const FLAGS: Flag[] = [
   { id: 12, name: 'Dr. Nice' },
   { id: 13, name: 'Bombasto' },
   { id: 14, name: 'Celeritas' },

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Tour-of-Heroes": {
+    "Tour-of-Flags": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tour-of-heroes",
+            "outputPath": "dist/tour-of-flags",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Tour-of-Heroes:build:production"
+              "browserTarget": "Tour-of-Flags:build:production"
             },
             "development": {
-              "browserTarget": "Tour-of-Heroes:build:development"
+              "browserTarget": "Tour-of-Flags:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Tour-of-Heroes:build"
+            "browserTarget": "Tour-of-Flags:build"
           }
         },
         "test": {

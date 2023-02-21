@@ -1,0 +1,10 @@
+<div *ngIf="flag">
+  <h2>{{flag.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{flag.id}}</div>
+  <div>
+    <label for="flag-name">Flag name: </label>
+    <input id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name"/>
+  </div>
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>
+</div>

@@ -1,6 +1,0 @@
-com\flags\api\flagsapi\persistence\FlagDAO.class
-com\flags\api\flagsapi\FlagsApiApplication.class
-com\flags\api\flagsapi\controller\FlagController.class
-com\flags\api\flagsapi\model\Flag.class
-com\flags\api\flagsapi\WebConfig.class
-com\flags\api\flagsapi\persistence\FlagFileDAO.class

@@ -16,6 +16,8 @@ public class Flag {
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
+    @JsonProperty("price") private float price;
+    @JsonProperty("quantity") private int quantity;
 
     /**
      * Create a flag with the given id and name
@@ -27,9 +29,12 @@ public class Flag {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name) {
+    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("price") float price, 
+                @JsonProperty("quantity") int quantity) {
         this.id = id;
         this.name = name;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     /**
@@ -37,6 +42,18 @@ public class Flag {
      * @return The id of the flag
      */
     public int getId() {return id;}
+
+    /**
+     * retrieves price of product
+     * @return price of product
+     */
+    public float getPrice() {return price;}
+
+    /**
+     * retrieves amount in inventory
+     * @return quantity of flags
+     */
+    public int getQuantity() {return quantity;}
 
     /**
      * Sets the name of the flag - necessary for JSON object to Java object deserialization

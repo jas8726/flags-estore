@@ -34,6 +34,9 @@ public class FlagFileDAO implements FlagDAO {
     private static int nextId;  // The next Id to assign to a new flag
     private String filename;    // Filename to read from and write to
 
+    private float defaultPrice = 0; // default price for items to be set to
+    private int defaultQuantity = 0; // default quantity of items
+
     /**
      * Creates a Flag File Data Access Object
      * 
@@ -178,7 +181,7 @@ public class FlagFileDAO implements FlagDAO {
         synchronized(flags) {
             // We create a new flag object because the id field is immutable
             // and we need to assign the next unique id
-            Flag newFlag = new Flag(nextId(),flag.getName());
+            Flag newFlag = new Flag(nextId(),flag.getName(), defaultPrice, defaultQuantity);
             flags.put(newFlag.getId(),newFlag);
             save(); // may throw an IOException
             return newFlag;

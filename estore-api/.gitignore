@@ -3,8 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-inputFiles.lst
-createdFiles.lst
+.lst
 
 ### STS ###
 .apt_generated

@@ -1,4 +1,4 @@
-estore-api/target/
+Flags_API/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -4,6 +4,7 @@ Flags_API/target/
 !**/src/test/**/target/
 
 *.lst
+*.class
 
 ### STS ###
 .apt_generated

@@ -1,9 +1,11 @@
-estore-api/target/
+Flags_API/target/
+estore-api
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 *.lst
+
 
 ### STS ###
 .apt_generated
@@ -32,3 +34,6 @@ build/
 
 ### VS Code ###
 **/.vscode/*
+
+##DS_STORE##
+*.DS_STORE

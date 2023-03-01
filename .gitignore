@@ -35,5 +35,5 @@ build/
 ### VS Code ###
 **/.vscode/*
 
-##DS_STRORE##
-*.DS_STRORE
+##DS_STORE##
+*.DS_STORE

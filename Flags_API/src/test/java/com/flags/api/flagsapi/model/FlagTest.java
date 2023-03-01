@@ -17,9 +17,11 @@ public class FlagTest {
         // Setup
         int expected_id = 99;
         String expected_name = "Wi-Fire";
+        int expected_price = 1;
+        int expected_quantity = 1;
 
         // Invoke
-        Flag flag = new Flag(expected_id,expected_name);
+        Flag flag = new Flag(expected_id, expected_name, expected_price, expected_quantity);
 
         // Analyze
         assertEquals(expected_id,flag.getId());
@@ -31,7 +33,9 @@ public class FlagTest {
         // Setup
         int id = 99;
         String name = "Wi-Fire";
-        Flag flag = new Flag(id,name);
+        int price = 1;
+        int quantity = 1;
+        Flag flag = new Flag(id, name, price, quantity);
 
         String expected_name = "Galactic Agent";
 
@@ -47,8 +51,10 @@ public class FlagTest {
         // Setup
         int id = 99;
         String name = "Wi-Fire";
+        int price = 1;
+        int quantity = 1;
         String expected_string = String.format(Flag.STRING_FORMAT,id,name);
-        Flag flag = new Flag(id,name);
+        Flag flag = new Flag(id, name, price, quantity);
 
         // Invoke
         String actual_string = flag.toString();

@@ -39,7 +39,7 @@ public class FlagControllerTest {
     @Test
     public void testGetFlag() throws IOException {  // getFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Galactic Agent");
+        Flag flag = new Flag(99,"Galactic Agent", 100, 2);
         // When the same id is passed in, our mock Flag DAO will return the Flag object
         when(mockFlagDAO.getFlag(flag.getId())).thenReturn(flag);
 
@@ -88,7 +88,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlag() throws IOException {  // createFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Wi-Fire");
+        Flag flag = new Flag(99,"Wi-Fire", 20, 11);
         // when createFlag is called, return true simulating successful
         // creation and save
         when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
@@ -104,7 +104,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlagFailed() throws IOException {  // createFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Bolt");
+        Flag flag = new Flag(99,"Bolt", 40, 12);
         // when createFlag is called, return false simulating failed
         // creation and save
         when(mockFlagDAO.createFlag(flag)).thenReturn(null);
@@ -119,7 +119,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlagHandleException() throws IOException {  // createFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Ice Gladiator");
+        Flag flag = new Flag(99,"Ice Gladiator", 15, 1);
 
         // When createFlag is called on the Mock Flag DAO, throw an IOException
         doThrow(new IOException()).when(mockFlagDAO).createFlag(flag);
@@ -134,7 +134,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlag() throws IOException { // updateFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Wi-Fire");
+        Flag flag = new Flag(99,"Wi-Fire", 2, 5);
         // when updateFlag is called, return true simulating successful
         // update and save
         when(mockFlagDAO.updateFlag(flag)).thenReturn(flag);
@@ -152,7 +152,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlagFailed() throws IOException { // updateFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Galactic Agent");
+        Flag flag = new Flag(99,"Galactic Agent", 66, 9);
         // when updateFlag is called, return true simulating successful
         // update and save
         when(mockFlagDAO.updateFlag(flag)).thenReturn(null);
@@ -167,7 +167,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlagHandleException() throws IOException { // updateFlag may throw IOException
         // Setup
-        Flag flag = new Flag(99,"Galactic Agent");
+        Flag flag = new Flag(99,"Galactic Agent", 99, 12);
         // When updateFlag is called on the Mock Flag DAO, throw an IOException
         doThrow(new IOException()).when(mockFlagDAO).updateFlag(flag);
 
@@ -182,8 +182,8 @@ public class FlagControllerTest {
     public void testGetFlags() throws IOException { // getFlags may throw IOException
         // Setup
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Bolt");
-        flags[1] = new Flag(100,"The Great Iguana");
+        flags[0] = new Flag(99,"Bolt", 30, 10);
+        flags[1] = new Flag(100,"The Great Iguana", 30, 10);
         // When getFlags is called return the flags created above
         when(mockFlagDAO.getFlags()).thenReturn(flags);
 
@@ -213,8 +213,8 @@ public class FlagControllerTest {
         // Setup
         String searchString = "la";
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Galactic Agent");
-        flags[1] = new Flag(100,"Ice Gladiator");
+        flags[0] = new Flag(99,"Galactic Agent", 30, 10);
+        flags[1] = new Flag(100,"Ice Gladiator", 30, 10);
         // When findFlags is called with the search string, return the two
         /// flags above
         when(mockFlagDAO.findFlags(searchString)).thenReturn(flags);

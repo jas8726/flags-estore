@@ -40,9 +40,9 @@ public class FlagFileDAOTest {
     public void setupFlagFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testFlags = new Flag[3];
-        testFlags[0] = new Flag(99,"Wi-Fire");
-        testFlags[1] = new Flag(100,"Galactic Agent");
-        testFlags[2] = new Flag(101,"Ice Gladiator");
+        testFlags[0] = new Flag(99,"Wi-Fire",1,1);
+        testFlags[1] = new Flag(100,"Galactic Agent",1,1);
+        testFlags[2] = new Flag(101,"Ice Gladiator",1,1);
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the flag array above
@@ -101,7 +101,7 @@ public class FlagFileDAOTest {
     @Test
     public void testCreateFlag() {
         // Setup
-        Flag flag = new Flag(102,"Wonder-Person");
+        Flag flag = new Flag(102,"Wonder-Person",1,1);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.createFlag(flag),
@@ -117,7 +117,7 @@ public class FlagFileDAOTest {
     @Test
     public void testUpdateFlag() {
         // Setup
-        Flag flag = new Flag(99,"Galactic Agent");
+        Flag flag = new Flag(99,"Galactic Agent",1,1);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),
@@ -135,7 +135,7 @@ public class FlagFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Flag[].class));
 
-        Flag flag = new Flag(102,"Wi-Fire");
+        Flag flag = new Flag(102,"Wi-Fire",1,1);
 
         assertThrows(IOException.class,
                         () -> flagFileDAO.createFlag(flag),
@@ -165,7 +165,7 @@ public class FlagFileDAOTest {
     @Test
     public void testUpdateFlagNotFound() {
         // Setup
-        Flag flag = new Flag(98,"Bolt");
+        Flag flag = new Flag(98,"Bolt",1,1);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),

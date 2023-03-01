@@ -1,4 +1,5 @@
-/Flags_API/target/
+Flags_API/target/
+estore-api
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -33,3 +34,6 @@ build/
 
 ### VS Code ###
 **/.vscode/*
+
+##DS_STRORE##
+*.DS_STRORE

@@ -17,10 +17,23 @@ public interface AccountDAO {
     Account[] getAccounts() throws IOException;
 
     /**
-     * Retrieves an {@linkplain Account account} with the given username and password
+     * Retrieves an {@linkplain Account account} with the given username
      * 
      * @param username The username of the {@link Account account} to get
-     * @param password The password of the {@link Account account} to get
+     * 
+     * @return an {@link Account account} object with the matching username
+     * <br>
+     * null if no {@link Account account} with a matching username is found
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    Account getAccount(String username) throws IOException;
+
+        /**
+     * Logins to an {@linkplain Account account} with the given username and password
+     * 
+     * @param username The username of the {@link Account account} to login with
+     * @param password The password of the {@link Account account} to login with
      * 
      * @return an {@link Account account} object with the matching username and password
      * <br>
@@ -28,7 +41,7 @@ public interface AccountDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Account getAccount(String username, String password) throws IOException;
+    Account loginAccount(String username, String password) throws IOException;
 
     /**
      * Creates and saves an {@linkplain Account account}

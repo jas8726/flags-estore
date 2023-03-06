@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +53,7 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{username}")
-    public ResponseEntity<Account> getAccount(@RequestParam String username) {
+    public ResponseEntity<Account> getAccount(@PathVariable String username) {
         LOG.info("GET /accounts/" + username);
         try {
             Account account = accountDao.getAccount(username);
@@ -102,7 +103,7 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{username}/{password}")
-    public ResponseEntity<Account> loginAccount(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<Account> loginAccount(@PathVariable String username, @PathVariable String password) {
         LOG.info("GET /accounts/" + username + "/" + password);
         try {
             Account account = accountDao.loginAccount(username, password);
@@ -182,7 +183,7 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{username}")
-    public ResponseEntity<Account> deleteAccount(@RequestParam String username) {
+    public ResponseEntity<Account> deleteAccount(@PathVariable String username) {
         LOG.info("DELETE /accounts/" + username);
 
         try {

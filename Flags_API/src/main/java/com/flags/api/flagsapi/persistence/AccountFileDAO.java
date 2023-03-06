@@ -23,7 +23,7 @@ import com.flags.api.flagsapi.model.Account;
 @Component
 public class AccountFileDAO implements AccountDAO {
     private static final Logger LOG = Logger.getLogger(AccountFileDAO.class.getName());
-    Map<String,main.java.com.flags.api.flagsapi.model.Account> accounts;   // Provides a local cache of the account objects
+    Map<String,Account> accounts;   // Provides a local cache of the account objects
                                 // so that we don't need to read from the file
                                 // each time
     private ObjectMapper objectMapper;  // Provides conversion between Account

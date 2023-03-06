@@ -1,4 +1,4 @@
-package main.java.com.flags.api.flagsapi.persistence;
+package com.flags.api.flagsapi.persistence;
 
 import java.io.IOException;
 import com.flags.api.flagsapi.model.Account;

@@ -1,4 +1,4 @@
-package main.java.com.flags.api.flagsapi.persistence;
+package com.flags.api.flagsapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,12 +133,13 @@ public class AccountFileDAO implements AccountDAO {
     @Override
     public Account loginAccount(String username, String password) {
         synchronized(accounts) {
-            if (accounts.containsKey(username))
+            if (accounts.containsKey(username)) {
                 if (accounts.get(username).getPassword().equals(password)) {
                     return accounts.get(username);
                 }
-            else
-                return null;
+            }
+            
+            return null;
         }
     }
 
@@ -162,10 +163,10 @@ public class AccountFileDAO implements AccountDAO {
     @Override
     public Account updateAccount(Account account) throws IOException {
         synchronized(accounts) {
-            if (accounts.containsKey(accounts.getUsername()) == false)
+            if (accounts.containsKey(account.getUsername()) == false)
                 return null;  // account does not exist
 
-            accounts.put(accounts.getUsername(),account);
+            accounts.put(account.getUsername(),account);
             save(); // may throw an IOException
             return account;
         }

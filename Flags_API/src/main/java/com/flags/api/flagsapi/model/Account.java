@@ -1,4 +1,4 @@
-package main.java.com.flags.api.flagsapi.model;
+package com.flags.api.flagsapi.model;
 
 import java.util.logging.Logger;
 

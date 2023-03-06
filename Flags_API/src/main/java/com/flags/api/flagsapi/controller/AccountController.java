@@ -1,10 +1,9 @@
-package main.java.com.flags.api.flagsapi.controller;
+package com.flags.api.flagsapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +29,7 @@ import com.flags.api.flagsapi.model.Account;
 @RequestMapping("accounts")
 public class AccountController {
     private static final Logger LOG = Logger.getLogger(AccountController.class.getName());
-    private main.java.com.flags.api.flagsapi.persistence.AccountDAO accountDao;
+    private AccountDAO accountDao;
 
     /**
      * Creates a REST API controller to reponds to requests
@@ -53,7 +52,7 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{username}")
-    public ResponseEntity<Account> getAccount(@PathVariable String username) {
+    public ResponseEntity<Account> getAccount(@RequestParam String username) {
         LOG.info("GET /accounts/" + username);
         try {
             Account account = accountDao.getAccount(username);
@@ -102,8 +101,8 @@ public class AccountController {
      * ResponseEntity with HTTP status of UNAUTHORIZED if not logged in<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{username}")
-    public ResponseEntity<Account> loginAccount(@PathVariable String username, @PathVariable String password) {
+    @GetMapping("/{username}/{password}")
+    public ResponseEntity<Account> loginAccount(@RequestParam String username, @RequestParam String password) {
         LOG.info("GET /accounts/" + username + "/" + password);
         try {
             Account account = accountDao.loginAccount(username, password);
@@ -132,7 +131,7 @@ public class AccountController {
         LOG.info("POST /accounts " + account);
 
         try {
-            if (accountDao.findAccounts(account.getName()).length > 0) {
+            if (accountDao.getAccount(account.getUsername()) != null) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             
@@ -183,7 +182,7 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{username}")
-    public ResponseEntity<Account> deleteAccount(@PathVariable String username) {
+    public ResponseEntity<Account> deleteAccount(@RequestParam String username) {
         LOG.info("DELETE /accounts/" + username);
 
         try {

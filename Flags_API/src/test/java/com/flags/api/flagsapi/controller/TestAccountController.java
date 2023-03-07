@@ -117,7 +117,7 @@ public class TestAccountController {
     @Test
     public void testCreateAccount() throws IOException {  
        
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("user", "password");
         when(mockAccountDAO.createAccount(account)).thenReturn(account);
         ResponseEntity<Account> response = accountController.createAccount(account);
 
@@ -131,7 +131,7 @@ public class TestAccountController {
     @Test
     public void testCreateAccountFail() throws IOException {  
 
-        Account account = new Account("testusername", "testpassword"); 
+        Account account = new Account("user", "password"); 
         when(mockAccountDAO.createAccount(account)).thenReturn(null);
         ResponseEntity<Account> response = accountController.createAccount(account);
 

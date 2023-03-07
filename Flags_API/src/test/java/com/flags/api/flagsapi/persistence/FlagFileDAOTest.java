@@ -116,7 +116,7 @@ public class FlagFileDAOTest {
     @Test
     public void testUpdateFlag() {
         // Setup
-        Flag flag = new Flag(102,"Italy",25,20);
+        Flag flag = new Flag(101,"Italy",25,20);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),

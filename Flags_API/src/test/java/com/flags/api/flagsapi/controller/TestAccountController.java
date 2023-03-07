@@ -37,7 +37,7 @@ public class TestAccountController {
     @Test 
     public void testGetAccountFound() throws IOException {  
         
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("user", "password");
         when(mockAccountDAO.getAccount(account.getUsername())).thenReturn(account);
         ResponseEntity<Account> response = accountController.getAccount(account.getUsername());
 
@@ -77,7 +77,7 @@ public class TestAccountController {
     @Test 
     public void testLoginAccount() throws IOException {  
         
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("user", "password");
         when(mockAccountDAO.loginAccount(account.getUsername(), account.getPassword())).thenReturn(account);
         ResponseEntity<Account> response = accountController.loginAccount(account.getUsername(), account.getPassword());
 
@@ -104,7 +104,7 @@ public class TestAccountController {
     @Test
     public void testLoginAccountException() throws Exception { 
         
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("testusername", "password");
         doThrow(new IOException()).when(mockAccountDAO).loginAccount(account.getUsername(), account.getPassword());
         ResponseEntity<Account> response = accountController.loginAccount(account.getUsername(), account.getPassword());
 
@@ -144,7 +144,7 @@ public class TestAccountController {
     @Test
     public void testCreateAccountException() throws IOException {  
     
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("user", "password");
         doThrow(new IOException()).when(mockAccountDAO).createAccount(account);
         ResponseEntity<Account> response = accountController.createAccount(account);
 
@@ -157,10 +157,10 @@ public class TestAccountController {
     @Test
     public void testUpdateAccount() throws IOException { 
       
-        Account account = new Account("testusername", "testpassword");
+        Account account = new Account("user", "testpassword");
         when(mockAccountDAO.updateAccount(account)).thenReturn(account);
         ResponseEntity<Account> response = accountController.updateAccount(account);
-        account = new Account("testusername", "otherpassword");
+        account = new Account("user", "otherpassword");
 
         response = accountController.updateAccount(account);
 
@@ -201,8 +201,8 @@ public class TestAccountController {
     public void testGetAccounts() throws IOException { 
 
         Account[] accounts = new Account[2];
-        accounts[0] = new Account("testusername", "testpassword");
-        accounts[1] = new Account("otherusername", "otherpassword");
+        accounts[0] = new Account("user", "password");
+        accounts[1] = new Account("admin", "admin");
         when(mockAccountDAO.getAccounts()).thenReturn(accounts);
         ResponseEntity<Account[]> response = accountController.getAccounts();
 
@@ -228,7 +228,7 @@ public class TestAccountController {
     @Test
     public void testDeleteAccount() throws IOException { 
     
-        String accountUsername = "testusername";
+        String accountUsername = "user";
         when(mockAccountDAO.deleteAccount(accountUsername)).thenReturn(true);
         ResponseEntity<Account> response = accountController.deleteAccount(accountUsername);
 

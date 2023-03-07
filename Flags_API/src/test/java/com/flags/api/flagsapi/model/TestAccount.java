@@ -9,7 +9,7 @@ package com.flags.api.flagsapi.model;
  @Tag("Model")
  public class TestAccount {
     @Test
-    public void newFlagTest() {
+    public void newAccountTest() {
         String username = "testaccount";
         String password = "testpassword";
 
@@ -18,7 +18,7 @@ package com.flags.api.flagsapi.model;
         assertNotNull(account);
 
         assertEquals(username, account.getUsername());
-        assertEquals(password, account.getUsername());
+        assertEquals(password, account.getPassword());
      }
 
      @Test

@@ -81,8 +81,8 @@ public class FlagControllerTest {
         when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(flag, response.getBody());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode(), "createFlag() HTTP status incorrect");
+        assertEquals(flag, response.getBody(), "createFlag() body incorrect");
     }
 
     /*
@@ -95,7 +95,7 @@ public class FlagControllerTest {
         when(mockFlagDAO.createFlag(flag)).thenReturn(null);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode(), "createFlag() HTTP status incorrect");
     }
 
     /*

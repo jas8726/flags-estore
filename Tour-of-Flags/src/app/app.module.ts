@@ -10,6 +10,7 @@ import { FlagDetailComponent } from './flag-detail/flag-detail.component';
 import { FlagsComponent } from './flags/flags.component';
 import { FlagSearchComponent } from './flag-search/flag-search.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MessagesComponent } from './messages/messages.component';
     FlagsComponent,
     FlagDetailComponent,
     MessagesComponent,
-    FlagSearchComponent
+    FlagSearchComponent,
+    AccountComponent
   ],
   bootstrap: [ AppComponent ]
 })

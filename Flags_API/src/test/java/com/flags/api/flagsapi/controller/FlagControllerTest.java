@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.beans.Transient;
 import java.io.IOException;
 
 import com.flags.api.flagsapi.persistence.FlagDAO;
@@ -16,19 +17,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-/**
- * Test the Flag Controller class
- * 
- * @author SWEN Faculty
- */
-@Tag("Controller-tier")
 public class FlagControllerTest {
+
     private FlagController flagController;
     private FlagDAO mockFlagDAO;
 
-    /**
-     * Before each test, create a new FlagController object and inject
-     * a mock Flag DAO
+    /*
+     * create mock FlagDAO class for testing
      */
     @BeforeEach
     public void setupFlagController() {
@@ -36,250 +31,227 @@ public class FlagControllerTest {
         flagController = new FlagController(mockFlagDAO);
     }
 
-    @Test
-    public void testGetFlag() throws IOException {  // getFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Galactic Agent", 100, 2);
-        // When the same id is passed in, our mock Flag DAO will return the Flag object
+    /*
+     * testing getFlag function when it is found, check status
+     */
+    @Test 
+    public void testGetFlagFound() throws IOException {  
+        
+        Flag flag = new Flag(99,"Hungary", 10, 1);
         when(mockFlagDAO.getFlag(flag.getId())).thenReturn(flag);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.getFlag(flag.getId());
 
-        // Analyze
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(flag,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(flag, response.getBody());
     }
 
+    /*
+     * testing getFlag function when it is not found, check status
+     */
     @Test
-    public void testGetFlagNotFound() throws Exception { // createFlag may throw IOException
-        // Setup
-        int flagId = 99;
-        // When the same id is passed in, our mock Flag DAO will return null, simulating
-        // no flag found
+    public void testGetFlagNotFound() throws Exception { 
+        
+        int flagId = 99; 
         when(mockFlagDAO.getFlag(flagId)).thenReturn(null);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.getFlag(flagId);
 
-        // Analyze
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    /*
+     * check exception with getFlag function (internal_server_error)
+     */
     @Test
-    public void testGetFlagHandleException() throws Exception { // createFlag may throw IOException
-        // Setup
+    public void testGetFlagHandleException() throws Exception { 
+        
         int flagId = 99;
-        // When getFlag is called on the Mock Flag DAO, throw an IOException
         doThrow(new IOException()).when(mockFlagDAO).getFlag(flagId);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.getFlag(flagId);
 
-        // Analyze
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    /*****************************************************************
-     * The following tests will fail until all FlagController methods
-     * are implemented.
-     ****************************************************************/
-
+    /*
+     * test createFlag function, check status
+     */
     @Test
-    public void testCreateFlag() throws IOException {  // createFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Wi-Fire", 20, 11);
-        // when createFlag is called, return true simulating successful
-        // creation and save
+    public void testCreateFlag() throws IOException {  
+       
+        Flag flag = new Flag(98,"Mexico", 10, 3);
         when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
-        // Analyze
-        assertEquals(HttpStatus.CREATED,response.getStatusCode());
-        assertEquals(flag,response.getBody());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(flag, response.getBody());
     }
 
+    /*
+     * test createFlag function when their is a conflict, status CONFLICT
+     */
     @Test
-    public void testCreateFlagFailed() throws IOException {  // createFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Bolt", 40, 12);
-        // when createFlag is called, return false simulating failed
-        // creation and save
+    public void testCreateFlagFail() throws IOException {  
+
+        Flag flag = new Flag(98,"Mexico", 10, 3); 
         when(mockFlagDAO.createFlag(flag)).thenReturn(null);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
-        // Analyze
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
+    /*
+     * check exception with createFlag function (internal_server_error)
+     */
     @Test
-    public void testCreateFlagHandleException() throws IOException {  // createFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Ice Gladiator", 15, 1);
-
-        // When createFlag is called on the Mock Flag DAO, throw an IOException
+    public void testCreateFlagHandle() throws IOException {  
+    
+        Flag flag = new Flag(97,"UK", 15, 1);
         doThrow(new IOException()).when(mockFlagDAO).createFlag(flag);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
-        // Analyze
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    /*
+     * test updateFlag, check status
+     */
     @Test
-    public void testUpdateFlag() throws IOException { // updateFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Wi-Fire", 2, 5);
-        // when updateFlag is called, return true simulating successful
-        // update and save
+    public void testUpdateFlag() throws IOException { 
+      
+        Flag flag = new Flag(97,"UK", 15, 1);
         when(mockFlagDAO.updateFlag(flag)).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
-        flag.setName("Bolt");
+        flag.setName("Germany");
 
-        // Invoke
         response = flagController.updateFlag(flag);
 
-        // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(flag,response.getBody());
     }
 
+    /*
+     * test updateFlag when fails, status NOT_FOUND
+     */
     @Test
-    public void testUpdateFlagFailed() throws IOException { // updateFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Galactic Agent", 66, 9);
-        // when updateFlag is called, return true simulating successful
-        // update and save
+    public void testUpdateFlagFailed() throws IOException { 
+       
+        Flag flag = new Flag(97,"UK", 15, 1);
         when(mockFlagDAO.updateFlag(flag)).thenReturn(null);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
-        // Analyze
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    /*
+     * check exception with updateFlag function (internal_server_error)
+     */
     @Test
-    public void testUpdateFlagHandleException() throws IOException { // updateFlag may throw IOException
-        // Setup
-        Flag flag = new Flag(99,"Galactic Agent", 99, 12);
-        // When updateFlag is called on the Mock Flag DAO, throw an IOException
+    public void testUpdateFlagHandle() throws IOException { 
+   
+        Flag flag = new Flag(96,"Germany", 50, 2);
         doThrow(new IOException()).when(mockFlagDAO).updateFlag(flag);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
-        // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
+    /*
+     * test getFlags function, check status
+     */
     @Test
-    public void testGetFlags() throws IOException { // getFlags may throw IOException
-        // Setup
+    public void testGetFlags() throws IOException { 
+
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Bolt", 30, 10);
-        flags[1] = new Flag(100,"The Great Iguana", 30, 10);
-        // When getFlags is called return the flags created above
+        flags[0] = new Flag(99,"Hungary", 10, 1);
+        flags[1] = new Flag(100,"Cambodia", 30, 10);
         when(mockFlagDAO.getFlags()).thenReturn(flags);
-
-        // Invoke
         ResponseEntity<Flag[]> response = flagController.getFlags();
 
-        // Analyze
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(flags,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(flags, response.getBody());
     }
 
+    /*
+     * check exception with getFlags function (internal_server_error)
+     */
     @Test
-    public void testGetFlagsHandleException() throws IOException { // getFlags may throw IOException
-        // Setup
-        // When getFlags is called on the Mock Flag DAO, throw an IOException
+    public void testGetFlagsHandle() throws IOException { 
+       
         doThrow(new IOException()).when(mockFlagDAO).getFlags();
-
-        // Invoke
         ResponseEntity<Flag[]> response = flagController.getFlags();
 
-        // Analyze
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    /*
+     * test searchFlags function, check status
+     */
     @Test
-    public void testSearchFlags() throws IOException { // findFlags may throw IOException
-        // Setup
-        String searchString = "la";
+    public void testSearchFlags() throws IOException { 
+    
+        String search = "r";
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Galactic Agent", 30, 10);
-        flags[1] = new Flag(100,"Ice Gladiator", 30, 10);
-        // When findFlags is called with the search string, return the two
-        /// flags above
-        when(mockFlagDAO.findFlags(searchString)).thenReturn(flags);
+        flags[0] = new Flag(99,"Hungary", 10, 1);
+        flags[1] = new Flag(100,"Germany", 30, 10);
 
-        // Invoke
-        ResponseEntity<Flag[]> response = flagController.searchFlags(searchString);
+        when(mockFlagDAO.findFlags(search)).thenReturn(flags);
+        ResponseEntity<Flag[]> response = flagController.searchFlags(search);
 
-        // Analyze
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(flags,response.getBody());
+  
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(flags, response.getBody());
     }
 
+    /*
+     * check exception with searchFlags function (internal_server_error)
+     */
     @Test
-    public void testSearchFlagsHandleException() throws IOException { // findFlags may throw IOException
-        // Setup
-        String searchString = "an";
-        // When createFlag is called on the Mock Flag DAO, throw an IOException
-        doThrow(new IOException()).when(mockFlagDAO).findFlags(searchString);
+    public void testSearchFlagsHandle() throws IOException { 
+   
+        String search = "an";
+        doThrow(new IOException()).when(mockFlagDAO).findFlags(search);
+        ResponseEntity<Flag[]> response = flagController.searchFlags(search);
 
-        // Invoke
-        ResponseEntity<Flag[]> response = flagController.searchFlags(searchString);
 
-        // Analyze
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    /*
+     * tests deleteFlag function, check status
+     */
     @Test
-    public void testDeleteFlag() throws IOException { // deleteFlag may throw IOException
-        // Setup
+    public void testDeleteFlag() throws IOException { 
+    
         int flagId = 99;
-        // when deleteFlag is called return true, simulating successful deletion
         when(mockFlagDAO.deleteFlag(flagId)).thenReturn(true);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
-        // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
+    /*
+     * tests deleteFlag function when flag isn't found, status NOT_FOUND
+     */
     @Test
-    public void testDeleteFlagNotFound() throws IOException { // deleteFlag may throw IOException
-        // Setup
+    public void testDeleteFlagNotFound() throws IOException { 
+  
         int flagId = 99;
-        // when deleteFlag is called return false, simulating failed deletion
         when(mockFlagDAO.deleteFlag(flagId)).thenReturn(false);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
-        // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
+    /*
+     * check exception with deleteFlag function (internal_server_error)
+     */
     @Test
-    public void testDeleteFlagHandleException() throws IOException { // deleteFlag may throw IOException
-        // Setup
+    public void testDeleteFlagHandle() throws IOException { 
+   
         int flagId = 99;
-        // When deleteFlag is called on the Mock Flag DAO, throw an IOException
         doThrow(new IOException()).when(mockFlagDAO).deleteFlag(flagId);
-
-        // Invoke
         ResponseEntity<Flag> response = flagController.deleteFlag(flagId);
 
-        // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
 }

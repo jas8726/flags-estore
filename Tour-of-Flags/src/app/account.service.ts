@@ -12,7 +12,7 @@ import { MessageService } from './message.service';
 export class AccountService {
 
   private accountsUrl = 'http://localhost:8080/accounts';  // URL to web api
-  private currentAccount? : Account;
+  private currentAccount?: Account;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +23,7 @@ export class AccountService {
     private messageService: MessageService) { }
 
   /** GET accounts from the server */
-  getAccounts(): Observable<Account[]> {
+  getAccounts(): Observable<Account[] | undefined> {
     return this.http.get<Account[]>(this.accountsUrl)
       .pipe(
         tap(_ => this.log('fetched accounts')),
@@ -32,7 +32,7 @@ export class AccountService {
   }
 
   /** GET account by username. Will 404 if username not found */
-  getAccount(username: string): Observable<Account> {
+  getAccount(username: string): Observable<Account | undefined> {
     const url = `${this.accountsUrl}/${username}`;
     return this.http.get<Account>(url).pipe(
       tap(_ => this.log(`fetched account username=${username}`)),
@@ -41,7 +41,7 @@ export class AccountService {
   }
 
   /** GET account by username and password. Will 401 if account not found */
-  loginAccount(username: string, password: string): Observable<Account> {
+  loginAccount(username: string, password: string): Observable<Account | undefined> {
     const url = `${this.accountsUrl}/${username}/${password}`;
     return this.http.get<Account>(url).pipe(
       tap(_ => this.log(`fetched account username=${username} password=${password}`)),
@@ -53,15 +53,16 @@ export class AccountService {
   //////// Save methods //////////
 
   /** POST: add a new account to the server */
-  addAccount(account: Account): Observable<Account> {
+  addAccount(account: Account): Observable<Account | undefined> {
     return this.http.post<Account>(this.accountsUrl, account, this.httpOptions).pipe(
       tap((newAccount: Account) => this.log(`added account w/ username=${newAccount.username}`)),
+      tap(account => this.currentAccount = account),
       catchError(this.handleError<Account>('addAccount'))
     );
   }
 
   /** DELETE: delete the account from the server */
-  deleteAccount(username: string): Observable<Account> {
+  deleteAccount(username: string): Observable<Account | undefined> {
     const url = `${this.accountsUrl}/${username}`;
 
     return this.http.delete<Account>(url, this.httpOptions).pipe(
@@ -91,7 +92,7 @@ export class AccountService {
    * @param result - optional value to return as the observable result
    */
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: any): Observable<T | undefined> => {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
@@ -100,7 +101,7 @@ export class AccountService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return of(result as T);
+      return of(result);
     };
   }
 

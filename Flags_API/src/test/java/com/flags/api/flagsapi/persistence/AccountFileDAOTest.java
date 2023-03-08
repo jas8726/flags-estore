@@ -62,7 +62,7 @@ public class AccountFileDAOTest {
 
 
     @Test
-    public void testSave() throws IOException{
+    public void testSaveThrowsException() throws IOException{
         doThrow(new IOException())
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Account[].class));
@@ -71,9 +71,135 @@ public class AccountFileDAOTest {
 
         assertThrows(IOException.class,
                         () -> accountFileDAO.createAccount(user),
+                        "IOException not thrown");  //you want it to throw something
+    }
+
+    @Test
+    public void testSave() throws IOException{
+
+        Account user = new Account("new_username", "new_password");
+        accountFileDAO.createAccount(user);
+        Account[] beforesave = accountFileDAO.getAccountsArray();
+        accountFileDAO.save();
+        accountFileDAO.load();
+        Account[] aftersave = accountFileDAO.getAccountsArray();
+        accountFileDAO.deleteAccount("new_username");
+
+        assertEquals(beforesave, aftersave);
+
+    }
+
+    @Test
+    public void testLoadException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class),any(Account[].class));
+
+
+        assertThrows(IOException.class,
+                        () -> accountFileDAO.load(),
                         "IOException not thrown");
 
     }
 
-    
+    @Test
+    public void testGetAccounts() {
+        // Invoke
+        Account[] accounts = accountFileDAO.getAccounts();
+
+        // Analyze
+        assertEquals(accounts.length,testAccounts.length);
+        for (int i = 0; i < testAccounts.length;++i)
+            assertEquals(accounts[i],testAccounts[i]);
+    }
+
+    @Test
+    public void testGetAccount() {
+        // Invoke
+        Account account = accountFileDAO.getAccount("username");
+
+        // Analyze
+        assertEquals(account, testAccounts[0]);
+    }
+
+    @Test
+    public void testGetAccountNotFound() {
+        // Invoke
+        Account account = accountFileDAO.getAccount("xyz");
+
+        // Analyze
+        assertEquals(account, null);
+    }
+
+    public void testCreateAccount() {
+        // Setup
+        Account user = new Account("person_name", "person_password");
+
+        // Invoke
+        Account result = assertDoesNotThrow(() -> accountFileDAO.createAccount(user),
+                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNotNull(result);
+        Account actual = accountFileDAO.getAccount(user.getUsername());
+        assertEquals(actual.getUsername(),user.getUsername());
+        assertEquals(actual.getPassword(),user.getPassword());
+    }
+
+    @Test
+    public void testUpdateAccount() {
+        // Setup
+        Account account = new Account("new_username", "new_password");
+
+        // Invoke
+        Account result = assertDoesNotThrow(() -> accountFileDAO.updateAccount(account),
+                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNotNull(result);
+        Account actual = accountFileDAO.getAccount(account.getUsername());
+        assertEquals(actual,account);
+    }
+
+    @Test
+    public void testUpdateFlagNotFound() {
+        // Setup
+        Account account = new Account("new_username", "new_password");
+
+        // Invoke
+        Account result = assertDoesNotThrow(() -> accountFileDAO.updateAccount(account),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testDeleteFlag() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> accountFileDAO.deleteAccount("username"),
+                            "Unexpected exception thrown");
+
+        // Analzye
+        assertEquals(result,true);
+        // We check the internal tree map size against the length
+        // of the test flags array - 1 (because of the delete)
+        // Because flags attribute of FlagFileDAO is package private
+        // we can access it directly
+        assertEquals(accountFileDAO.accounts.size(),testAccounts.length-1);
+    }
+
+    @Test
+    public void testDeleteFlagNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> accountFileDAO.deleteAccount("username"),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+        assertEquals(accountFileDAO.accounts.size(),testAccounts.length);
+    }
+
+
+
 }

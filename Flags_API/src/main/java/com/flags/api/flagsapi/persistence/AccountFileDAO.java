@@ -69,7 +69,7 @@ public class AccountFileDAO implements AccountDAO {
      * 
      * @throws IOException when file cannot be accessed or written to
      */
-    private boolean save() throws IOException {
+    boolean save() throws IOException {
         Account[] accountArray = getAccountsArray();
 
         // Serializes the Java Objects to JSON objects into the file
@@ -88,7 +88,7 @@ public class AccountFileDAO implements AccountDAO {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    private boolean load() throws IOException {
+    boolean load() throws IOException {
         accounts = new TreeMap<>();
 
         // Deserializes the JSON objects from the file into an array of accounts

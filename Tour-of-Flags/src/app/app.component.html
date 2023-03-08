@@ -2,6 +2,10 @@
 <nav>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/flags">Flags</a>
+  <div>
+    <a *ngIf="!accountService.getCurrentAccount()" routerLink="/login">Login</a>
+    <p *ngIf="accountService.getCurrentAccount()">Welcome, {{accountService.getCurrentAccount()!.username}}!</p>
+  </div>
 </nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

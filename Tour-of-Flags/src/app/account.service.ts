@@ -12,6 +12,7 @@ import { MessageService } from './message.service';
 export class AccountService {
 
   private accountsUrl = 'http://localhost:8080/accounts';  // URL to web api
+  private currentAccount? : Account;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,20 +31,6 @@ export class AccountService {
       );
   }
 
-  /** GET account by username. Return `undefined` when username not found */
-  getAccountNo404<Data>(username: string): Observable<Account> {
-    const url = `${this.accountsUrl}/?username=${username}`;
-    return this.http.get<Account[]>(url)
-      .pipe(
-        map(accounts => accounts[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(`${outcome} account username=${username}`);
-        }),
-        catchError(this.handleError<Account>(`getAccount username=${username}`))
-      );
-  }
-
   /** GET account by username. Will 404 if username not found */
   getAccount(username: string): Observable<Account> {
     const url = `${this.accountsUrl}/${username}`;
@@ -53,25 +40,12 @@ export class AccountService {
     );
   }
 
-  /** GET account by username and password. Return `undefined` when account not found */
-  loginAccountNo404<Data>(username: string, password: string): Observable<Account> {
-    const url = `${this.accountsUrl}/?username=${username}?password=${password}`;
-    return this.http.get<Account[]>(url)
-      .pipe(
-        map(accounts => accounts[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(`${outcome} account username=${username} password=${password}`);
-        }),
-        catchError(this.handleError<Account>(`getAccount username=${username} password=${password}`))
-      );
-  }
-
   /** GET account by username and password. Will 401 if account not found */
   loginAccount(username: string, password: string): Observable<Account> {
     const url = `${this.accountsUrl}/${username}/${password}`;
     return this.http.get<Account>(url).pipe(
       tap(_ => this.log(`fetched account username=${username} password=${password}`)),
+      tap(account => this.currentAccount = account),
       catchError(this.handleError<Account>(`getAccount username=${username} password=${password}`))
     );
   }
@@ -102,6 +76,11 @@ export class AccountService {
       tap(_ => this.log(`updated account username=${account.username}`)),
       catchError(this.handleError<any>('updateAccount'))
     );
+  }
+
+  /** Get current logged in account NOW */
+  getCurrentAccount() {
+    return this.currentAccount;
   }
 
   /**

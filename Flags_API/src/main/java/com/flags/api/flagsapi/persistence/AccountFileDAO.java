@@ -47,10 +47,10 @@ public class AccountFileDAO implements AccountDAO {
 
     /**
      * Generates an array of {@linkplain Account accounts} from the tree map
-     * 
+     * used to be private, changing to public for testing
      * @return  The array of {@link Account accounts}, may be empty
      */
-    private Account[] getAccountsArray() {
+    public Account[] getAccountsArray() {
         ArrayList<Account> accountArrayList = new ArrayList<>();
 
         for (Account account : accounts.values()) {

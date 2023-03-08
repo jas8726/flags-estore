@@ -1,0 +1,79 @@
+package com.flags.api.flagsapi.persistence;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flags.api.flagsapi.model.Account;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+
+@Tag("Persistence-tier")
+public class AccountFileDAOTest {
+    AccountFileDAO accountFileDAO;
+    Account[] testAccounts;
+    ObjectMapper mockObjectMapper;
+
+
+    /**
+     * Before each test, we will create and inject a Mock Object Mapper to
+     * isolate the tests from the underlying file
+     * @throws IOException
+     */
+    @BeforeEach
+    public void setupAccountFileDAO() throws IOException {
+        mockObjectMapper = mock(ObjectMapper.class);
+        testAccounts = new Account[3];
+        testAccounts[0] = new Account("username", "password");
+        testAccounts[1] = new Account("numbers_user", "12345");
+        testAccounts[2] = new Account("alphabet_user", "abc");
+
+        // When the object mapper is supposed to read from the file
+        // the mock object mapper will return the flag array above
+        when(mockObjectMapper
+            .readValue(new File("doesnt_matter.txt"),Account[].class))
+                .thenReturn(testAccounts);
+                accountFileDAO = new AccountFileDAO("doesnt_matter.txt",mockObjectMapper);
+    }
+
+    @Test
+    public void testGetAccountsArray() {
+        // Invoke
+        Account[] accounts = accountFileDAO.getAccountsArray();
+
+        // Analyze
+        assertEquals(accounts.length,testAccounts.length);
+        for (int i = 0; i < testAccounts.length;++i)
+            assertEquals(accounts[i],testAccounts[i]);
+    }
+
+
+    @Test
+    public void testSave() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class),any(Account[].class));
+
+        Account user = new Account("new_username", "new_password");
+
+        assertThrows(IOException.class,
+                        () -> accountFileDAO.createAccount(user),
+                        "IOException not thrown");
+
+    }
+
+    
+}

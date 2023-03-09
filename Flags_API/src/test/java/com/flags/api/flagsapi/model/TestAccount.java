@@ -8,6 +8,9 @@ package com.flags.api.flagsapi.model;
 
  @Tag("Model")
  public class TestAccount {
+    /*
+     * test newAccount function, assert it creates correctly
+     */
     @Test
     public void newAccountTest() {
         String username = "testaccount";
@@ -21,6 +24,9 @@ package com.flags.api.flagsapi.model;
         assertEquals(password, account.getPassword());
      }
 
+     /*
+     * test toString override function, assert it prints correctly
+     */
      @Test
      public void testToString() {
         String username = "testaccount";

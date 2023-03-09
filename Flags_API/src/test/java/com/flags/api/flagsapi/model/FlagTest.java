@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 @Tag("Model")
 public class FlagTest {
+    /*
+     * test newFlag function, assert it creates correctly
+     */
     @Test
     public void newFlagTest() {
         int id = 99;
@@ -25,6 +28,9 @@ public class FlagTest {
         assertEquals(price, flag.getPrice());
     }
 
+    /*
+     * test getName function, assert it return correctly
+     */
     @Test
     public void testFlagName() {
         int id = 99;
@@ -41,6 +47,9 @@ public class FlagTest {
         assertEquals(newName, flag.getName(), "Name not Changed");
     }
 
+    /*
+     * test toString override function, assert it prints correctly
+     */
     @Test
     public void testToString() {
         int id = 99;

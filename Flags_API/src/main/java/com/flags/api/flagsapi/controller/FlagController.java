@@ -138,7 +138,7 @@ public class FlagController {
         LOG.info("POST /flags " + flag);
 
         try {
-            if (flagDao.findFlags(flag.getName()).length > 0) {
+            if (flagDao.getFlag(flag.getId()) != null) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             

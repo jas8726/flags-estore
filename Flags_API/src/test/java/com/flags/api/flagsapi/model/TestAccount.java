@@ -27,7 +27,7 @@ package com.flags.api.flagsapi.model;
         String password = "testpassword";
 
         Account account = new Account(username, password);
-        String tostring = String.format(account.STRING_FORMAT, username, password);
+        String tostring = String.format(Account.STRING_FORMAT, username, password);
 
         assertEquals(tostring, account.toString(), "toString() incorrect");
      }

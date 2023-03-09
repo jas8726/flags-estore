@@ -49,7 +49,7 @@ public class FlagTest {
         int quantity = 1;
 
         Flag flag = new Flag(id, name, price, quantity);
-        String tostring = String.format(flag.STRING_FORMAT, id, name, price, quantity);
+        String tostring = String.format(Flag.STRING_FORMAT, id, name, price, quantity);
 
         assertEquals(tostring, flag.toString(), "toString incorrect");
     }

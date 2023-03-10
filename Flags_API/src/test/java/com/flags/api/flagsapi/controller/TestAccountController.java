@@ -5,7 +5,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.beans.Transient;
+// import java.beans.Transient;
 import java.io.IOException;
 
 import com.flags.api.flagsapi.persistence.AccountDAO;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+@Tag("Controller")
 public class TestAccountController {
 
     private AccountController accountController;
@@ -132,7 +133,7 @@ public class TestAccountController {
     public void testCreateAccountFail() throws IOException {  
 
         Account account = new Account("user", "password"); 
-        when(mockAccountDAO.createAccount(account)).thenReturn(null);
+        when(mockAccountDAO.getAccount(account.getUsername())).thenReturn(account);
         ResponseEntity<Account> response = accountController.createAccount(account);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode(), "createAccount() HTTP status incorrect when conflict");
@@ -160,9 +161,6 @@ public class TestAccountController {
         Account account = new Account("user", "testpassword");
         when(mockAccountDAO.updateAccount(account)).thenReturn(account);
         ResponseEntity<Account> response = accountController.updateAccount(account);
-        account = new Account("user", "otherpassword");
-
-        response = accountController.updateAccount(account);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "updateAccount() HTTP status incorrect");
         assertEquals(account, response.getBody(), "updateAccount() body incorrect");

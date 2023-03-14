@@ -78,6 +78,7 @@ public class FlagControllerTest {
     public void testCreateFlag() throws IOException {  
        
         Flag flag = new Flag(98,"Mexico", 10, 3);
+        when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[0]);
         when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
@@ -92,6 +93,7 @@ public class FlagControllerTest {
     public void testCreateFlagFail() throws IOException {  
 
         Flag flag = new Flag(98,"Mexico", 10, 3); 
+        when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[1]);
         when(mockFlagDAO.createFlag(flag)).thenReturn(null);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 
@@ -105,6 +107,7 @@ public class FlagControllerTest {
     public void testCreateFlagHandle() throws IOException {  
     
         Flag flag = new Flag(97,"UK", 15, 1);
+        when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[0]);
         doThrow(new IOException()).when(mockFlagDAO).createFlag(flag);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
 

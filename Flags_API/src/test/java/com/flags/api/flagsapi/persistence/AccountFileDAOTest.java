@@ -49,6 +49,7 @@ public class AccountFileDAOTest {
                 accountFileDAO = new AccountFileDAO("doesnt_matter.txt",mockObjectMapper);
     }
 
+    //not getting the correct order/full order of accounts
     @Test
     public void testGetAccountsArray() {
         // Invoke
@@ -74,6 +75,8 @@ public class AccountFileDAOTest {
                         "IOException not thrown");  //you want it to throw something
     }
 
+    //Need to fix what you compare to : line 89 : the assertEquals says that the hex values of the accounts are different
+    //also something weird with the delete - check the contents of the beforesave and aftersave
     @Test
     public void testSave() throws IOException{
 
@@ -89,6 +92,7 @@ public class AccountFileDAOTest {
 
     }
 
+    //might just need to fix the assert cuz it says that no exception was thrown
     @Test
     public void testLoadException() throws IOException{
         doThrow(new IOException())
@@ -102,6 +106,7 @@ public class AccountFileDAOTest {
 
     }
 
+    //something wrong with how it is getting accounts
     @Test
     public void testGetAccounts() {
         // Invoke
@@ -131,6 +136,7 @@ public class AccountFileDAOTest {
         assertEquals(account, null);
     }
 
+    @Test
     public void testCreateAccount() {
         // Setup
         Account user = new Account("person_name", "person_password");
@@ -149,7 +155,7 @@ public class AccountFileDAOTest {
     @Test
     public void testUpdateAccount() {
         // Setup
-        Account account = new Account("new_username", "new_password");
+        Account account = new Account("username", "new_password");
 
         // Invoke
         Account result = assertDoesNotThrow(() -> accountFileDAO.updateAccount(account),
@@ -162,7 +168,7 @@ public class AccountFileDAOTest {
     }
 
     @Test
-    public void testUpdateFlagNotFound() {
+    public void testUpdateAccountNotFound() {
         // Setup
         Account account = new Account("new_username", "new_password");
 
@@ -175,7 +181,7 @@ public class AccountFileDAOTest {
     }
 
     @Test
-    public void testDeleteFlag() {
+    public void testDeleteAccount() {
         // Invoke
         boolean result = assertDoesNotThrow(() -> accountFileDAO.deleteAccount("username"),
                             "Unexpected exception thrown");
@@ -190,9 +196,9 @@ public class AccountFileDAOTest {
     }
 
     @Test
-    public void testDeleteFlagNotFound() {
+    public void testDeleteAccountNotFound() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> accountFileDAO.deleteAccount("username"),
+        boolean result = assertDoesNotThrow(() -> accountFileDAO.deleteAccount("wrong_username"),
                                                 "Unexpected exception thrown");
 
         // Analyze

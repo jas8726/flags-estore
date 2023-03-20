@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: 6f
 * Team members
@@ -58,13 +53,13 @@ This section describes the features of the application.
 
 ## Application Domain
 
-This section describes the application domain.
+The domain model starts with the user. The user interacts with the server and can login as either the admin of
+the E-store or a customer. The server stores the products in the inventory of the E-store, which in our project 
+are flags. The admin can edit this inventory, adding or removing products as desired. The customer can search 
+through the products in the inventory. The customer also has a shopping cart that they can add products from 
+inventory to or remove products from. They can purchase products from the shopping cart through checkout. 
 
-![Domain Model](domain-model-placeholder.png)
-
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+![Domain Model](Team6f_Domain_Model.png)
 
 
 ## Architecture and Design

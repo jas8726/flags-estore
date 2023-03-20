@@ -43,6 +43,13 @@ public class Account {
     public String getPassword() {return password;}
 
     /**
+     * Retrieves boolean for if account is an admin
+     * and, therefore, can manage the inventory
+     * @return true if account is admin account
+     */
+    public boolean isAdmin() {return username.equals("admin");}
+
+    /**
      * {@inheritDoc}
      */
     @Override

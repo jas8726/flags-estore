@@ -14,11 +14,11 @@ geometry: margin=1in
 ## Executive Summary
 
 This project involves a backend and frontend implementation of a flag E-store, where users can purchase 
-and customize flags and the owner can add new flags to their inventory. The backend, titled Flags_API, uses 
+and customize flags and the owner can edit their inventory. The backend, titled Flags_API, uses 
 model, controller, and persistence tier structure to implement the workings on the E-store. In these tiers are classes
-that implement the inventory and deal with flag objects. The entire backend is written in java. The frontend, titled 
-Tour-of-Flags, utilizes angular and maven to create the connection to the backend and implement the site interface. It 
-utilizes component and service structure by maven. The frontend is written in Typescript, HTML, and Cascading Style Sheets. 
+that implement the inventory and deal with flag objects. The entire backend is written in Java. The frontend, titled 
+Tour-of-Flags, utilizes Angular and Maven to create the connection to the backend and implement the site interface. It 
+utilizes component and service structure by Maven. The frontend is written in Typescript, HTML, and Cascading Style Sheets. 
 
 ### Purpose
 > _Provide a very brief statement about the project and the most

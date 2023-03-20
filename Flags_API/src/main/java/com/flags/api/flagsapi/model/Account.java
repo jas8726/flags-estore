@@ -14,6 +14,7 @@ public class Account {
 
     @JsonProperty("username") private String username;
     @JsonProperty("password") private String password;
+    //try to make a map with key as product id and object as the quantity
 
     /**
      * Create an account with the given username and password

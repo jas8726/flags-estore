@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flags.api.flagsapi.model.Account;
 
@@ -37,9 +38,9 @@ public class AccountFileDAOTest {
     public void setupAccountFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testAccounts = new Account[3];
-        testAccounts[0] = new Account("username", "password");
+        testAccounts[2] = new Account("username", "password");
         testAccounts[1] = new Account("numbers_user", "12345");
-        testAccounts[2] = new Account("alphabet_user", "abc");
+        testAccounts[0] = new Account("alphabet_user", "abc");
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the flag array above
@@ -95,12 +96,10 @@ public class AccountFileDAOTest {
     //might just need to fix the assert cuz it says that no exception was thrown
     @Test
     public void testLoadException() throws IOException{
-        doThrow(new IOException())
-            .when(mockObjectMapper)
-                .writeValue(any(File.class),any(Account[].class));
+        
+        when(mockObjectMapper.readValue(new File("doesnt_matter.txt"), Account[].class)).thenThrow(JsonProcessingException.class);
 
-
-        assertThrows(IOException.class,
+        assertThrows(JsonProcessingException.class,
                         () -> accountFileDAO.load(),
                         "IOException not thrown");
 
@@ -135,7 +134,7 @@ public class AccountFileDAOTest {
         Account account = accountFileDAO.getAccount("username");
 
         // Analyze
-        assertEquals(account, testAccounts[0]);
+        assertEquals(account, testAccounts[2]);
     }
 
     @Test

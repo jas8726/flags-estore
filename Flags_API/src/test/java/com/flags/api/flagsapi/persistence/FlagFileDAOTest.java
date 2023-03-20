@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Flag File DAO class
  * 
- * @author SWEN Faculty
  */
 @Tag("Persistence-tier")
 public class FlagFileDAOTest {
@@ -40,9 +39,9 @@ public class FlagFileDAOTest {
     public void setupFlagFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testFlags = new Flag[3];
-        testFlags[0] = new Flag(99,"Wi-Fire",1,1);
-        testFlags[1] = new Flag(100,"Galactic Agent",1,1);
-        testFlags[2] = new Flag(101,"Ice Gladiator",1,1);
+        testFlags[0] = new Flag(99,"Canada",30,12);
+        testFlags[1] = new Flag(100,"Mexico",30,12);
+        testFlags[2] = new Flag(101,"Belize",30,12);
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the flag array above
@@ -66,7 +65,7 @@ public class FlagFileDAOTest {
     @Test
     public void testFindFlags() {
         // Invoke
-        Flag[] flags = flagFileDAO.findFlags("la");
+        Flag[] flags = flagFileDAO.findFlags("i");
 
         // Analyze
         assertEquals(flags.length,2);
@@ -101,7 +100,7 @@ public class FlagFileDAOTest {
     @Test
     public void testCreateFlag() {
         // Setup
-        Flag flag = new Flag(102,"Wonder-Person",1,1);
+        Flag flag = new Flag(102,"Japan",30,12);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.createFlag(flag),
@@ -117,7 +116,7 @@ public class FlagFileDAOTest {
     @Test
     public void testUpdateFlag() {
         // Setup
-        Flag flag = new Flag(99,"Galactic Agent",1,1);
+        Flag flag = new Flag(101,"Italy",25,20);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),
@@ -135,7 +134,7 @@ public class FlagFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Flag[].class));
 
-        Flag flag = new Flag(102,"Wi-Fire",1,1);
+        Flag flag = new Flag(102,"Thailand",20,10);
 
         assertThrows(IOException.class,
                         () -> flagFileDAO.createFlag(flag),
@@ -165,7 +164,7 @@ public class FlagFileDAOTest {
     @Test
     public void testUpdateFlagNotFound() {
         // Setup
-        Flag flag = new Flag(98,"Bolt",1,1);
+        Flag flag = new Flag(98,"Uganda",1,1);
 
         // Invoke
         Flag result = assertDoesNotThrow(() -> flagFileDAO.updateFlag(flag),

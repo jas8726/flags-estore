@@ -9,16 +9,21 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: 6f
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Kelly Feke
+  * Jack Sebben
+  * Oliver Vinneras
+  * Kerri Walsh
 
 ## Executive Summary
 
-This is a summary of the project.
+This project involves a backend and frontend implementation of a flag E-store, where users can purchase 
+and customize flags and the owner can add new flags to their inventory. The backend, titled Flags_API, uses 
+model, controller, and persistence tier structure to implement the workings on the E-store. In these tiers are classes
+that implement the inventory and deal with flag objects. The entire backend is written in java. The frontend, titled 
+Tour-of-Flags, utilizes angular and maven to create the connection to the backend and implement the site interface. It 
+utilizes component and service structure by maven. The frontend is written in Typescript, HTML, and Cascading Style Sheets. 
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
@@ -29,7 +34,8 @@ This is a summary of the project.
 
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
+| TS | Typescript |
+| CSS | Cascading Style Sheets |
 
 
 ## Requirements

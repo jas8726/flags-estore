@@ -119,6 +119,17 @@ public class AccountFileDAOTest {
     }
 
     @Test
+    public void testLoginAccount() {
+        assertNotNull(accountFileDAO.loginAccount("username", "password"));
+    }
+
+    @Test
+    public void testLoginAccountNotFound() {
+        assertNull(accountFileDAO.loginAccount("robert", "smith"));
+    }
+
+
+    @Test
     public void testGetAccount() {
         // Invoke
         Account account = accountFileDAO.getAccount("username");

@@ -22,6 +22,7 @@ package com.flags.api.flagsapi.model;
 
         assertEquals(username, account.getUsername());
         assertEquals(password, account.getPassword());
+        assertEquals(false, account.isAdmin());
      }
 
      /*

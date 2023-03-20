@@ -2,11 +2,15 @@
 <nav>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/flags">Flags</a>
+  <a *ngIf="accountService.getCurrentAccount()" href=".">Logout</a>
   <div *ngIf="!accountService.getCurrentAccount()">
     <a routerLink="/login">Login</a>
     <a routerLink="/register">Create Account</a>
   </div>
-  <p *ngIf="accountService.getCurrentAccount()">Welcome, {{accountService.getCurrentAccount()!.username}}!</p>
+  <p *ngIf="accountService.getCurrentAccount()">
+    Welcome, {{accountService.getCurrentAccount()!.username}}!
+    <strong *ngIf="accountService.isAdmin()"> (Administrator)</strong>
+  </p>
 </nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

@@ -84,6 +84,14 @@ export class AccountService {
     return this.currentAccount;
   }
 
+  isAdmin() {
+    if (!this.currentAccount) {
+      return false;
+    }
+
+    return (this.currentAccount.username === "admin");
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -14,11 +14,11 @@ geometry: margin=1in
 ## Executive Summary
 
 This project involves a backend and frontend implementation of a flag E-store, where users can purchase 
-and customize flags and the owner can add new flags to their inventory. The backend, titled Flags_API, uses 
+and customize flags and the owner can edit their inventory. The backend, titled Flags_API, uses 
 model, controller, and persistence tier structure to implement the workings on the E-store. In these tiers are classes
-that implement the inventory and deal with flag objects. The entire backend is written in java. The frontend, titled 
-Tour-of-Flags, utilizes angular and maven to create the connection to the backend and implement the site interface. It 
-utilizes component and service structure by maven. The frontend is written in Typescript, HTML, and Cascading Style Sheets. 
+that implement the inventory and deal with flag objects. The entire backend is written in Java. The frontend, titled 
+Tour-of-Flags, utilizes Angular and Maven to create the connection to the backend and implement the site interface. It 
+utilizes component and service structure by Maven. The frontend is written in Typescript, HTML, and Cascading Style Sheets. 
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
@@ -53,13 +53,13 @@ This section describes the features of the application.
 
 ## Application Domain
 
-The domain model starts with the user. The user interacts with the server and can login as either the admin of
-the E-store or a customer. The server stores the products in the inventory of the E-store, which in our project 
-are flags. The admin can edit this inventory, adding or removing products as desired. The customer can search 
-through the products in the inventory. The customer also has a shopping cart that they can add products from 
-inventory to or remove products from. They can purchase products from the shopping cart through checkout. 
+The domain model starts with the user in the Account class. The user interacts with the server and can 
+login as either the admin of the E-store or a customer. The server stores the products in the inventory 
+of the E-store, which in our project are flags. The admin can edit this inventory, adding or removing 
+products as desired. The customer can search through the products in the inventory. The customer also has 
+a shopping cart that they can add products to or remove products from.
 
-![Domain Model](Team6f_Domain_Model.png)
+![Domain Model](Domain_Model_6f.jpg)
 
 
 ## Architecture and Design

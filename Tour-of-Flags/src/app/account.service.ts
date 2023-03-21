@@ -42,7 +42,7 @@ export class AccountService {
 
   /** GET account by username and password. Will 401 if account not found */
   loginAccount(username: string, password: string): Observable<Account | undefined> {
-    const url = `${this.accountsUrl}/${username}/${password}`;
+    const url = `${this.accountsUrl}/${username}?password=${password}`;
     return this.http.get<Account>(url).pipe(
       tap(_ => this.log(`fetched account username=${username} password=${password}`)),
       tap(account => this.currentAccount = account),

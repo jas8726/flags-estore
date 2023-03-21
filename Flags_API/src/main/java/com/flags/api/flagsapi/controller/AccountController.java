@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -101,9 +102,9 @@ public class AccountController {
      * ResponseEntity with HTTP status of UNAUTHORIZED if not logged in<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{username}/{password}")
-    public ResponseEntity<Account> loginAccount(@PathVariable String username, @PathVariable String password) {
-        LOG.info("GET /accounts/" + username + "/" + password);
+    @GetMapping(path = "/{username}", params = "password")
+    public ResponseEntity<Account> loginAccount(@PathVariable String username, @RequestParam String password) {
+        LOG.info("GET /flags/" + username + "?password="+ password);
         try {
             Account account = accountDao.loginAccount(username, password);
             if (account != null)

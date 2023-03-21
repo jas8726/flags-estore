@@ -59,7 +59,7 @@ are flags. The admin can edit this inventory, adding or removing products as des
 through the products in the inventory. The customer also has a shopping cart that they can add products from 
 inventory to or remove products from. They can purchase products from the shopping cart through checkout. 
 
-![Domain Model](Team6f_Domain_Model.png)
+![Domain Model](Domain_Model_6f.png)
 
 
 ## Architecture and Design

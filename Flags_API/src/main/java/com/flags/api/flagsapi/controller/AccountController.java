@@ -119,27 +119,6 @@ public class AccountController {
     }
 
     /**
-     * Responds to the GET request for an {@linkplain Account account} for a given flag id
-     * 
-     * @param username The username used to get the cart of the {@link Account account}
-     * @param id The id of the {@linkplain Flag flag} to get the count of
-     * 
-     * @return ResponseEntity with Integer count and HTTP status of OK if retrieved count<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    @GetMapping(path = "/{username}/cart", params = "id")
-    public ResponseEntity<Integer> getCartCount(@PathVariable String username, @RequestParam int id) {
-        LOG.info("GET /accounts/" + username + "/cart?id="+ id);
-        try {
-            return new ResponseEntity<Integer>(accountDao.getFlagCountCart(username, id),HttpStatus.OK);
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Creates an {@linkplain Account account} with the provided account object
      * 
      * @param account - The {@link Account account} to create
@@ -159,30 +138,6 @@ public class AccountController {
             
             Account newAccount = accountDao.createAccount(account);
             return new ResponseEntity<Account>(newAccount,HttpStatus.CREATED);
-                
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    /**
-     * Adds the id of a {@linkplain Flag flag} to an {@linkplain Account account}'s shopping cart
-     * 
-     * @param username The username used to add to the cart of the {@link Account account}
-     * @param id The id of the {@linkplain Flag flag} to add
-     * 
-     * @return ResponseEntity with Integer count and HTTP status of OK<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    @PostMapping(path = "/{username}/cart", params = "id")
-    public ResponseEntity<Integer> addFlagCart(@PathVariable String username, @RequestParam int id) {
-        LOG.info("POST /accounts/" + username + "/cart?id=" + id);
-
-        try {
-            return new ResponseEntity<Integer>(accountDao.addFlagCart(username, id),HttpStatus.OK);
                 
         }
         catch(IOException e) {
@@ -244,7 +199,52 @@ public class AccountController {
     }
 
     /**
-     * Adds the id of a {@linkplain Flag flag} from an {@linkplain Account account}'s shopping cart
+     * Responds to the GET request for an {@linkplain Account account} for a given flag id
+     * 
+     * @param username The username used to get the cart of the {@link Account account}
+     * @param id The id of the {@linkplain Flag flag} to get the count of
+     * 
+     * @return ResponseEntity with Integer count and HTTP status of OK if retrieved count<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping(path = "/{username}/cart", params = "id")
+    public ResponseEntity<Integer> getCartCount(@PathVariable String username, @RequestParam int id) {
+        LOG.info("GET /accounts/" + username + "/cart?id="+ id);
+        try {
+            return new ResponseEntity<Integer>(accountDao.getFlagCountCart(username, id),HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Adds the id of a {@linkplain Flag flag} to an {@linkplain Account account}'s shopping cart
+     * 
+     * @param username The username used to add to the cart of the {@link Account account}
+     * @param id The id of the {@linkplain Flag flag} to add
+     * 
+     * @return ResponseEntity with Integer count and HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PostMapping(path = "/{username}/cart", params = "id")
+    public ResponseEntity<Integer> addFlagCart(@PathVariable String username, @RequestParam int id) {
+        LOG.info("POST /accounts/" + username + "/cart?id=" + id);
+
+        try {
+            return new ResponseEntity<Integer>(accountDao.addFlagCart(username, id),HttpStatus.OK);
+                
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    /**
+     * Removes the id of a {@linkplain Flag flag} from an {@linkplain Account account}'s shopping cart
      * 
      * @param username The username used to remove from the cart of the {@link Account account}
      * @param id The id of the {@linkplain Flag flag} to remove

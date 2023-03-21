@@ -1,1 +1,1 @@
-[{"username":"user","password":"password"}, {"username":"admin","password":"admin"}]
+[{"username":"admin","password":"admin","shoppingCart":{}},{"username":"user","password":"password","shoppingCart":{}}]

@@ -186,4 +186,67 @@ public class AccountFileDAO implements AccountDAO {
                 return false;
         }
     }
+
+    /**
+    ** {@inheritDoc}
+     */
+    @Override
+    public int getFlagCountCart(String username, int id) throws IOException {
+        synchronized(accounts) {
+            Account account = getAccount(username);
+            Map<Integer, Integer> cart = account.getShoppingCart();
+
+            if (!cart.containsKey(id)) {
+                return 0;
+            }
+
+            return cart.get(id);
+        }
+    }
+
+    /**
+    ** {@inheritDoc}
+     */
+    @Override
+    public int addFlagCart(String username, int id) throws IOException {
+        synchronized(accounts) {
+            Account account = getAccount(username);
+            Map<Integer, Integer> cart = account.getShoppingCart();
+
+            if (cart.containsKey(id)) {
+                int newCount = cart.get(id) + 1;
+                cart.replace(id, newCount);
+                save();
+                return newCount;
+            }
+
+            cart.put(id, 1);
+            save();
+            return 1;
+        }
+    }
+
+    /**
+    ** {@inheritDoc}
+     */
+    @Override
+    public boolean deleteFlagCart(String username, int id) throws IOException {
+        synchronized(accounts) {
+            Account account = getAccount(username);
+            Map<Integer, Integer> cart = account.getShoppingCart();
+
+            if (!cart.containsKey(id)) {
+                return false;
+            }
+
+            if (cart.get(id) == 1) {
+                cart.remove(id);
+                return save();
+            }
+
+            int newCount = cart.get(id) - 1;
+            cart.replace(id, newCount);
+            return save();
+        }
+    }
 }

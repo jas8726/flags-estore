@@ -104,13 +104,34 @@ public class AccountController {
      */
     @GetMapping(path = "/{username}", params = "password")
     public ResponseEntity<Account> loginAccount(@PathVariable String username, @RequestParam String password) {
-        LOG.info("GET /flags/" + username + "?password="+ password);
+        LOG.info("GET /accounts/" + username + "?password="+ password);
         try {
             Account account = accountDao.loginAccount(username, password);
             if (account != null)
                 return new ResponseEntity<Account>(account,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Responds to the GET request for an {@linkplain Account account} for a given flag id
+     * 
+     * @param username The username used to get the cart of the {@link Account account}
+     * @param id The id of the {@linkplain Flag flag} to get the count of
+     * 
+     * @return ResponseEntity with Integer count and HTTP status of OK if retrieved count<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping(path = "/{username}/cart", params = "id")
+    public ResponseEntity<Integer> getCartCount(@PathVariable String username, @RequestParam int id) {
+        LOG.info("GET /accounts/" + username + "/cart?id="+ id);
+        try {
+            return new ResponseEntity<Integer>(accountDao.getFlagCountCart(username, id),HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -138,6 +159,30 @@ public class AccountController {
             
             Account newAccount = accountDao.createAccount(account);
             return new ResponseEntity<Account>(newAccount,HttpStatus.CREATED);
+                
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    /**
+     * Adds the id of a {@linkplain Flag flag} to an {@linkplain Account account}'s shopping cart
+     * 
+     * @param username The username used to add to the cart of the {@link Account account}
+     * @param id The id of the {@linkplain Flag flag} to add
+     * 
+     * @return ResponseEntity with Integer count and HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PostMapping(path = "/{username}/cart", params = "id")
+    public ResponseEntity<Integer> addFlagCart(@PathVariable String username, @RequestParam int id) {
+        LOG.info("POST /accounts/" + username + "/cart?id=" + id);
+
+        try {
+            return new ResponseEntity<Integer>(accountDao.addFlagCart(username, id),HttpStatus.OK);
                 
         }
         catch(IOException e) {
@@ -196,5 +241,33 @@ public class AccountController {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Adds the id of a {@linkplain Flag flag} from an {@linkplain Account account}'s shopping cart
+     * 
+     * @param username The username used to remove from the cart of the {@link Account account}
+     * @param id The id of the {@linkplain Flag flag} to remove
+     * 
+     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping(path = "/{username}/cart", params = "id")
+    public ResponseEntity<Integer> deleteFlagCart(@PathVariable String username, @RequestParam int id) {
+        LOG.info("DELETE /accounts/" + username + "/cart?id=" + id);
+
+        try {
+            if (accountDao.deleteFlagCart(username, id))
+                return new ResponseEntity<Integer>(HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

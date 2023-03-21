@@ -53,11 +53,11 @@ This section describes the features of the application.
 
 ## Application Domain
 
-The domain model starts with the user. The user interacts with the server and can login as either the admin of
-the E-store or a customer. The server stores the products in the inventory of the E-store, which in our project 
-are flags. The admin can edit this inventory, adding or removing products as desired. The customer can search 
-through the products in the inventory. The customer also has a shopping cart that they can add products from 
-inventory to or remove products from. They can purchase products from the shopping cart through checkout. 
+The domain model starts with the user in the Account class. The user interacts with the server and can 
+login as either the admin of the E-store or a customer. The server stores the products in the inventory 
+of the E-store, which in our project are flags. The admin can edit this inventory, adding or removing 
+products as desired. The customer can search through the products in the inventory. The customer also has 
+a shopping cart that they can add products to or remove products from.
 
 ![Domain Model](Domain_Model_6f.jpg)
 

@@ -2,6 +2,7 @@ package com.flags.api.flagsapi.persistence;
 
 import java.io.IOException;
 import com.flags.api.flagsapi.model.Account;
+import com.flags.api.flagsapi.model.Flag;
 
 /**
  * Defines the interface for Account object persistence
@@ -42,6 +43,49 @@ public interface AccountDAO {
      * @throws IOException if an issue with underlying storage
      */
     Account loginAccount(String username, String password) throws IOException;
+
+    /**
+     * Gets the count of a {@linkplain Flag flag} id in an {@linkplain Account account}'s shopping cart 
+     * 
+     * @param username username of {@linkplain Account account} to get cart from
+     * @param id id of {@linkplain Flag flag} object to get count of
+     * <br>
+     *
+     * @return count of flag in shopping cart
+     * <br>
+     * zero if flag is not in cart
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    int getFlagCountCart(String username, int id) throws IOException;
+
+    /**
+     * Adds a {@linkplain Flag flag} to an {@linkplain Account account}'s shopping cart 
+     * 
+     * @param username username of {@linkplain Account account} to get cart from
+     * @param id id of {@linkplain Flag flag} object to be added
+     * <br>
+     *
+     * @return count of flag in shopping cart
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    int addFlagCart(String username, int id) throws IOException;
+
+    /**
+     * Removes a {@linkplain Flag flag} from an {@linkplain Account account}'s shopping cart 
+     * 
+     * @param username username of {@linkplain Account account} to get cart from
+     * @param id id of {@linkplain Flag flag} object to be deleted
+     * <br>
+     *
+     * @return true if the {@link Flag flag} was deleted
+     * <br>
+     * false if given flag is not in cart
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    boolean deleteFlagCart(String username, int id) throws IOException;
 
     /**
      * Creates and saves an {@linkplain Account account}

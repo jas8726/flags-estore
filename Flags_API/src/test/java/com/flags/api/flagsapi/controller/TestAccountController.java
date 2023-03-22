@@ -259,4 +259,80 @@ public class TestAccountController {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode(), "deleteAccount() HTTP status incorrect when exception");
     }
 
+    /*
+     * testing getCartCount function when count retrieved
+     */
+    @Test
+    public void testGetCartCount() throws Exception {
+        Account account = new Account("user", "password");
+        when(mockAccountDAO.getFlagCountCart(account.getUsername(), 99)).thenReturn(2);
+        ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "getCartCount() HTTP status incorrect");
+        assertEquals(2, response.getBody(), "getCartCount() body incorrect");
+    }
+
+    /*
+     * check exception with getCartCount function (internal_server_error)
+     */
+    @Test
+    public void testGetCartCountException() throws Exception {
+        Account account = new Account("user", "password");
+        doThrow(new IOException()).when(mockAccountDAO).getFlagCountCart(account.getUsername(), 99);
+        ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "getCartCount() HTTP status incorrect when exception");
+
+    }
+
+    /*
+     * testing addFlagCart function when count retrieved
+     */
+    @Test
+    public void testAddFlagCart() throws Exception {
+        Account account = new Account("user", "password");
+        when(mockAccountDAO.addFlagCart(account.getUsername(), 99)).thenReturn(1);
+        ResponseEntity<Integer> response = accountController.addFlagCart(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "addFlagCart() HTTP status incorrect");
+        assertEquals(1, response.getBody(), "addFlagCart() body incorrect");
+    }
+
+    /*
+     * check exception with addFlagCart function (internal_server_error)
+     */
+    @Test
+    public void testAddFlagCartException() throws Exception {
+        Account account = new Account("user", "password");
+        doThrow(new IOException()).when(mockAccountDAO).addFlagCart(account.getUsername(), 99);
+        ResponseEntity<Integer> response = accountController.addFlagCart(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "addFlagCart() HTTP status incorrect when exception");
+
+    }
+
+    /*
+     * testing deleteFlagCart function when count retrieved
+     */
+    @Test
+    public void testDeleteFlagCart() throws Exception {
+        Account account = new Account("user", "password");
+        when(mockAccountDAO.deleteFlagCart(account.getUsername(), 99)).thenReturn(true);
+        ResponseEntity<Integer> response = accountController.deleteFlagCart(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "deleteFlagCart() HTTP status incorrect");
+    }
+
+    /*
+     * check exception with deleteFlagCart function (internal_server_error)
+     */
+    @Test
+    public void testDeleteFlagCartException() throws Exception {
+        Account account = new Account("user", "password");
+        doThrow(new IOException()).when(mockAccountDAO).deleteFlagCart(account.getUsername(), 99);
+        ResponseEntity<Integer> response = accountController.deleteFlagCart(account.getUsername(), 99);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "addFlagCart() HTTP status incorrect when exception");
+
+    }
 }

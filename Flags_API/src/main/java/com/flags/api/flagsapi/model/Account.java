@@ -16,8 +16,7 @@ public class Account {
 
     @JsonProperty("username") private String username;
     @JsonProperty("password") private String password;
-    @JsonProperty("shoppingCart") private Map<Integer, Integer> shoppingCart;
-    //try to make a map with key as product id and object as the quantity
+    @JsonProperty("shoppingCart") private ShoppingCart shoppingCart;
 
     /**
      * Create an account with the given username and password
@@ -32,7 +31,12 @@ public class Account {
     public Account(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
-        this.shoppingCart = new TreeMap<>();
+        if (isAdmin()) {
+            this.shoppingCart = null;
+        }
+        else {
+            this.shoppingCart = new ShoppingCart();
+        }
     }
 
     /**
@@ -51,7 +55,7 @@ public class Account {
      * Retrieves the password of the account
      * @return The password of the account
      */
-    public Map<Integer, Integer> getShoppingCart() {return shoppingCart;}
+    public ShoppingCart getShoppingCart() {return shoppingCart;}
     
     /**
      * Retrieves boolean for if account is an admin

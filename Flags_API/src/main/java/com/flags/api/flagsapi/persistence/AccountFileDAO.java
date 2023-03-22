@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.flags.api.flagsapi.model.Account;
+import com.flags.api.flagsapi.model.ShoppingCart;
 
 /**
  * Implements the functionality for JSON file-based peristance for Accounts
@@ -191,16 +192,29 @@ public class AccountFileDAO implements AccountDAO {
     ** {@inheritDoc}
      */
     @Override
-    public int getFlagCountCart(String username, int id) throws IOException {
+    public ShoppingCart getCart(String username) throws IOException {
+        synchronized(accounts) {
+            if (accounts.containsKey(username))
+                return accounts.get(username).getShoppingCart();
+            else
+                return null;
+        }
+    }
+
+    /**
+    ** {@inheritDoc}
+     */
+    @Override
+    public int getCountCart(String username, int id) throws IOException {
         synchronized(accounts) {
             Account account = getAccount(username);
-            Map<Integer, Integer> cart = account.getShoppingCart();
+            ShoppingCart cart = account.getShoppingCart();
 
-            if (!cart.containsKey(id)) {
+            if (!cart.getCartMap().containsKey(id)) {
                 return 0;
             }
 
-            return cart.get(id);
+            return cart.getCartMap().get(id);
         }
     }
 
@@ -211,16 +225,16 @@ public class AccountFileDAO implements AccountDAO {
     public int addFlagCart(String username, int id) throws IOException {
         synchronized(accounts) {
             Account account = getAccount(username);
-            Map<Integer, Integer> cart = account.getShoppingCart();
+            ShoppingCart cart = account.getShoppingCart();
 
-            if (cart.containsKey(id)) {
-                int newCount = cart.get(id) + 1;
-                cart.replace(id, newCount);
+            if (cart.getCartMap().containsKey(id)) {
+                int newCount = cart.getCartMap().get(id) + 1;
+                cart.getCartMap().replace(id, newCount);
                 save();
                 return newCount;
             }
 
-            cart.put(id, 1);
+            cart.getCartMap().put(id, 1);
             save();
             return 1;
         }
@@ -233,19 +247,19 @@ public class AccountFileDAO implements AccountDAO {
     public boolean deleteFlagCart(String username, int id) throws IOException {
         synchronized(accounts) {
             Account account = getAccount(username);
-            Map<Integer, Integer> cart = account.getShoppingCart();
+            ShoppingCart cart = account.getShoppingCart();
 
-            if (!cart.containsKey(id)) {
+            if (!cart.getCartMap().containsKey(id)) {
                 return false;
             }
 
-            if (cart.get(id) == 1) {
-                cart.remove(id);
+            if (cart.getCartMap().get(id) == 1) {
+                cart.getCartMap().remove(id);
                 return save();
             }
 
-            int newCount = cart.get(id) - 1;
-            cart.replace(id, newCount);
+            int newCount = cart.getCartMap().get(id) - 1;
+            cart.getCartMap().replace(id, newCount);
             return save();
         }
     }

@@ -3,6 +3,7 @@ package com.flags.api.flagsapi.persistence;
 import java.io.IOException;
 import com.flags.api.flagsapi.model.Account;
 import com.flags.api.flagsapi.model.Flag;
+import com.flags.api.flagsapi.model.ShoppingCart;
 
 /**
  * Defines the interface for Account object persistence
@@ -45,6 +46,20 @@ public interface AccountDAO {
     Account loginAccount(String username, String password) throws IOException;
 
     /**
+     * Gets the {@linkplain ShoppingCart shopping cart} of an {@linkplain Account account}
+     * 
+     * @param username username of {@link Account account} to get the {@link ShoppingCart cart} from
+     * <br>
+     *
+     * @return a {@link ShoppingCart shopping cart} object from the matching username
+     * <br>
+     * null if no {@link Account account} with a matching username
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    ShoppingCart getCart(String username) throws IOException;
+
+    /**
      * Gets the count of a {@linkplain Flag flag} id in an {@linkplain Account account}'s shopping cart 
      * 
      * @param username username of {@linkplain Account account} to get cart from
@@ -57,7 +72,7 @@ public interface AccountDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    int getFlagCountCart(String username, int id) throws IOException;
+    int getCountCart(String username, int id) throws IOException;
 
     /**
      * Adds a {@linkplain Flag flag} to an {@linkplain Account account}'s shopping cart 

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 import com.flags.api.flagsapi.persistence.AccountDAO;
 import com.flags.api.flagsapi.model.Account;
+import com.flags.api.flagsapi.model.ShoppingCart;
 
 /**
  * Handles the REST API requests for the Account resource
@@ -199,6 +200,31 @@ public class AccountController {
     }
 
     /**
+     * Responds to the GET request for an {@linkplain Account account} and returns a {@linkplain ShoppingCart shopping cart}
+     * 
+     * @param username The username of the {@link Account account} to get the {@link ShoppingCart cart} of
+     * 
+     * @return ResponseEntity with ShoppingCart object and HTTP status of OK if retrieved count<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/{username}/cart")
+    public ResponseEntity<ShoppingCart> getCart(@PathVariable String username) {
+        LOG.info("GET /accounts/" + username + "/cart");
+        try {
+            ShoppingCart shoppingCart = accountDao.getCart(username);
+            if (shoppingCart != null)
+                return new ResponseEntity<ShoppingCart>(shoppingCart,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Responds to the GET request for an {@linkplain Account account} for a given flag id
      * 
      * @param username The username used to get the cart of the {@link Account account}
@@ -211,7 +237,7 @@ public class AccountController {
     public ResponseEntity<Integer> getCartCount(@PathVariable String username, @RequestParam int id) {
         LOG.info("GET /accounts/" + username + "/cart?id="+ id);
         try {
-            return new ResponseEntity<Integer>(accountDao.getFlagCountCart(username, id),HttpStatus.OK);
+            return new ResponseEntity<Integer>(accountDao.getCountCart(username, id),HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());

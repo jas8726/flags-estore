@@ -203,22 +203,22 @@ public class AccountFileDAOTest {
     @Test
     public void testGetFlagCountCart() throws IOException {
         // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
-        testAccounts[0].getShoppingCart().put(2, 10);
+        testAccounts[0].getShoppingCart().getCartMap().put(1, 5);
+        testAccounts[0].getShoppingCart().getCartMap().put(2, 10);
 
         // Test when the item exists in the cart
-        int count = accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 1);
+        int count = accountFileDAO.getCountCart(testAccounts[0].getUsername(), 1);
         assertEquals(5, count);
 
         // Test when the item does not exist in the cart
-        count = accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 2);
+        count = accountFileDAO.getCountCart(testAccounts[0].getUsername(), 2);
         assertEquals(10, count);
     }
 
     @Test
     public void testAddFlagCart() throws IOException {
         // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
+        testAccounts[0].getShoppingCart().getCartMap().put(1, 5);
 
         // Test when the item exists in the cart
         int count = accountFileDAO.addFlagCart(testAccounts[0].getUsername(), 1);
@@ -228,11 +228,11 @@ public class AccountFileDAOTest {
     @Test
     public void testDeleteFlagCart() throws IOException {
         // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
+        testAccounts[0].getShoppingCart().getCartMap().put(1, 5);
 
         // Test when the item exists in the cart
         boolean result = accountFileDAO.deleteFlagCart(testAccounts[0].getUsername(), 1);
         assertEquals(true, result);
-        assertEquals(4, accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 1));
+        assertEquals(4, accountFileDAO.getCountCart(testAccounts[0].getUsername(), 1));
     }
 }

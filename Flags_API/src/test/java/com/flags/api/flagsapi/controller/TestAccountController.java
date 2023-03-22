@@ -265,7 +265,7 @@ public class TestAccountController {
     @Test
     public void testGetCartCount() throws Exception {
         Account account = new Account("user", "password");
-        when(mockAccountDAO.getFlagCountCart(account.getUsername(), 99)).thenReturn(2);
+        when(mockAccountDAO.getCountCart(account.getUsername(), 99)).thenReturn(2);
         ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "getCartCount() HTTP status incorrect");
@@ -278,7 +278,7 @@ public class TestAccountController {
     @Test
     public void testGetCartCountException() throws Exception {
         Account account = new Account("user", "password");
-        doThrow(new IOException()).when(mockAccountDAO).getFlagCountCart(account.getUsername(), 99);
+        doThrow(new IOException()).when(mockAccountDAO).getCountCart(account.getUsername(), 99);
         ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "getCartCount() HTTP status incorrect when exception");

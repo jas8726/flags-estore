@@ -52,7 +52,8 @@ public class Account {
      * @return The password of the account
      */
     public Map<Integer, Integer> getShoppingCart() {return shoppingCart;}
-
+    
+    /**
      * Retrieves boolean for if account is an admin
      * and, therefore, can manage the inventory
      * @return true if account is admin account

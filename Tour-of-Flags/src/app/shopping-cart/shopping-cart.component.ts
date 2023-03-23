@@ -32,8 +32,12 @@ export class ShoppingCartComponent {
     }
   }
 
+
+
+  //prob change output and the return
   getFlagFromID(id: number): any {
     // Need to figure this out
+    return this.flagService.getFlagName( id ) + " hello";
   }
 
   add(id: number): void {

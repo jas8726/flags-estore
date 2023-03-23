@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
-import { ShoppingCart } from './shopping-cart';
+import { CartItem } from './cart-item';
 import { MessageService } from './message.service';
 
 
@@ -81,38 +81,29 @@ export class AccountService {
   }
 
   /** GET shopping cart by username. Will 404 if username not found */
-  getCart(username: string): Observable<ShoppingCart | undefined> {
+  getCart(username: string): Observable<CartItem[] | undefined> {
     const url = `${this.accountsUrl}/${username}/cart`;
-    return this.http.get<ShoppingCart>(url).pipe(
+    return this.http.get<CartItem[]>(url).pipe(
       tap(_ => this.log(`fetched shopping cart username=${username}`)),
-      catchError(this.handleError<ShoppingCart>(`getCart username=${username}`))
-    );
-  }
-
-  /** GET count of flag in shopping cart by username and flag id */
-  getCartCount(username: string, id: number): Observable<number | undefined> {
-    const url = `${this.accountsUrl}/${username}/cart?id=${id}`;
-    return this.http.get<number>(url).pipe(
-      tap(_ => this.log(`fetched shopping cart count username=${username} id=${id}`)),
-      catchError(this.handleError<number>(`getCartCount username=${username} id=${id}`))
+      catchError(this.handleError<CartItem[]>(`getCart username=${username}`))
     );
   }
 
   /** POST: add a flag to the shopping cart */
-  addFlagCart(username: string, id: number): Observable<number | undefined> {
+  addFlagCart(username: string, id: number): Observable<boolean | undefined> {
     const url = `${this.accountsUrl}/${username}/cart?id=${id}`;
-    return this.http.post<number>(url, null).pipe(
-      tap((count: number) => this.log(`added flag to cart w/ id=${id} count=${count}`)),
-      catchError(this.handleError<number>('addFlagCart'))
+    return this.http.post<boolean>(url, null).pipe(
+      tap((result: boolean) => this.log(`added flag to cart w/ id=${id} result=${result}`)),
+      catchError(this.handleError<boolean>('addFlagCart'))
     );
   }
 
   /** DELETE: remove a flag from the shopping cart. Will 404 if flag not in cart */
-  deleteFlagCart(username: string, id: number): Observable<number | undefined> {
+  deleteFlagCart(username: string, id: number): Observable<boolean | undefined> {
     const url = `${this.accountsUrl}/${username}/cart?id=${id}`;
-    return this.http.delete<number>(url).pipe(
-      tap((count: number) => this.log(`removed flag from cart w/ id=${id} count=${count}`)),
-      catchError(this.handleError<number>('deleteFlagCart'))
+    return this.http.delete<boolean>(url).pipe(
+      tap((result: boolean) => this.log(`removed flag from cart w/ id=${id} result=${result}`)),
+      catchError(this.handleError<boolean>('deleteFlagCart'))
     );
   }
 
@@ -122,11 +113,7 @@ export class AccountService {
   }
 
   isAdmin() {
-    if (!this.currentAccount) {
-      return false;
-    }
-
-    return (this.currentAccount.username === "admin");
+    return (this.currentAccount?.username === "admin");
   }
 
   /**

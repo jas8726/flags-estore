@@ -214,7 +214,8 @@ public class AccountFileDAO implements AccountDAO {
             CartItem item = cart.stream().filter((fItem) -> fItem.getFlagID() == id).findFirst().orElse(null);
 
             if (item == null) {
-                account.getShoppingCart().add(new CartItem(id, 0));
+                item = new CartItem(id, 0);
+                account.getShoppingCart().add(item);
             }
 
             item.setQuantity(item.getQuantity() + 1);

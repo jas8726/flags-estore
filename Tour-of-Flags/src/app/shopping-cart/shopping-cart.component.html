@@ -1,0 +1,19 @@
+<h2>My Shopping Cart</h2>
+
+<p *ngIf="!cart">
+    Please login to display the shopping cart.
+</p>
+<ul *ngIf="cart" class="cart">
+    <li *ngFor="let item of cart">
+        <span class="purchase">
+            <button type="button" class="modify" title="delete purchase"
+            (click)="delete(item.flagID)">-</button>
+            <span class="badge">{{item.quantity}}</span>
+            <button type="button" class="modify" title="add purchase"
+            (click)="add(item.flagID)">+</button>
+            {{getFlagFromID(item)?.name}}
+            <!-- If we could do the below line instead of the above line, we could show the names.
+            {{getFlagFromID(purchase.key)}} -->
+        </span>
+    </li>
+</ul>

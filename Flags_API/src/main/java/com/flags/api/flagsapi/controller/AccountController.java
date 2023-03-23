@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.flags.api.flagsapi.persistence.AccountDAO;
 import com.flags.api.flagsapi.model.Account;
+import com.flags.api.flagsapi.model.CartItem;
 
 /**
  * Handles the REST API requests for the Account resource
@@ -199,19 +201,23 @@ public class AccountController {
     }
 
     /**
-     * Responds to the GET request for an {@linkplain Account account} for a given flag id
+     * Responds to the GET request for an {@linkplain Account account} and returns a set of {@linkplain CartItem cart items}
      * 
-     * @param username The username used to get the cart of the {@link Account account}
-     * @param id The id of the {@linkplain Flag flag} to get the count of
+     * @param username The username of the {@link Account account} to get the {@link ShoppingCart cart} of
      * 
-     * @return ResponseEntity with Integer count and HTTP status of OK if retrieved count<br>
+     * @return ResponseEntity with ShoppingCart object and HTTP status of OK if retrieved count<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping(path = "/{username}/cart", params = "id")
-    public ResponseEntity<Integer> getCartCount(@PathVariable String username, @RequestParam int id) {
-        LOG.info("GET /accounts/" + username + "/cart?id="+ id);
+    @GetMapping("/{username}/cart")
+    public ResponseEntity<Set<CartItem>> getCart(@PathVariable String username) {
+        LOG.info("GET /accounts/" + username + "/cart");
         try {
-            return new ResponseEntity<Integer>(accountDao.getFlagCountCart(username, id),HttpStatus.OK);
+            Set<CartItem> shoppingCart = accountDao.getCart(username);
+            if (shoppingCart != null)
+                return new ResponseEntity<Set<CartItem>>(shoppingCart,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -229,11 +235,11 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping(path = "/{username}/cart", params = "id")
-    public ResponseEntity<Integer> addFlagCart(@PathVariable String username, @RequestParam int id) {
+    public ResponseEntity<Boolean> addFlagToCart(@PathVariable String username, @RequestParam int id) {
         LOG.info("POST /accounts/" + username + "/cart?id=" + id);
 
         try {
-            return new ResponseEntity<Integer>(accountDao.addFlagCart(username, id),HttpStatus.OK);
+            return new ResponseEntity<Boolean>(accountDao.addFlagToCart(username, id),HttpStatus.OK);
                 
         }
         catch(IOException e) {
@@ -254,12 +260,12 @@ public class AccountController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping(path = "/{username}/cart", params = "id")
-    public ResponseEntity<Integer> deleteFlagCart(@PathVariable String username, @RequestParam int id) {
+    public ResponseEntity<Boolean> deleteFlagFromCart(@PathVariable String username, @RequestParam int id) {
         LOG.info("DELETE /accounts/" + username + "/cart?id=" + id);
 
         try {
-            if (accountDao.deleteFlagCart(username, id))
-                return new ResponseEntity<Integer>(HttpStatus.OK);
+            if (accountDao.deleteFlagFromCart(username, id))
+                return new ResponseEntity<Boolean>(HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 

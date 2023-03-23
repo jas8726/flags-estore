@@ -16,6 +16,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flags.api.flagsapi.model.Account;
+import com.flags.api.flagsapi.model.CartItem;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -201,38 +202,22 @@ public class AccountFileDAOTest {
     }
 
     @Test
-    public void testGetFlagCountCart() throws IOException {
-        // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
-        testAccounts[0].getShoppingCart().put(2, 10);
-
-        // Test when the item exists in the cart
-        int count = accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 1);
-        assertEquals(5, count);
-
-        // Test when the item does not exist in the cart
-        count = accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 2);
-        assertEquals(10, count);
-    }
-
-    @Test
     public void testAddFlagCart() throws IOException {
         // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
+        testAccounts[0].getShoppingCart().add(new CartItem(1, 5));
 
         // Test when the item exists in the cart
-        int count = accountFileDAO.addFlagCart(testAccounts[0].getUsername(), 1);
-        assertEquals(6, count);
+        boolean result = accountFileDAO.addFlagToCart(testAccounts[0].getUsername(), 1);
+        assertEquals(true, result);
     }
 
     @Test
     public void testDeleteFlagCart() throws IOException {
         // Add some items to the cart
-        testAccounts[0].getShoppingCart().put(1, 5);
+        testAccounts[0].getShoppingCart().add(new CartItem(1, 5));
 
         // Test when the item exists in the cart
-        boolean result = accountFileDAO.deleteFlagCart(testAccounts[0].getUsername(), 1);
+        boolean result = accountFileDAO.deleteFlagFromCart(testAccounts[0].getUsername(), 1);
         assertEquals(true, result);
-        assertEquals(4, accountFileDAO.getFlagCountCart(testAccounts[0].getUsername(), 1));
     }
 }

@@ -15,7 +15,7 @@
     <a routerLink="/detail/{{flag.id}}">
       <span class="badge">{{flag.id}}</span> {{flag.name}}
     </a>
-    <button type="button" class="delete" title="delete flag"
-      (click)="delete(flag)">x</button>
+    <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+      (click)="addToCart(flag)">+</button>
   </li>
 </ul>

@@ -260,42 +260,16 @@ public class TestAccountController {
     }
 
     /*
-     * testing getCartCount function when count retrieved
-     */
-    @Test
-    public void testGetCartCount() throws Exception {
-        Account account = new Account("user", "password");
-        when(mockAccountDAO.getFlagCountCart(account.getUsername(), 99)).thenReturn(2);
-        ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode(), "getCartCount() HTTP status incorrect");
-        assertEquals(2, response.getBody(), "getCartCount() body incorrect");
-    }
-
-    /*
-     * check exception with getCartCount function (internal_server_error)
-     */
-    @Test
-    public void testGetCartCountException() throws Exception {
-        Account account = new Account("user", "password");
-        doThrow(new IOException()).when(mockAccountDAO).getFlagCountCart(account.getUsername(), 99);
-        ResponseEntity<Integer> response = accountController.getCartCount(account.getUsername(), 99);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "getCartCount() HTTP status incorrect when exception");
-
-    }
-
-    /*
      * testing addFlagCart function when count retrieved
      */
     @Test
     public void testAddFlagCart() throws Exception {
         Account account = new Account("user", "password");
-        when(mockAccountDAO.addFlagCart(account.getUsername(), 99)).thenReturn(1);
-        ResponseEntity<Integer> response = accountController.addFlagCart(account.getUsername(), 99);
+        when(mockAccountDAO.addFlagToCart(account.getUsername(), 99)).thenReturn(true);
+        ResponseEntity<Boolean> response = accountController.addFlagToCart(account.getUsername(), 99);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "addFlagCart() HTTP status incorrect");
-        assertEquals(1, response.getBody(), "addFlagCart() body incorrect");
+        assertEquals(true, response.getBody(), "addFlagCart() body incorrect");
     }
 
     /*
@@ -304,8 +278,8 @@ public class TestAccountController {
     @Test
     public void testAddFlagCartException() throws Exception {
         Account account = new Account("user", "password");
-        doThrow(new IOException()).when(mockAccountDAO).addFlagCart(account.getUsername(), 99);
-        ResponseEntity<Integer> response = accountController.addFlagCart(account.getUsername(), 99);
+        doThrow(new IOException()).when(mockAccountDAO).addFlagToCart(account.getUsername(), 99);
+        ResponseEntity<Boolean> response = accountController.addFlagToCart(account.getUsername(), 99);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "addFlagCart() HTTP status incorrect when exception");
 
@@ -317,8 +291,8 @@ public class TestAccountController {
     @Test
     public void testDeleteFlagCart() throws Exception {
         Account account = new Account("user", "password");
-        when(mockAccountDAO.deleteFlagCart(account.getUsername(), 99)).thenReturn(true);
-        ResponseEntity<Integer> response = accountController.deleteFlagCart(account.getUsername(), 99);
+        when(mockAccountDAO.deleteFlagFromCart(account.getUsername(), 99)).thenReturn(true);
+        ResponseEntity<Boolean> response = accountController.deleteFlagFromCart(account.getUsername(), 99);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "deleteFlagCart() HTTP status incorrect");
     }
@@ -329,8 +303,8 @@ public class TestAccountController {
     @Test
     public void testDeleteFlagCartException() throws Exception {
         Account account = new Account("user", "password");
-        doThrow(new IOException()).when(mockAccountDAO).deleteFlagCart(account.getUsername(), 99);
-        ResponseEntity<Integer> response = accountController.deleteFlagCart(account.getUsername(), 99);
+        doThrow(new IOException()).when(mockAccountDAO).deleteFlagFromCart(account.getUsername(), 99);
+        ResponseEntity<Boolean> response = accountController.deleteFlagFromCart(account.getUsername(), 99);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode(), "addFlagCart() HTTP status incorrect when exception");
 

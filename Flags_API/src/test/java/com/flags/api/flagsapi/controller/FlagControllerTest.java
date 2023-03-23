@@ -5,7 +5,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.beans.Transient;
 import java.io.IOException;
 
 import com.flags.api.flagsapi.persistence.FlagDAO;
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+@Tag("Controller")
 public class FlagControllerTest {
 
     private FlagController flagController;

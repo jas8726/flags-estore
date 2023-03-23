@@ -269,7 +269,7 @@ public class TestAccountController {
         ResponseEntity<Boolean> response = accountController.addFlagToCart(account.getUsername(), 99);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "addFlagCart() HTTP status incorrect");
-        assertEquals(1, response.getBody(), "addFlagCart() body incorrect");
+        assertEquals(true, response.getBody(), "addFlagCart() body incorrect");
     }
 
     /*

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Flag } from '../flag';
 import { FlagService } from '../flag.service';
+import { Account } from '../account';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-flags',
@@ -11,7 +13,9 @@ import { FlagService } from '../flag.service';
 export class FlagsComponent implements OnInit {
   flags: Flag[] = [];
 
-  constructor(private flagService: FlagService) { }
+  constructor(
+    private flagService: FlagService,
+    private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.getFlags();
@@ -20,6 +24,10 @@ export class FlagsComponent implements OnInit {
   getFlags(): void {
     this.flagService.getFlags()
     .subscribe(flags => this.flags = flags);
+  }
+
+  ableToAddToCart(): boolean {
+    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
   }
 
   add(name: string): void {
@@ -36,4 +44,7 @@ export class FlagsComponent implements OnInit {
     this.flagService.deleteFlag(flag.id).subscribe();
   }
 
+  addToCart(flag: Flag): void {
+    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
+  }
 }

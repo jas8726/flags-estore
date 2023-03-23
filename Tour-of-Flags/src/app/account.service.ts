@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
+import { CartItem } from './cart-item';
 import { MessageService } from './message.service';
 
 
@@ -79,17 +80,40 @@ export class AccountService {
     );
   }
 
+  /** GET shopping cart by username. Will 404 if username not found */
+  getCart(username: string): Observable<CartItem[] | undefined> {
+    const url = `${this.accountsUrl}/${username}/cart`;
+    return this.http.get<CartItem[]>(url).pipe(
+      tap(_ => this.log(`fetched shopping cart username=${username}`)),
+      catchError(this.handleError<CartItem[]>(`getCart username=${username}`))
+    );
+  }
+
+  /** POST: add a flag to the shopping cart */
+  addFlagCart(username: string, id: number): Observable<boolean | undefined> {
+    const url = `${this.accountsUrl}/${username}/cart?id=${id}`;
+    return this.http.post<boolean>(url, null).pipe(
+      tap((result: boolean) => this.log(`added flag to cart w/ id=${id} result=${result}`)),
+      catchError(this.handleError<boolean>('addFlagCart'))
+    );
+  }
+
+  /** DELETE: remove a flag from the shopping cart. Will 404 if flag not in cart */
+  deleteFlagCart(username: string, id: number): Observable<boolean | undefined> {
+    const url = `${this.accountsUrl}/${username}/cart?id=${id}`;
+    return this.http.delete<boolean>(url).pipe(
+      tap((result: boolean) => this.log(`removed flag from cart w/ id=${id} result=${result}`)),
+      catchError(this.handleError<boolean>('deleteFlagCart'))
+    );
+  }
+
   /** Get current logged in account NOW */
   getCurrentAccount() {
     return this.currentAccount;
   }
 
   isAdmin() {
-    if (!this.currentAccount) {
-      return false;
-    }
-
-    return (this.currentAccount.username === "admin");
+    return (this.currentAccount?.username === "admin");
   }
 
   /**

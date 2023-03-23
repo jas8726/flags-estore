@@ -1,7 +1,7 @@
 package com.flags.api.flagsapi.model;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,8 +16,7 @@ public class Account {
 
     @JsonProperty("username") private String username;
     @JsonProperty("password") private String password;
-    @JsonProperty("shoppingCart") private Map<Integer, Integer> shoppingCart;
-    //try to make a map with key as product id and object as the quantity
+    @JsonProperty("shoppingCart") private Set<CartItem> shoppingCart;
 
     /**
      * Create an account with the given username and password
@@ -32,7 +31,7 @@ public class Account {
     public Account(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
-        this.shoppingCart = new TreeMap<>();
+        this.shoppingCart = new HashSet<>();
     }
 
     /**
@@ -51,14 +50,7 @@ public class Account {
      * Retrieves the password of the account
      * @return The password of the account
      */
-    public Map<Integer, Integer> getShoppingCart() {return shoppingCart;}
-    
-    /**
-     * Retrieves boolean for if account is an admin
-     * and, therefore, can manage the inventory
-     * @return true if account is admin account
-     */
-    public boolean isAdmin() {return username.equals("admin");}
+    public Set<CartItem> getShoppingCart() {return shoppingCart;}
 
     /**
      * {@inheritDoc}

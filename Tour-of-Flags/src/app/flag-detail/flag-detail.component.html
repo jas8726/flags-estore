@@ -6,5 +6,6 @@
     <input id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name"/>
   </div>
   <button type="button" (click)="goBack()">go back</button>
-  <button type="button" (click)="save()">save</button>
+  
+  <button *ngIf="isAdmin()" type="button" (click)="save()">save</button>
 </div>

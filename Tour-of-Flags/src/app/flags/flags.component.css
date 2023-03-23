@@ -3,7 +3,7 @@
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
+  width: 20em;
 }
 
 input {
@@ -75,7 +75,7 @@ input {
 
 button.add-to-cart {
   position: absolute;
-  left: 210px;
+  left: 290px;
   top: 5px;
   background-color: white;
   color:  #525252;

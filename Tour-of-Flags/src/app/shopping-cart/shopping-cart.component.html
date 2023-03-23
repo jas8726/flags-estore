@@ -11,7 +11,7 @@
             <span class="badge">{{purchase.value}}</span>
             <button type="button" class="modify" title="add purchase"
             (click)="add(purchase.key)">+</button>
-            Flag Name: {{getFlagFromID(purchase.key)}}
+            Flag ID: {{purchase.key}}
             <!-- If we could do the below line instead of the above line, we could show the names.
             {{getFlagFromID(purchase.key)}} -->
         </span>

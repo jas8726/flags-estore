@@ -53,17 +53,6 @@ export class FlagService {
     );
   }
 
-  //Doesn't work rn, need to get the flag name somehow
-  getFlagName( id: number ): any {
-    //get flag from id
-    const url = `${this.flagsUrl}/${id}`;
-    flagName: String;
-    return this.http.get<Flag>(url).pipe(
-      tap(_ => this.log(`fetched flag id=${id}`)),
-      catchError(this.handleError<Flag>(`getFlag id=${id}`))
-    );
-  }
-  
   /* GET flags whose name contains search term */
   searchFlags(term: string): Observable<Flag[]> {
     if (!term.trim()) {

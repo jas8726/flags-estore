@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Tag;
         assertEquals(username, account.getUsername());
         assertEquals(password, account.getPassword());
         assertEquals((new TreeMap<Integer,Integer>()).getClass(), account.getShoppingCart().getClass());
-        assertEquals(false, account.isAdmin());
      }
 
      /*

@@ -4,7 +4,7 @@
     Please login to display the shopping cart.
 </p>
 <ul *ngIf="cart" class="cart">
-    <li *ngFor="let purchase of cart.cartMap| keyvalue">
+    <li *ngFor="let purchase of cart.cartMap | keyvalue">
         <span class="purchase">
             <button type="button" class="modify" title="delete purchase"
             (click)="delete(purchase.key)">-</button>

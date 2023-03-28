@@ -1,1 +1,1 @@
-[{"username":"admin","password":"admin","shoppingCart":[]},{"username":"jack","password":"artemis","shoppingCart":[]},{"username":"user","password":"password","shoppingCart":[]}]
+[{"username":"admin","password":"admin","shoppingCart":[]},{"username":"hi","password":"hi","shoppingCart":[{"flagID":12,"quantity":1}]},{"username":"jack","password":"artemis","shoppingCart":[]},{"username":"user","password":"password","shoppingCart":[]}]

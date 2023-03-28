@@ -18,25 +18,47 @@ input {
   box-sizing: border-box;
 }
 
-.eachFlag div {
+.flagTile div {
+  background-color:bisque;
+  background-clip: border-box;
+  margin:10px;
   position: relative;
   width: 400px;
   cursor: pointer;
   display: inline;
   position: relative;
+  /*border: 5px outset red; */
   /*-webkit-box-sizing: border-box;
   box-sizing: border-box;*/
 }
 
-.eachFlag div:hover {
+/*.flagTile div:hover {
   left: .1em;
+} */
+
+p#img{
+  background-color:bisque;
+  text-align: center;
+  padding: 10px;
+  height: 100px;
+  margin: 0;
+}
+
+.flagTile.tileDetails div{
+  width: 100px;
+  height: 100px;
+  margin:0;
+  padding-top: 5px;
+  padding-bottom: 50px;
+  background-color: cadetblue;
 }
 
 .tileDetails a {
   color: #333;
   text-decoration: none;
-  background-color: #EEE;
-  margin: .5em;
+  background-color:bisque;
+  /*margin: .5em;*/
+  margin: 0;
   padding: .3em 0;
   height: 1.6em;
   border-radius: 4px;
@@ -85,16 +107,79 @@ input {
 
 button.add-to-cart {
   position:absolute;
-  left: 300px;
-  top: 15px;
-  background-color: white;
+  /*display: inline-flex;
+  align-self: flex-end;
+  padding-top: 20px;*/
+  flex-direction: row;
+  left: 70%;
+  width: 30%;
+  /*left: 300px;
+  top: 15px;*/
+  background-color:aliceblue;
   color:  #525252;
-  font-size: 1.1rem;
+  padding: 0;
+  /*font-size: 1.1rem;*/
   margin: 0;
-  padding: 1px 10px 3px 10px;
+  /*padding: 1px 10px 3px 10px;*/
+  height: 60px;
+  font-size: larger;
 }
 
 button.add-to-cart:hover {
   background-color: #525252;
   color: white;
 }
+
+#tileMedia div{
+  background-color:#405061;
+}
+
+.price{
+  background-color:darkolivegreen;
+  text-align: center;
+  padding: 10px;
+  height: 40px;
+  margin:0;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  text-align: center;
+}
+
+div#addcart{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  display:inline-flex;
+  width: 100%;
+  height: max-content;
+  flex-direction: row;
+}
+
+p.quant{
+  align-self: flex-start;
+  background-color:darkseagreen;
+  text-align: center;
+  width:50%;
+  padding: 0;
+  height: 40px;
+  margin:0;
+  padding-top: 20px;
+}
+
+li#goright{
+  width: 50%;
+  align-self: flex-end;
+  text-align: right;
+  position: relative;
+  direction: rtl;
+  
+}
+

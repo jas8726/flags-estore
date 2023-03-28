@@ -19,3 +19,46 @@ h1 {
   nav a:active {
     background-color: black;
   }
+
+  nav#topnav{
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    margin: auto;
+  }
+
+  div{
+    display: inline-block;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+  }
+
+  li{
+    align-items: center;
+    display: inline-flex;
+    padding: 1rem;
+    margin: 0.5rem auto;
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    border-radius: 2px;
+    box-sizing: content-box;
+    
+  }
+
+  ul{
+    /*display: inline-flex;*/
+    padding: 0;
+    margin: auto;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: flex-start;
+    margin-inline: 40px;
+  }

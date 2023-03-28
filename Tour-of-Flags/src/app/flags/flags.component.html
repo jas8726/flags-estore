@@ -11,18 +11,24 @@
 </div>
 
 <div class="flags">
-  <div class="eachFlag" *ngFor="let flag of flags">
-    <!-- <div class="tileMedia"> </div>-->
+  <div class="flagTile"  *ngFor="let flag of flags">
+    <div id="tileMedia">
+      <p id="img">IMAGE</p>
+    </div>
     <div class="tileDetails">
-      <a routerLink="/detail/{{flag.id}}">
-        <span class="badge">{{flag.id}}</span> {{flag.name}}
+      <ul>
+        <li><a routerLink="/detail/{{flag.id}}">{{flag.name}}</a>
+        <!--<span class="badge">{{flag.id}}</span> -->
         <!-- Need to add different things for Price and Quantity -->
-        Price = ${{flag.price}} Quantity = {{flag.quantity}}
-      </a>
-      <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
-        (click)="addToCart(flag)">+</button>
-      <!--<button *ngIf="isAdmin()" type="button" class="add-to-cart" title="delete flag"
-        (click)="delete(flag)">x</button> -->
+        <li><p class="price">Price = ${{flag.price}}, ID={{flag.id}}</p></li>   
+        <li>
+          <div id="addcart">
+            <p class="quant">Quantity = {{flag.quantity}}</p>
+            <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+              (click)="addToCart(flag)">+</button>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

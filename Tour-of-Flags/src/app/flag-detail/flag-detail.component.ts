@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Flag } from '../flag';
 import { FlagService } from '../flag.service';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-flag-detail',
@@ -16,7 +17,8 @@ export class FlagDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private flagService: FlagService,
-    private location: Location
+    private location: Location,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,10 @@ export class FlagDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  isAdmin(): boolean {
+    return this.accountService.isAdmin();
   }
 
   save(): void {

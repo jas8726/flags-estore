@@ -1,9 +1,8 @@
 <h2>My Flags</h2>
 
-<div>
+<div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>
   <input id="new-flag" #flagName />
-
   <!-- (click) passes input value to add() and then clears the input -->
   <button type="button" class="add-button" (click)="add(flagName.value); flagName.value=''">
     Add flag
@@ -14,8 +13,12 @@
   <li *ngFor="let flag of flags">
     <a routerLink="/detail/{{flag.id}}">
       <span class="badge">{{flag.id}}</span> {{flag.name}}
+      <!-- Need to add different things for Price and Quantity -->
+      Price = ${{flag.price}} Quantity = {{flag.quantity}}
     </a>
     <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
       (click)="addToCart(flag)">+</button>
+      <button *ngIf="isAdmin()" type="button" class="add-to-cart" title="delete flag"
+      (click)="delete(flag)">x</button>
   </li>
 </ul>

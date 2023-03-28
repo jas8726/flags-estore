@@ -1,9 +1,13 @@
 /* FlagsComponent's private CSS styles */
 .flags {
-  margin: 0 0 2em 0;
+  /*margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
+  width: 20em; */
+  display:grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 42px 15px;
+  margin: 0;
 }
 
 input {
@@ -14,16 +18,21 @@ input {
   box-sizing: border-box;
 }
 
-.flags li {
+.eachFlag div {
   position: relative;
+  width: 400px;
   cursor: pointer;
+  display: inline;
+  position: relative;
+  /*-webkit-box-sizing: border-box;
+  box-sizing: border-box;*/
 }
 
-.flags li:hover {
+.eachFlag div:hover {
   left: .1em;
 }
 
-.flags a {
+.tileDetails a {
   color: #333;
   text-decoration: none;
   background-color: #EEE;
@@ -35,17 +44,17 @@ input {
   width: 100%;
 }
 
-.flags a:hover {
+.tileDetails a:hover {
   color: #2c3a41;
   background-color: #e6e6e6;
 }
 
-.flags a:active {
+.tileDetails a:active {
   background-color: #525252;
   color: #fafafa;
 }
 
-.flags .badge {
+.tileDetails .badge {
   display: inline-block;
   font-size: small;
   color: white;
@@ -66,6 +75,7 @@ input {
  padding: .5rem 1.5rem;
  font-size: 1rem;
  margin-bottom: 2rem;
+ align-self: flex-end;
 }
 
 .add-button:hover {
@@ -74,9 +84,9 @@ input {
 }
 
 button.add-to-cart {
-  position: absolute;
-  left: 210px;
-  top: 5px;
+  position:absolute;
+  left: 300px;
+  top: 15px;
   background-color: white;
   color:  #525252;
   font-size: 1.1rem;

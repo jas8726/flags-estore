@@ -1,23 +1,36 @@
 <h1>{{title}}</h1>
-<nav id="topnav">
+<nav>
   <ul>
-  <div>
-  <li><a routerLink="/dashboard">Dashboard</a> </li>
-  <li><a routerLink="/flags">Flags</a></li>
-  </div>
+    <div>
+      <li><a routerLink="/dashboard">Dashboard</a></li>
+    </div>
+    <div>
+      <li><a routerLink="/flags">Flags</a></li>
+    </div>
   <div *ngIf="!accountService.getCurrentAccount()">
     <li><a routerLink="/login">Login</a></li>
+    <!-- <li><a routerLink="/register">Create Account</a></li> -->
+  </div>
+  <div *ngIf="!accountService.getCurrentAccount()">
+    <!-- <li><a routerLink="/login">Login</a></li> -->
     <li><a routerLink="/register">Create Account</a></li>
   </div>
-  <li><div *ngIf="accountService.getCurrentAccount()">
+  <div *ngIf="accountService.getCurrentAccount()">
     <li><a href=".">Logout</a></li>
+  </div>
+  <div *ngIf="accountService.getCurrentAccount()">
     <li><a *ngIf="!accountService.isAdmin()" routerLink="/shoppingCart">Shopping Cart</a></li>
-    <p>
-      Welcome, {{accountService.getCurrentAccount()!.username}}!
-      <strong *ngIf="accountService.isAdmin()"> (Administrator)</strong>
-    </p>
-  </div></li>
+  </div>
 </ul>
+<div id="message" *ngIf="accountService.getCurrentAccount()">
+  <marquee  direction="right">
+    Welcome, {{accountService.getCurrentAccount()!.username}}!
+    <strong *ngIf="accountService.isAdmin()"> (Administrator)</strong>
+  </marquee>
+</div>
+<div id="message" *ngIf="!accountService.getCurrentAccount()">
+  <marquee  direction="right">Welcome to flags!</marquee>
+</div>
 </nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

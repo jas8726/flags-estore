@@ -98,6 +98,14 @@ export class FlagService {
     );
   }
 
+  updatePrice(flag: Flag, price: number): Observable<any> {
+    
+    return this.http.put(this.flagsUrl, flag, this.httpOptions).pipe(
+      tap(_ => this.log(`updated flag price=${flag.price}`)),
+      catchError(this.handleError<any>('updatePrice'))
+    );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

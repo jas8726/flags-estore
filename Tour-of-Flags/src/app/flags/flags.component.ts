@@ -51,4 +51,8 @@ export class FlagsComponent implements OnInit {
   addToCart(flag: Flag): void {
     this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
   }
+
+  updatePrice(flag: Flag, price: number): void {
+    this.flagService.updatePrice(flag, price);
+  }
 }

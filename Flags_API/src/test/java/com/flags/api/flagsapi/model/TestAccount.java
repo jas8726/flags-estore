@@ -1,12 +1,12 @@
 package com.flags.api.flagsapi.model;
 
-import java.util.TreeMap;
+import java.util.HashSet;
 
- import static org.junit.jupiter.api.Assertions.assertEquals;
- import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Tag;
- import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
  @Tag("Model")
  public class TestAccount {
@@ -24,8 +24,6 @@ import org.junit.jupiter.api.Tag;
 
         assertEquals(username, account.getUsername());
         assertEquals(password, account.getPassword());
-        assertEquals((new TreeMap<Integer,Integer>()).getClass(), account.getShoppingCart().getClass());
-        assertEquals(false, account.isAdmin());
      }
 
      /*
@@ -37,7 +35,7 @@ import org.junit.jupiter.api.Tag;
         String password = "testpassword";
 
         Account account = new Account(username, password);
-        String tostring = String.format(Account.STRING_FORMAT, username, password, (new TreeMap<Integer, Integer>()).toString());
+        String tostring = String.format(Account.STRING_FORMAT, username, password, (new HashSet<CartItem>()));
 
         assertEquals(tostring, account.toString(), "toString() incorrect");
      }

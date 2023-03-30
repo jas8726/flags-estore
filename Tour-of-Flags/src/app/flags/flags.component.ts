@@ -26,6 +26,10 @@ export class FlagsComponent implements OnInit {
     .subscribe(flags => this.flags = flags);
   }
 
+  isAdmin(): boolean {
+    return this.accountService.isAdmin();
+  }
+
   ableToAddToCart(): boolean {
     return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
   }

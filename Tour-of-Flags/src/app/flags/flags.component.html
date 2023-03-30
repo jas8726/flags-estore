@@ -1,14 +1,17 @@
 <h2>My Flags</h2>
 
-<div>
+<div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>
   <input id="new-flag" #flagName />
-
   <!-- (click) passes input value to add() and then clears the input -->
   <button type="button" class="add-button" (click)="add(flagName.value); flagName.value=''">
     Add flag
   </button>
+
+  <!-- need to add inputs for price and quantity -->
+
 </div>
+
 
 <div class="flags">
   <div class="flagTile"  *ngFor="let flag of flags">

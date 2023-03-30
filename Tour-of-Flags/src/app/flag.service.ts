@@ -13,6 +13,8 @@ export class FlagService {
 
   private flagsUrl = 'http://localhost:8080/flags';  // URL to web api
 
+  allFlags: Flag[] = [];
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -26,6 +28,7 @@ export class FlagService {
     return this.http.get<Flag[]>(this.flagsUrl)
       .pipe(
         tap(_ => this.log('fetched flags')),
+        tap(allFlags => this.allFlags = allFlags),
         catchError(this.handleError<Flag[]>('getFlags', []))
       );
   }
@@ -94,6 +97,7 @@ export class FlagService {
       catchError(this.handleError<any>('updateFlag'))
     );
   }
+
 
   /**
    * Handle Http operation that failed.

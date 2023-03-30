@@ -1,9 +1,14 @@
 /* FlagsComponent's private CSS styles */
 .flags {
-  margin: 0 0 2em 0;
+  /*margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 20em;
+
+  width: 20em; */
+  display:grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 42px 15px;
+  margin: 0;
 }
 
 input {
@@ -14,20 +19,47 @@ input {
   box-sizing: border-box;
 }
 
-.flags li {
+.flagTile div {
+  background-color:bisque;
+  background-clip: border-box;
+  margin:10px;
   position: relative;
+  width: 400px;
   cursor: pointer;
+  display: inline;
+  position: relative;
+  /*border: 5px outset red; */
+  /*-webkit-box-sizing: border-box;
+  box-sizing: border-box;*/
 }
 
-.flags li:hover {
+/*.flagTile div:hover {
   left: .1em;
+} */
+
+p#img{
+  background-color:bisque;
+  text-align: center;
+  padding: 10px;
+  height: 100px;
+  margin: 0;
 }
 
-.flags a {
+.flagTile.tileDetails div{
+  width: 100px;
+  height: 100px;
+  margin:0;
+  padding-top: 5px;
+  padding-bottom: 50px;
+  background-color: cadetblue;
+}
+
+.tileDetails a {
   color: #333;
   text-decoration: none;
-  background-color: #EEE;
-  margin: .5em;
+  background-color:bisque;
+  /*margin: .5em;*/
+  margin: 0;
   padding: .3em 0;
   height: 1.6em;
   border-radius: 4px;
@@ -35,17 +67,17 @@ input {
   width: 100%;
 }
 
-.flags a:hover {
+.tileDetails a:hover {
   color: #2c3a41;
   background-color: #e6e6e6;
 }
 
-.flags a:active {
+.tileDetails a:active {
   background-color: #525252;
   color: #fafafa;
 }
 
-.flags .badge {
+.tileDetails .badge {
   display: inline-block;
   font-size: small;
   color: white;
@@ -66,6 +98,7 @@ input {
  padding: .5rem 1.5rem;
  font-size: 1rem;
  margin-bottom: 2rem;
+ align-self: flex-end;
 }
 
 .add-button:hover {
@@ -74,17 +107,80 @@ input {
 }
 
 button.add-to-cart {
-  position: absolute;
-  left: 290px;
-  top: 5px;
-  background-color: white;
+  position:absolute;
+  /*display: inline-flex;
+  align-self: flex-end;
+  padding-top: 20px;*/
+  flex-direction: row;
+  left: 70%;
+  width: 30%;
+  /*left: 300px;
+  top: 15px;*/
+  background-color:aliceblue;
   color:  #525252;
-  font-size: 1.1rem;
+  padding: 0;
+  /*font-size: 1.1rem;*/
   margin: 0;
-  padding: 1px 10px 3px 10px;
+  /*padding: 1px 10px 3px 10px;*/
+  height: 60px;
+  font-size: larger;
 }
 
 button.add-to-cart:hover {
   background-color: #525252;
   color: white;
 }
+
+#tileMedia div{
+  background-color:#405061;
+}
+
+.price{
+  background-color:darkolivegreen;
+  text-align: center;
+  padding: 10px;
+  height: 40px;
+  margin:0;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  text-align: center;
+}
+
+div#addcart{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  display:inline-flex;
+  width: 100%;
+  height: max-content;
+  flex-direction: row;
+}
+
+p.quant{
+  align-self: flex-start;
+  background-color:darkseagreen;
+  text-align: center;
+  width:50%;
+  padding: 0;
+  height: 40px;
+  margin:0;
+  padding-top: 20px;
+}
+
+li#goright{
+  width: 50%;
+  align-self: flex-end;
+  text-align: right;
+  position: relative;
+  direction: rtl;
+  
+}
+

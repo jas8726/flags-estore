@@ -15,7 +15,7 @@ export class FlagsComponent implements OnInit {
 
   constructor(
     private flagService: FlagService,
-    private accountService: AccountService) { }
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.getFlags();

@@ -14,6 +14,7 @@
   <div class="flagTile"  *ngFor="let flag of flags">
     <div id="tileMedia">
       <p id="img">IMAGE</p>
+      <!--<img alt="flagimage" src="" > -->
     </div>
     <div class="tileDetails">
       <ul>
@@ -22,10 +23,15 @@
         <!-- Need to add different things for Price and Quantity -->
         <li><p class="price">Price = ${{flag.price}}, ID={{flag.id}}</p></li>   
         <li>
-          <div id="addcart">
+          <div *ngIf="!accountService.isAdmin()" id="addcart">
             <p class="quant">Quantity = {{flag.quantity}}</p>
             <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
               (click)="addToCart(flag)">+</button>
+          </div>
+          <div *ngIf="accountService.isAdmin()" id="addcart">
+            <p class="quant">AdminQuantity = {{flag.quantity}}</p>
+            <!--<button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+              (click)="addToCart(flag)">+</button> -->
           </div>
         </li>
       </ul>

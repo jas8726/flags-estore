@@ -7,6 +7,9 @@
   <button type="button" class="add-button" (click)="add(flagName.value); flagName.value=''">
     Add flag
   </button>
+
+  <!-- need to add inputs for price and quantity -->
+
 </div>
 
 <ul class="flags">
@@ -20,14 +23,6 @@
       (click)="addToCart(flag)">+</button>
       <button *ngIf="isAdmin()" type="button" class="add-to-cart" title="delete flag"
       (click)="delete(flag)">x</button>
-
-      <div *ngIf="isAdmin()">
-        <label for="edit-price">Price: </label>
-        <input id="edit-price" #price />
-        <!-- (click) passes input value to add() and then clears the input -->
-        <button type="button" class="add-button" (click)="updatePrice(flag,price.valueAsNumber); price.valueAsNumber=''">
-          Edit price
-        </button>
-      </div>
+      
   </li>
 </ul>

@@ -39,10 +39,20 @@ export class FlagDetailComponent implements OnInit {
     return this.accountService.isAdmin();
   }
 
-  save(): void {
+  save(flag: Flag, price: number, quantity: number): void {
+    this.updatePrice(flag, price);
+    this.updateQuantity(flag, quantity);
     if (this.flag) {
       this.flagService.updateFlag(this.flag)
         .subscribe(() => this.goBack());
     }
+  }
+
+  updatePrice(flag: Flag, price: number): void {
+    flag.price = price;
+  }
+
+  updateQuantity(flag: Flag, quantity: number): void {
+    flag.quantity = quantity;
   }
 }

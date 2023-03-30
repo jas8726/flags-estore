@@ -32,6 +32,10 @@
               (click)="addToCart(flag)">+</button>
           </div>
           <div *ngIf="accountService.isAdmin()" id="addcart">
+            <button type="button" class="add-to-cart" title="delete flag"
+              (click)="delete(flag)">X</button>
+          </div>
+          <div *ngIf="accountService.isAdmin()" id="addcart">
             <p class="quant">AdminQuantity = {{flag.quantity}}</p>
             <!--<button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
               (click)="addToCart(flag)">+</button> -->

@@ -57,33 +57,35 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout(): void {
-    this.cart.forEach(cartItem => {
-      var flag = this.getFlagFromID(cartItem);
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+      
+      var flag = this.getFlagFromID(element);
       if (!flag) {
         this.errorText = "One of your flags does not exist!";
         return;
       }
-      var newQuantity = flag.quantity - cartItem.quantity;
+      var newQuantity = flag.quantity - element.quantity;
+      console.error("New quantity of " + flag.name + ": " + newQuantity);
       if (newQuantity < 0) {
-        this.errorText = "You are trying to buy " + cartItem.quantity + " " 
-        + flag.name + " when there are only " + flag.quantity + " available.";
-        return
+        this.errorText = "You are trying to buy " + element.quantity + " " 
+        + flag.name + " flags when there are only " + flag.quantity + " available.";
+        return;
       }
       flag.quantity = newQuantity;
-    });
+    }
 
-    this.errorText = "";
-
-    this.cart.forEach(purchase => {
-      this.flagService.updateFlag(this.getFlagFromID(purchase)!)
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+      
+      this.flagService.updateFlag(this.getFlagFromID(element)!)
         .subscribe(() => {
-          for (let index = 0; index < purchase.quantity; index++) {
-            this.delete(purchase.flagID);
+          for (let index = 0; index < element.quantity; index++) {
+            this.delete(element.flagID);
           }
         });
-    });
-    
-    // GOTO CHECKOUT SCREEN
-    this.errorText = "Checked out flags!"
+    }
+
+    this.errorText = "Successfully checked out flags!"
   }
 }

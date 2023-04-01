@@ -56,6 +56,20 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  getTotalPrice(): number {
+    var total = 0;
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+
+      var flag = this.getFlagFromID(element);
+      if (flag) {
+        total += (flag.price * element.quantity);
+      }
+    }
+
+    return total;
+  }
+
   checkout(): void {
     for (let index = 0; index < this.cart.length; index++) {
       const element = this.cart[index];

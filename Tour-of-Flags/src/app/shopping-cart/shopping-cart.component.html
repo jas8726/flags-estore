@@ -17,3 +17,6 @@
         </span>
     </li>
 </ul>
+
+<button *ngIf="cart.length > 0" type="button" (click)="checkout()">checkout</button>
+<p>{{errorText}}</p>

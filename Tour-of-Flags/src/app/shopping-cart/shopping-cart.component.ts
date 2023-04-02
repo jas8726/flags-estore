@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Account } from '../account';
 import { CartItem } from '../cart-item';
@@ -14,8 +15,11 @@ import { FlagService } from '../flag.service';
 export class ShoppingCartComponent implements OnInit {
   currentAccount?: Account;
   cart: CartItem[] = [];
+  errorText: String = "";
 
-  constructor(private accountService: AccountService, private flagService: FlagService) {
+  constructor(
+    private accountService: AccountService,
+    private flagService: FlagService) {
     this.currentAccount = accountService.getCurrentAccount();
   }
 
@@ -50,5 +54,52 @@ export class ShoppingCartComponent implements OnInit {
         this.getCart();
       });
     }
+  }
+
+  getTotalPrice(): number {
+    var total = 0;
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+
+      var flag = this.getFlagFromID(element);
+      if (flag) {
+        total += (flag.price * element.quantity);
+      }
+    }
+
+    return total;
+  }
+
+  checkout(): void {
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+      
+      var flag = this.getFlagFromID(element);
+      if (!flag) {
+        this.errorText = "One of your flags does not exist!";
+        return;
+      }
+      var newQuantity = flag.quantity - element.quantity;
+      console.error("New quantity of " + flag.name + ": " + newQuantity);
+      if (newQuantity < 0) {
+        this.errorText = "You are trying to buy " + element.quantity + " " 
+        + flag.name + " flags when there are only " + flag.quantity + " available.";
+        return;
+      }
+      flag.quantity = newQuantity;
+    }
+
+    for (let index = 0; index < this.cart.length; index++) {
+      const element = this.cart[index];
+      
+      this.flagService.updateFlag(this.getFlagFromID(element)!)
+        .subscribe(() => {
+          for (let index = 0; index < element.quantity; index++) {
+            this.delete(element.flagID);
+          }
+        });
+    }
+
+    this.errorText = "Successfully checked out flags!"
   }
 }

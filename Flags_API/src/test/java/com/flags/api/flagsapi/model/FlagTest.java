@@ -17,8 +17,9 @@ public class FlagTest {
         String name = "Hungary";
         int price = 10;
         int quantity = 1;
+        String[] tags = new String[] {"red", "green"};
 
-        Flag flag = new Flag(id, name, price, quantity);
+        Flag flag = new Flag(id, name, price, quantity, tags);
 
         assertNotNull(flag);
 
@@ -26,6 +27,7 @@ public class FlagTest {
         assertEquals(name,flag.getName());
         assertEquals(quantity, flag.getQuantity());
         assertEquals(price, flag.getPrice());
+        assertEquals(tags, flag.getTags());
     }
 
     /*
@@ -37,8 +39,9 @@ public class FlagTest {
         String name = "Hungary";
         int price = 10;
         int quantity = 1;
+        String[] tags = new String[] {"red", "green"};
 
-        Flag flag = new Flag(id, name, price, quantity);
+        Flag flag = new Flag(id, name, price, quantity, tags);
 
         String newName = "Poland";
 
@@ -56,9 +59,10 @@ public class FlagTest {
         String name = "Hungary";
         int price = 10;
         int quantity = 1;
+        String[] tags = new String[] {"red", "green"};
 
-        Flag flag = new Flag(id, name, price, quantity);
-        String tostring = String.format(Flag.STRING_FORMAT, id, name, price, quantity);
+        Flag flag = new Flag(id, name, price, quantity, tags);
+        String tostring = String.format(Flag.STRING_FORMAT, id, name, price, quantity, tags);
 
         assertEquals(tostring, flag.toString(), "toString incorrect");
     }

@@ -9,4 +9,10 @@
         </a>
       </li>
     </ul>
+
+    <label for="search-tag">Tag Search</label>
+
+    <li *ngFor="let flag of flags$ | async"></li>
+    <!-- <input type="checkbox" id="" (input)="color("blue")" /> -->
+    <a>Tags</a>
   </div>

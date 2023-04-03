@@ -17,12 +17,17 @@ import { FlagService } from '../flag.service';
 export class FlagSearchComponent implements OnInit {
   flags$!: Observable<Flag[]>;
   private searchTerms = new Subject<string>();
+  //searchTags: String[];
 
   constructor(private flagService: FlagService) {}
 
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
+  }
+
+  color(color: string): void {
+    //return flags with tag including "Green"
   }
 
   ngOnInit(): void {

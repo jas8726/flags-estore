@@ -5,7 +5,7 @@
   padding: 0;
 
   width: 20em; */
-  display:grid;
+  display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 42px 15px;
   margin: 0;
@@ -20,14 +20,13 @@ input {
 }
 
 .flagTile div {
-  background-color:bisque;
+  background-color: bisque;
   background-clip: border-box;
-  margin:10px;
+  margin: 10px;
   position: relative;
   width: 400px;
   cursor: pointer;
   display: inline;
-  position: relative;
   /*border: 5px outset red; */
   /*-webkit-box-sizing: border-box;
   box-sizing: border-box;*/
@@ -37,18 +36,18 @@ input {
   left: .1em;
 } */
 
-p#img{
-  background-color:bisque;
+p#img {
+  background-color: bisque;
   text-align: center;
   padding: 10px;
   height: 100px;
   margin: 0;
 }
 
-.flagTile.tileDetails div{
+.flagTile.tileDetails div {
   width: 100px;
   height: 100px;
-  margin:0;
+  margin: 0;
   padding-top: 5px;
   padding-bottom: 50px;
   background-color: cadetblue;
@@ -57,7 +56,7 @@ p#img{
 .tileDetails a {
   color: #333;
   text-decoration: none;
-  background-color:bisque;
+  background-color: bisque;
   /*margin: .5em;*/
   margin: 0;
   padding: .3em 0;
@@ -95,10 +94,10 @@ p#img{
 }
 
 .add-button {
- padding: .5rem 1.5rem;
- font-size: 1rem;
- margin-bottom: 2rem;
- align-self: flex-end;
+  padding: .5rem 1.5rem;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  align-self: flex-end;
 }
 
 .add-button:hover {
@@ -107,7 +106,7 @@ p#img{
 }
 
 button.add-to-cart {
-  position:absolute;
+  position: absolute;
   /*display: inline-flex;
   align-self: flex-end;
   padding-top: 20px;*/
@@ -116,8 +115,8 @@ button.add-to-cart {
   width: 30%;
   /*left: 300px;
   top: 15px;*/
-  background-color:aliceblue;
-  color:  #525252;
+  background-color: aliceblue;
+  color: #525252;
   padding: 0;
   /*font-size: 1.1rem;*/
   margin: 0;
@@ -131,56 +130,55 @@ button.add-to-cart:hover {
   color: white;
 }
 
-#tileMedia div{
-  background-color:#405061;
+#tileMedia div {
+  background-color: #405061;
 }
 
-.price{
-  background-color:darkolivegreen;
+.price {
+  background-color: darkolivegreen;
   text-align: center;
   padding: 10px;
   height: 40px;
-  margin:0;
+  margin: 0;
 }
 
-ul{
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-li{
+li {
   text-align: center;
 }
 
-div#addcart{
+div#addcart {
   list-style: none;
   margin: 0;
   padding: 0;
   padding-top: 10px;
-  display:inline-flex;
+  display: inline-flex;
   width: 100%;
   height: max-content;
   flex-direction: row;
 }
 
-p.quant{
+p.quant {
   align-self: flex-start;
-  background-color:darkseagreen;
+  background-color: darkseagreen;
   text-align: center;
-  width:50%;
+  width: 50%;
   padding: 0;
   height: 40px;
-  margin:0;
+  margin: 0;
   padding-top: 20px;
 }
 
-li#goright{
+li#goright {
   width: 50%;
   align-self: flex-end;
   text-align: right;
   position: relative;
   direction: rtl;
-  
-}
 
+}

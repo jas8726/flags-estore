@@ -5,7 +5,8 @@ Flags_API/target/
 !**/src/test/**/target/
 
 *.lst
-
+*.scannerwork/
+.sonar_lock
 
 ### STS ###
 .apt_generated

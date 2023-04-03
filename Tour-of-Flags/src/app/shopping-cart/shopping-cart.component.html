@@ -5,15 +5,21 @@
 </p>
 <ul *ngIf="cart" class="cart">
     <li *ngFor="let item of cart">
-        <span class="purchase">
+        <span *ngIf="getFlagFromID(item)" class="purchase">
             <button type="button" class="modify" title="delete purchase"
             (click)="delete(item.flagID)">-</button>
             <span class="badge">{{item.quantity}}</span>
             <button type="button" class="modify" title="add purchase"
             (click)="add(item.flagID)">+</button>
-            {{getFlagFromID(item)?.name}}
-            <!-- If we could do the below line instead of the above line, we could show the names.
-            {{getFlagFromID(purchase.key)}} -->
+            {{getFlagFromID(item)!.name}}
+            -
+            ${{getFlagFromID(item)!.price}}
         </span>
     </li>
 </ul>
+
+<div *ngIf="cart.length > 0">
+    <p>Total price: ${{getTotalPrice()}}</p>
+    <button type="button" (click)="checkout()">checkout</button>
+    <p>{{errorText}}</p>
+</div>

@@ -3,4 +3,5 @@ export interface Flag {
     name: string;
     price: number;
     quantity: number;
+    tags: string[];
   }

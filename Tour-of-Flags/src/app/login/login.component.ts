@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { AccountService } from '../account.service';
 
@@ -14,13 +14,13 @@ export class LoginComponent {
 
   constructor(
     private accountService: AccountService,
-    private location: Location
+    private router: Router
   ) {}
 
   login() {
     this.accountService.loginAccount(this.username, this.password).subscribe((account) => {
       if (account) {
-        this.location.back();
+        this.router.navigate(['/dashboard']);
       }
     });
   }

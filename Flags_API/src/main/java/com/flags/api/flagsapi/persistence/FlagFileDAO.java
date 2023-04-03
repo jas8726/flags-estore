@@ -178,7 +178,7 @@ public class FlagFileDAO implements FlagDAO {
         synchronized(flags) {
             // We create a new flag object because the id field is immutable
             // and we need to assign the next unique id
-            Flag newFlag = new Flag(nextId(),flag.getName(),flag.getPrice(),flag.getQuantity());
+            Flag newFlag = new Flag(nextId(),flag.getName(),flag.getPrice(),flag.getQuantity(),flag.getTags());
             flags.put(newFlag.getId(),newFlag);
             save(); // may throw an IOException
             return newFlag;

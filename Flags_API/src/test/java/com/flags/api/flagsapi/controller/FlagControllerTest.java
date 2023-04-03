@@ -37,7 +37,7 @@ public class FlagControllerTest {
     @Test 
     public void testGetFlagFound() throws IOException {  
         
-        Flag flag = new Flag(99,"Hungary", 10, 1);
+        Flag flag = new Flag(99,"Hungary", 10, 1, new String[0]);
         when(mockFlagDAO.getFlag(flag.getId())).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.getFlag(flag.getId());
 
@@ -77,7 +77,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlag() throws IOException {  
        
-        Flag flag = new Flag(98,"Mexico", 10, 3);
+        Flag flag = new Flag(98,"Mexico", 10, 3,new String[0]);
         when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[0]);
         when(mockFlagDAO.createFlag(flag)).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
@@ -92,7 +92,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlagFail() throws IOException {  
 
-        Flag flag = new Flag(98,"Mexico", 10, 3); 
+        Flag flag = new Flag(98,"Mexico", 10, 3, new String[0]); 
         when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[1]);
         when(mockFlagDAO.createFlag(flag)).thenReturn(null);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
@@ -106,7 +106,7 @@ public class FlagControllerTest {
     @Test
     public void testCreateFlagHandle() throws IOException {  
     
-        Flag flag = new Flag(97,"UK", 15, 1);
+        Flag flag = new Flag(97,"UK", 15, 1, new String[0]);
         when(mockFlagDAO.findFlags(flag.getName())).thenReturn(new Flag[0]);
         doThrow(new IOException()).when(mockFlagDAO).createFlag(flag);
         ResponseEntity<Flag> response = flagController.createFlag(flag);
@@ -120,7 +120,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlag() throws IOException { 
       
-        Flag flag = new Flag(97,"UK", 15, 1);
+        Flag flag = new Flag(97,"UK", 15, 1, new String[0]);
         when(mockFlagDAO.updateFlag(flag)).thenReturn(flag);
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
         flag.setName("Germany");
@@ -137,7 +137,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlagFailed() throws IOException { 
        
-        Flag flag = new Flag(97,"UK", 15, 1);
+        Flag flag = new Flag(97,"UK", 15, 1, new String[0]);
         when(mockFlagDAO.updateFlag(flag)).thenReturn(null);
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
@@ -150,7 +150,7 @@ public class FlagControllerTest {
     @Test
     public void testUpdateFlagHandle() throws IOException { 
    
-        Flag flag = new Flag(96,"Germany", 50, 2);
+        Flag flag = new Flag(96,"Germany", 50, 2, new String[0]);
         doThrow(new IOException()).when(mockFlagDAO).updateFlag(flag);
         ResponseEntity<Flag> response = flagController.updateFlag(flag);
 
@@ -164,8 +164,8 @@ public class FlagControllerTest {
     public void testGetFlags() throws IOException { 
 
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Hungary", 10, 1);
-        flags[1] = new Flag(100,"Cambodia", 30, 10);
+        flags[0] = new Flag(99,"Hungary", 10, 1, new String[0]);
+        flags[1] = new Flag(100,"Cambodia", 30, 10, new String[0]);
         when(mockFlagDAO.getFlags()).thenReturn(flags);
         ResponseEntity<Flag[]> response = flagController.getFlags();
 
@@ -193,8 +193,8 @@ public class FlagControllerTest {
     
         String search = "r";
         Flag[] flags = new Flag[2];
-        flags[0] = new Flag(99,"Hungary", 10, 1);
-        flags[1] = new Flag(100,"Germany", 30, 10);
+        flags[0] = new Flag(99,"Hungary", 10, 1, new String[0]);
+        flags[1] = new Flag(100,"Germany", 30, 10, new String[0]);
 
         when(mockFlagDAO.findFlags(search)).thenReturn(flags);
         ResponseEntity<Flag[]> response = flagController.searchFlags(search);

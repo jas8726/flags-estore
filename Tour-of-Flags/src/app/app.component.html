@@ -23,14 +23,14 @@
   </div>
 </ul>
 <div id="message" *ngIf="accountService.getCurrentAccount()">
-  <marquee  direction="right">
+  <p>
     Welcome, {{accountService.getCurrentAccount()!.username}}!
     <strong *ngIf="accountService.isAdmin()"> (Administrator)</strong>
-  </marquee>
+  <p>
 </div>
 <div id="message" *ngIf="!accountService.getCurrentAccount()">
-  <marquee direction="right">Welcome to flags!</marquee>
+  <p>Welcome to flags!</p>
 </div>
 </nav>
 <router-outlet></router-outlet>
-<app-messages></app-messages>
+<!-- <app-messages></app-messages> -->

@@ -31,6 +31,22 @@ export class FlagDetailComponent implements OnInit {
       .subscribe(flag => this.flag = flag);
   }
 
+  addTag(tagName: string): void {
+    if (this.flag) {
+      tagName = tagName.trim();
+      if (!tagName) { return; }
+      this.flag.tags.push(tagName);
+    }
+  }
+
+  deleteTag(tagName: string): void {
+    if (this.flag) {
+      tagName = tagName.trim();
+      if (!tagName || !this.flag.tags.includes(tagName)) { return; }
+      this.flag.tags = this.flag.tags.filter(i => i !== tagName);
+    }
+  }
+
   goBack(): void {
     this.location.back();
   }

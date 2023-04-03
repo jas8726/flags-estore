@@ -12,12 +12,13 @@ public class Flag {
     private static final Logger LOG = Logger.getLogger(Flag.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Flag [id=%d, name=%s, price=%d, quantity=%d]";
+    static final String STRING_FORMAT = "Flag [id=%d, name=%s, price=%d, quantity=%d, tags=%s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("price") private int price;
     @JsonProperty("quantity") private int quantity;
+    @JsonProperty("tags") private String[] tags;
 
     /**
      * Create a flag with the given id and name
@@ -29,11 +30,12 @@ public class Flag {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("price") int price, @JsonProperty("quantity") int quantity) {
+    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("price") int price, @JsonProperty("quantity") int quantity, @JsonProperty("tags") String[] tags) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.tags = tags;
     }
 
     /**
@@ -67,10 +69,16 @@ public class Flag {
     public String getName() {return name;}
 
     /**
+     * Retrieves the tags of the flag
+     * @return A flag's tags, as a string array
+     */
+    public String[] getTags() {return tags;}
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT,id,name,price,quantity);
+        return String.format(STRING_FORMAT,id,name,price,quantity,tags);
     }
 }

@@ -10,6 +10,7 @@ import { AccountService } from '../account.service';
   templateUrl: './flags.component.html',
   styleUrls: ['./flags.component.css']
 })
+
 export class FlagsComponent implements OnInit {
   flags: Flag[] = [];
 

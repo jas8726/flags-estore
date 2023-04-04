@@ -7,6 +7,8 @@ import { FlagDetailComponent } from './flag-detail/flag-detail.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CustomflagComponent } from './customflag/customflag.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'flags', component: FlagsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'shoppingCart', component: ShoppingCartComponent }
+  { path: 'shoppingCart', component: ShoppingCartComponent },
+  { path: 'custom', component: CustomflagComponent}
 ];
 
 @NgModule({

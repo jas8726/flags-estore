@@ -47,6 +47,17 @@ export class FlagDetailComponent implements OnInit {
     }
   }
 
+  hasTag(tagName: string): boolean {
+    if (this.flag) {
+      for ( let i = 0; i < this.flag.tags.length; i++ ) {
+        if (this.flag.tags[1] === tagName) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   goBack(): void {
     this.location.back();
   }

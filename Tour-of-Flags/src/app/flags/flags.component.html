@@ -4,9 +4,12 @@
 <li *ngFor="let flag of flags">
 <!-- This lists all the flags -->
 <p>{{flag.tags}}</p>
+
+<div *ngIf="flag.tags">
+  <!-- fix this -->
+</div>
 </li>
-<!-- <div *ngIf="flag.hasTag("Green")">
-</div> -->
+
 <!-- *ngIf=(flag.tags)
 loop and check flags if they have the checked value
 -->

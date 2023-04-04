@@ -1,11 +1,46 @@
 <div *ngIf="flag">
   <h2>{{flag.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{flag.id}}</div>
   <div>
-    <label for="flag-name">Flag name: </label>
-    <input id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name"/>
+    <span>id: </span>{{flag.id}}
   </div>
-  <button type="button" (click)="goBack()">go back</button>
+
+  <br>
+
+  <div *ngIf="!isAdmin()">
+    <span>price: $</span>{{flag.price}}
+    <br>
+    <span>quantity: </span>{{flag.quantity}}
+  </div>
+  <div *ngIf="isAdmin()">
+    <label for="flag-name">Flag name: </label>
+    <input type="text" id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name"/>
+    <br>
+    <label for="edit-price">Price: </label>
+    <input type="number" id="flag-price" [(ngModel)]="flag.price" placeholder="Flag price" />
+    <br>
+    <label for="edit-quantity">Quantity: </label>
+    <input type="number" id="flag-quantity"[(ngModel)]="flag.quantity" placeholder="Flag quantity" />
+  </div>
+
+  <br>
   
+  <div *ngIf="flag.tags.length > 0">
+    tags:
+    <ul>
+      <li *ngFor="let tag of flag.tags">{{tag}}
+        <button *ngIf="isAdmin()" type="button" title="delete tag"
+              (click)="deleteTag(tag)">X</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="isAdmin()">
+    <input id="new-tag" #tagName />
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button type="button" class="add-tag" (click)="addTag(tagName.value); tagName.value=''">
+      Add tag
+    </button>
+  </div>
+
+  <button type="button" (click)="goBack()">go back</button>
   <button *ngIf="isAdmin()" type="button" (click)="save()">save</button>
 </div>

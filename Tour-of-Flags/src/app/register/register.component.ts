@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
-import { Account } from '../account'
 import { AccountService } from '../account.service';
 
 @Component({
@@ -15,14 +14,14 @@ export class RegisterComponent {
 
   constructor(
     private accountService: AccountService,
-    private location: Location
+    private router: Router
   ) {}
 
   register() {
     const newAccount = {username: this.username, password: this.password}
     this.accountService.addAccount(newAccount).subscribe((account) => {
       if (account) {
-        this.location.back();
+        this.router.navigate(['/dashboard']);
       }
     });
   }

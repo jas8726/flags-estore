@@ -1,5 +1,25 @@
 <h2>My Flags</h2>
 
+
+<li *ngFor="let flag of flags">
+<!-- This lists all the flags -->
+<p>{{flag.tags}}</p>
+</li>
+<!-- <div *ngIf="flag.hasTag("Green")">
+</div> -->
+<!-- *ngIf=(flag.tags)
+loop and check flags if they have the checked value
+-->
+
+  <input type="checkbox" id="search-tag-green" value="Green" />
+  <input type="checkbox" id="search-tag-blue" value="Blue" />
+  <input type="checkbox" id="search-tag-black" value="Black" />
+  <input type="checkbox" id="search-tag-yellow" value="Yellow" />
+  <input type="checkbox" id="search-tag-orange" value="Orange" />
+
+  <label for="search-tag-green"> I have a bike</label><br>
+  <a>Tags</a>
+
 <div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>
   <input id="new-flag" #flagName />
@@ -7,8 +27,6 @@
   <button type="button" class="add-button" (click)="add(flagName.value); flagName.value=''">
     Add flag
   </button>
-
-  <!-- need to add inputs for price and quantity -->
 
 </div>
 
@@ -23,7 +41,6 @@
       <ul>
         <li><a routerLink="/detail/{{flag.id}}">{{flag.name}}</a>
         <!--<span class="badge">{{flag.id}}</span> -->
-        <!-- Need to add different things for Price and Quantity -->
         <li><p class="price">Price = ${{flag.price}}, ID={{flag.id}}</p></li>   
         <li>
           <div *ngIf="!accountService.isAdmin()" id="addcart">
@@ -35,8 +52,6 @@
             <p class="quant">AdminQuantity = {{flag.quantity}}</p>
             <button type="button" class="add-to-cart" title="delete flag"
               (click)="delete(flag)">X</button>
-            <!--<button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
-              (click)="addToCart(flag)">+</button> -->
           </div>
         </li>
       </ul>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { CustomFlag } from '../customflag';
-type x= BigInt;
+import { CustomFlagService} from '../customflag.service';
+
 
 @Component({
   selector: 'app-customflag',
@@ -11,9 +11,21 @@ type x= BigInt;
 
 export class CustomflagComponent {
   
-  constructor(){}
+  constructor(
+    private customFlagService: CustomFlagService ){}
   
-  setRows(BigInt: x): void {
-    this.CustomFlag.setHorStripes(x);
+  getRows(): void {
+    this.customFlagService.getHStripe();
+  }
+
+  setRows(): void{
+    //var x = (document.getElementById("a") as HTMLElement).value;
+    var x = document.getElementById("a")?.nodeValue;
+    if(x == null){ 
+      //(x as unknown) as number;
+      let x = 0;
+    }
+    this.customFlagService.setHStripe((x as unknown) as number);
+    //alert(x);
   }
 }

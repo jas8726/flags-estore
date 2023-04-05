@@ -11,11 +11,20 @@ input type COLOR has a whole colorpicker
 
 attributes: disabled (useful for ifadmin)
 
-or datalist it looks nicer
         -->
 
-<input id="message" type="text" name="message" value="2" />
-<output id="thing" name="x" for="message"></output>
+<form action="{setRows}">
+    <select id="a">
+        <option value=1>1</option>
+        <option value=2>2</option>
+    </select>
+    <!--<output oninput="{setRows}"></output>-->
+</form>
+<input type="submit">
+<p>the thing: {{getRows()}}</p>
+
+
+<!--<output id="thing" name="x" for="message"></output> -->
 
 <P>PICTURE</P>
 <p>PRICE AND Quantity</p>

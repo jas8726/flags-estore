@@ -12,6 +12,7 @@ import { AccountService } from '../account.service';
 })
 export class FlagsComponent implements OnInit {
   flags: Flag[] = [];
+  testTags: string[] = [];
 
   constructor(
     private flagService: FlagService,
@@ -50,5 +51,41 @@ export class FlagsComponent implements OnInit {
 
   addToCart(flag: Flag): void {
     this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
+  }
+
+  tagFilter(flagTags: string[]): Flag[] {
+    var flagList: Flag[] = [];
+    if( !this.flags ) {
+      return flagList;
+    }
+
+    if( flagTags.length == 0 ) {   //if no checkboxes are selected
+      return this.flags;
+    }
+    
+    for( let i = 0; i < this.flags.length; i++ ) {
+      for( let j = 0; j < flagTags.length; j++ ) {
+        if( this.flags[i].tags.includes( flagTags[j] ) ) {
+          flagList.push( this.flags[i] );
+          break;
+        }
+      }
+    }
+    return flagList;
+  }
+
+  checkBox(): string[] {
+    var tags: string[] = [];
+
+    const checkbox = document.getElementById(
+      'search-tag-green',
+    ) as HTMLInputElement | null;
+    
+    if (checkbox?.checked) {
+      console.log('Checkbox is checked');
+      tags.push( "green" );
+    }
+    
+    return this.testTags;
   }
 }

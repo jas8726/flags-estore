@@ -3,25 +3,20 @@
 
 <li *ngFor="let flag of flags">
 <!-- This lists all the flags -->
-<p>{{flag.tags}}</p>
+  <p>{{flag.tags}}</p>
 
-<div *ngIf="flag.tags">
-  <!-- fix this -->
-</div>
+  
+  <input type="checkbox" id="search-tag-green" value="green" [checked]="" />
+  <input type="checkbox" id="search-tag-blue" value="blue" />
+  <input type="checkbox" id="search-tag-black" value="black" />
+  <input type="checkbox" id="search-tag-yellow" value="yellow" />
+  <input type="checkbox" id="search-tag-orange" value="orange" />
 </li>
 
 <!-- *ngIf=(flag.tags)
 loop and check flags if they have the checked value
 -->
 
-  <input type="checkbox" id="search-tag-green" value="Green" />
-  <input type="checkbox" id="search-tag-blue" value="Blue" />
-  <input type="checkbox" id="search-tag-black" value="Black" />
-  <input type="checkbox" id="search-tag-yellow" value="Yellow" />
-  <input type="checkbox" id="search-tag-orange" value="Orange" />
-
-  <label for="search-tag-green"> I have a bike</label><br>
-  <a>Tags</a>
 
 <div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>
@@ -35,7 +30,7 @@ loop and check flags if they have the checked value
 
 
 <div class="flags">
-  <div class="flagTile"  *ngFor="let flag of flags">
+  <div class="flagTile"  *ngFor="let flag of tagFilter( checkBox() )">
     <div id="tileMedia">
       <p id="img">IMAGE</p>
       <!--<img alt="flagimage" src="" > -->

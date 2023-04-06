@@ -1,15 +1,14 @@
 <h2>My Flags</h2>
 
-
-<li *ngFor="let checkbox of checkboxesDataList">
-<!-- This lists all the flags -->
-
-  <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" />
-  <label for=checkbox.label>{{checkbox.label}}</label> 
-
-  <!-- NEED TO STYLE IN CSS -->
-
+<p>Select a Tag</p>
+<li *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
+  <label for=checkbox.label class="checkboxLabel">{{checkbox.label}}</label>
 </li>
+<br>
+<li *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
+  <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" class="checkboxInput" name="checkbox.label" />
+</li>
+<br>
 
 <div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>

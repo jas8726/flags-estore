@@ -175,12 +175,25 @@ p.quant{
   padding-top: 20px;
 }
 
-li#goright{
-  width: 50%;
-  align-self: flex-end;
-  text-align: right;
-  position: relative;
-  direction: rtl;
-  
+li.checkboxList{
+  list-style-type: none;
+  float: left;
+  vertical-align: middle;
 }
 
+.checkboxLabel{
+  display: block;
+  padding-left: 105px;
+  text-indent: 0;
+
+}
+
+.checkboxInput{
+  width: 155px;
+  height: 15px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: 0px;
+  left: 30px;
+}

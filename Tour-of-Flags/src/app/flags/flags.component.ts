@@ -12,11 +12,12 @@ import { AccountService } from '../account.service';
 })
 export class FlagsComponent implements OnInit {
   flags: Flag[] = [];
-  testTags: string[] = [];
+  tagFlags: string[] = [];
+  public checkTester: boolean = false;
 
   constructor(
     private flagService: FlagService,
-    public accountService: AccountService) { }
+    public accountService: AccountService) {}
 
   ngOnInit(): void {
     this.getFlags();
@@ -74,18 +75,61 @@ export class FlagsComponent implements OnInit {
     return flagList;
   }
 
-  checkBox(): string[] {
-    var tags: string[] = [];
+  checkBox( color: string ): string[] {
+    
+    var checkbox = document.getElementById( color ) as HTMLInputElement | null;
+    
+    console.log( document.getElementById( color ) );
+    console.log( checkbox );
 
-    const checkbox = document.getElementById(
-      'search-tag-green',
-    ) as HTMLInputElement | null;
-    
-    if (checkbox?.checked) {
-      console.log('Checkbox is checked');
-      tags.push( "green" );
+    if ( checkbox?.checked) {
+      console.log('Checkbox is checked', color);
+      this.tagFlags.push( color );
     }
-    
-    return this.testTags;
+    else{
+      console.log("pppppppppppppppppppppppppppppppppppp")
+    }
+    console.log( this.tagFlags );
+    return this.tagFlags;
   }
+
+
+  checkboxesDataList = [
+    {
+      id: 'search-tag-green',
+      label: 'Green',
+      tag: 'green',
+      isChecked: false
+    },
+    {
+      id: 'search-tag-blue',
+      label: 'Blue',
+      tag: 'blue',
+      isChecked: false
+    },
+    {
+      id: 'search-tag-black',
+      label: 'Black',
+      tag: 'black',
+      isChecked: false
+    },
+    {
+      id: 'search-tag-yellow',
+      label: 'Yellow',
+      tag: 'yellow',
+      isChecked: false
+    },
+    {
+      id: 'search-tag-orange',
+      label: 'Orange',
+      tag: 'orange',
+      isChecked: false
+    },
+    {
+      id: 'search-tag-red',
+      label: 'Red',
+      tag: 'red',
+      isChecked: false
+    }
+  ]
 }

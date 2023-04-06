@@ -1,17 +1,35 @@
 <h2>My Flags</h2>
 
 
-<li *ngFor="let flag of flags">
+<li *ngFor="let checkbox of checkboxesDataList">
 <!-- This lists all the flags -->
-  <p>{{flag.tags}}</p>
 
-  
-  <input type="checkbox" id="search-tag-green" value="green" [checked]="" />
-  <input type="checkbox" id="search-tag-blue" value="blue" />
-  <input type="checkbox" id="search-tag-black" value="black" />
-  <input type="checkbox" id="search-tag-yellow" value="yellow" />
-  <input type="checkbox" id="search-tag-orange" value="orange" />
+  <input type="checkbox" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" />
+  <label for=checkbox.label>{{checkbox.label}}</label> 
+
+
+  <input type="checkbox" [checked]="checkTester" (change)="checkBox( checkbox.id )" />
+  <label for=checkbox.label>{{checkbox.label}}</label> 
+  <!-- NEED TO STYLE IN CSS -->
+
 </li>
+
+<!-- 
+  <input type="checkbox" id="search-tag-green" value="green" [checked]="checkBox( 'green' )" title="green" />
+  <label for="green">GREEN</label>
+
+  <input type="checkbox" id="search-tag-blue" value="blue" [checked]="checkBox( 'blue' )" title="blue" />
+  <label for="blue">BLUE</label>
+
+  <input type="checkbox" id="search-tag-black" value="black" [checked]="checkBox( 'black' )" title="black" />
+  <label for="black">BLACK</label>
+
+  <input type="checkbox" id="search-tag-yellow" value="yellow" [checked]="checkBox( 'yellow' )" title="yellow" />
+  <label for="yellow">YELLOW</label>
+
+  <input type="checkbox" id="search-tag-orange" value="orange" [checked]="checkBox( 'orange' )" title="orange" />
+  <label for="orange">ORANGE</label> -->
+
 
 <!-- *ngIf=(flag.tags)
 loop and check flags if they have the checked value
@@ -30,7 +48,7 @@ loop and check flags if they have the checked value
 
 
 <div class="flags">
-  <div class="flagTile"  *ngFor="let flag of tagFilter( checkBox() )">
+  <div class="flagTile"  *ngFor="let flag of tagFilter( tagFlags )">
     <div id="tileMedia">
       <p id="img">IMAGE</p>
       <!--<img alt="flagimage" src="" > -->

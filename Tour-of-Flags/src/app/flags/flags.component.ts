@@ -73,7 +73,6 @@ export class FlagsComponent implements OnInit {
           addFlagList.push( this.flags[i] );
           if( addFlagList.length == flagTags.length ) {
           flagList.push( this.flags[i] );
-          console.log(flagList)
           break;
           }
         }
@@ -95,7 +94,6 @@ export class FlagsComponent implements OnInit {
     }
     return this.tagFlags;
   }
-
 
   checkboxesDataList = [
     {

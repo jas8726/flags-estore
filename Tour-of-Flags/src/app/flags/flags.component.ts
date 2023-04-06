@@ -39,7 +39,9 @@ export class FlagsComponent implements OnInit {
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.flagService.addFlag({ name } as Flag)
+    var newFlag: Flag = { name } as Flag;
+    newFlag.tags = [];
+    this.flagService.addFlag(newFlag)
       .subscribe(flag => {
         this.flags.push(flag);
       });

@@ -54,6 +54,9 @@ export class FlagsComponent implements OnInit {
     this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
   }
 
+  /**
+   * Looks at tag[] input and returns a FLag[] with all the flags that have the tag
+   */
   tagFilter(flagTags: string[]): Flag[] {
     var flagList: Flag[] = [];
     if( !this.flags ) {
@@ -62,11 +65,17 @@ export class FlagsComponent implements OnInit {
     if( flagTags.length == 0 ) {   //if no checkboxes are selected
       return this.flags;
     }
+    
     for( let i = 0; i < this.flags.length; i++ ) {
+      var addFlagList: Flag[] = [];
       for( let j = 0; j < flagTags.length; j++ ) {
         if( this.flags[i].tags.includes( flagTags[j] ) ) {
+          addFlagList.push( this.flags[i] );
+          if( addFlagList.length == flagTags.length ) {
           flagList.push( this.flags[i] );
+          console.log(flagList)
           break;
+          }
         }
       }
     }
@@ -74,9 +83,7 @@ export class FlagsComponent implements OnInit {
   }
 
   checkBox( color: string ): string[] {
-    
     var checkbox = document.getElementById( color ) as HTMLInputElement | null;
-
     if ( checkbox?.checked ) {
       this.tagFlags.push( color );
     }
@@ -125,6 +132,12 @@ export class FlagsComponent implements OnInit {
       id: 'red',
       label: 'Red',
       tag: 'red',
+      isChecked: false
+    },
+    {
+      id: 'white',
+      label: 'White',
+      tag: 'white',
       isChecked: false
     }
   ]

@@ -17,7 +17,7 @@ export class FlagsComponent implements OnInit {
 
   constructor(
     private flagService: FlagService,
-    public accountService: AccountService) {}
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.getFlags();
@@ -25,7 +25,7 @@ export class FlagsComponent implements OnInit {
 
   getFlags(): void {
     this.flagService.getFlags()
-    .subscribe(flags => this.flags = flags);
+      .subscribe(flags => this.flags = flags);
   }
 
   isAdmin(): boolean {
@@ -59,37 +59,40 @@ export class FlagsComponent implements OnInit {
    */
   tagFilter(flagTags: string[]): Flag[] {
     var flagList: Flag[] = [];
-    if( !this.flags ) {
+
+    if (!this.flags) {
       return flagList;
     }
-    if( flagTags.length == 0 ) {   //if no checkboxes are selected
+    if (flagTags.length == 0) {   //if no checkboxes are selected
       return this.flags;
     }
-    
-    for( let i = 0; i < this.flags.length; i++ ) {
-      var addFlagList: Flag[] = [];
-      for( let j = 0; j < flagTags.length; j++ ) {
-        if( this.flags[i].tags.includes( flagTags[j] ) ) {
-          addFlagList.push( this.flags[i] );
-          if( addFlagList.length == flagTags.length ) {
-          flagList.push( this.flags[i] );
-          break;
-          }
+
+    for (let i = 0; i < this.flags.length; i++) {
+      const currentFlag = this.flags[i];
+      for (let j = 0; j < flagTags.length; j++) {
+        const currentTag = flagTags[j];
+        
+        // If one of the tags does not match, skip to the next flag.
+        if (!currentFlag.tags.includes(currentTag)) break;
+
+        if (j == flagTags.length - 1) {
+          flagList.push(currentFlag);
         }
       }
     }
+
     return flagList;
   }
 
-  checkBox( color: string ): string[] {
-    var checkbox = document.getElementById( color ) as HTMLInputElement | null;
-    if ( checkbox?.checked ) {
-      this.tagFlags.push( color );
+  checkBox(color: string): string[] {
+    var checkbox = document.getElementById(color) as HTMLInputElement | null;
+    if (checkbox?.checked) {
+      this.tagFlags.push(color);
     }
-    else{   //if the tag is unchecked
-      if( this.tagFlags.includes( color ) ) {
-        var pos: number = this.tagFlags.indexOf( color );
-        this.tagFlags.splice( pos, 1 );
+    else {   //if the tag is unchecked
+      if (this.tagFlags.includes(color)) {
+        var pos: number = this.tagFlags.indexOf(color);
+        this.tagFlags.splice(pos, 1);
       }
     }
     return this.tagFlags;

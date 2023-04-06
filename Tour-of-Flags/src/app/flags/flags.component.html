@@ -4,37 +4,12 @@
 <li *ngFor="let checkbox of checkboxesDataList">
 <!-- This lists all the flags -->
 
-  <input type="checkbox" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" />
+  <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" />
   <label for=checkbox.label>{{checkbox.label}}</label> 
 
-
-  <input type="checkbox" [checked]="checkTester" (change)="checkBox( checkbox.id )" />
-  <label for=checkbox.label>{{checkbox.label}}</label> 
   <!-- NEED TO STYLE IN CSS -->
 
 </li>
-
-<!-- 
-  <input type="checkbox" id="search-tag-green" value="green" [checked]="checkBox( 'green' )" title="green" />
-  <label for="green">GREEN</label>
-
-  <input type="checkbox" id="search-tag-blue" value="blue" [checked]="checkBox( 'blue' )" title="blue" />
-  <label for="blue">BLUE</label>
-
-  <input type="checkbox" id="search-tag-black" value="black" [checked]="checkBox( 'black' )" title="black" />
-  <label for="black">BLACK</label>
-
-  <input type="checkbox" id="search-tag-yellow" value="yellow" [checked]="checkBox( 'yellow' )" title="yellow" />
-  <label for="yellow">YELLOW</label>
-
-  <input type="checkbox" id="search-tag-orange" value="orange" [checked]="checkBox( 'orange' )" title="orange" />
-  <label for="orange">ORANGE</label> -->
-
-
-<!-- *ngIf=(flag.tags)
-loop and check flags if they have the checked value
--->
-
 
 <div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>

@@ -59,11 +59,9 @@ export class FlagsComponent implements OnInit {
     if( !this.flags ) {
       return flagList;
     }
-
     if( flagTags.length == 0 ) {   //if no checkboxes are selected
       return this.flags;
     }
-    
     for( let i = 0; i < this.flags.length; i++ ) {
       for( let j = 0; j < flagTags.length; j++ ) {
         if( this.flags[i].tags.includes( flagTags[j] ) ) {
@@ -78,55 +76,53 @@ export class FlagsComponent implements OnInit {
   checkBox( color: string ): string[] {
     
     var checkbox = document.getElementById( color ) as HTMLInputElement | null;
-    
-    console.log( document.getElementById( color ) );
-    console.log( checkbox );
 
-    if ( checkbox?.checked) {
-      console.log('Checkbox is checked', color);
+    if ( checkbox?.checked ) {
       this.tagFlags.push( color );
     }
-    else{
-      console.log("pppppppppppppppppppppppppppppppppppp")
+    else{   //if the tag is unchecked
+      if( this.tagFlags.includes( color ) ) {
+        var pos: number = this.tagFlags.indexOf( color );
+        this.tagFlags.splice( pos, 1 );
+      }
     }
-    console.log( this.tagFlags );
     return this.tagFlags;
   }
 
 
   checkboxesDataList = [
     {
-      id: 'search-tag-green',
+      id: 'green',
       label: 'Green',
       tag: 'green',
       isChecked: false
     },
     {
-      id: 'search-tag-blue',
+      id: 'blue',
       label: 'Blue',
       tag: 'blue',
       isChecked: false
     },
     {
-      id: 'search-tag-black',
+      id: 'black',
       label: 'Black',
       tag: 'black',
       isChecked: false
     },
     {
-      id: 'search-tag-yellow',
+      id: 'yellow',
       label: 'Yellow',
       tag: 'yellow',
       isChecked: false
     },
     {
-      id: 'search-tag-orange',
+      id: 'orange',
       label: 'Orange',
       tag: 'orange',
       isChecked: false
     },
     {
-      id: 'search-tag-red',
+      id: 'red',
       label: 'Red',
       tag: 'red',
       isChecked: false

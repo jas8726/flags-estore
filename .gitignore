@@ -4,6 +4,7 @@ Flags_API/target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+Flags_API/.scannerwork
 *.lst
 *.scannerwork/
 .sonar_lock

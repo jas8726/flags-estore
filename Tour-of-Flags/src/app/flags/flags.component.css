@@ -174,24 +174,18 @@ p.quant {
   padding-top: 20px;
 }
 
-li.checkboxList {
-  list-style-type: none;
-  float: left;
-  vertical-align: middle;
+.filter-wrapper {
+  display: flex;
+  justify-content: space-around;
 }
 
-.checkboxLabel {
-  display: block;
-  padding-left: 105px;
-  text-indent: 0;
+.checkboxLabel{
+  display: inline;
+  margin: 0 0.5em;
 }
 
-.checkboxInput {
-  width: 155px;
-  height: 15px;
-  padding: 0;
+.checkboxInput{
+  display: inline;
+  width: 15px;
   margin: 0;
-  position: relative;
-  top: 0px;
-  left: 30px;
 }

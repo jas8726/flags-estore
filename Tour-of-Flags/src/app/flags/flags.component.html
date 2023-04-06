@@ -1,14 +1,12 @@
 <h2>My Flags</h2>
 
 <p>Select a Tag</p>
-<li *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
-  <label for=checkbox.label class="checkboxLabel">{{checkbox.label}}</label>
-</li>
-<br>
-<li *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
-  <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" class="checkboxInput" name="checkbox.label" />
-</li>
-<br>
+<div class="filter-wrapper">
+  <div *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
+    <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" class="checkboxInput" name="checkbox.label" />
+    <label for=checkbox.label class="checkboxLabel">{{checkbox.label}}</label>
+  </div>
+</div>
 
 <div *ngIf="isAdmin()">
   <label for="new-flag">Flag name: </label>

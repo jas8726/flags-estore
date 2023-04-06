@@ -3,7 +3,8 @@
 <p>Select a Tag</p>
 <div class="filter-wrapper">
   <div *ngFor="let checkbox of checkboxesDataList" class="checkboxList">
-    <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )" class="checkboxInput" name="checkbox.label" />
+    <input type="checkbox" id="{{checkbox.id}}" [(ngModel)]="checkbox.isChecked" (change)="checkBox( checkbox.id )"
+      class="checkboxInput" name="checkbox.label" />
     <label for=checkbox.label class="checkboxLabel">{{checkbox.label}}</label>
   </div>
 </div>
@@ -20,7 +21,7 @@
 
 
 <div class="flags">
-  <div class="flagTile"  *ngFor="let flag of tagFilter( tagFlags )">
+  <div class="flagTile" *ngFor="let flag of tagFilter( tagFlags )">
     <div id="tileMedia">
       <p id="img">IMAGE</p>
       <!--<img alt="flagimage" src="" > -->
@@ -28,8 +29,10 @@
     <div class="tileDetails">
       <ul>
         <li><a routerLink="/detail/{{flag.id}}">{{flag.name}}</a>
-        <!--<span class="badge">{{flag.id}}</span> -->
-        <li><p class="price">Price = ${{flag.price}}, ID={{flag.id}}</p></li>   
+          <!--<span class="badge">{{flag.id}}</span> -->
+        <li>
+          <p class="price">Price = ${{flag.price}}, ID={{flag.id}}</p>
+        </li>
         <li>
           <div *ngIf="!accountService.isAdmin()" id="addcart">
             <p class="quant">Quantity = {{flag.quantity}}</p>
@@ -38,8 +41,7 @@
           </div>
           <div *ngIf="accountService.isAdmin()" id="addcart">
             <p class="quant">AdminQuantity = {{flag.quantity}}</p>
-            <button type="button" class="add-to-cart" title="delete flag"
-              (click)="delete(flag)">X</button>
+            <button type="button" class="add-to-cart" title="delete flag" (click)="delete(flag)">X</button>
           </div>
         </li>
       </ul>

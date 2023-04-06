@@ -71,7 +71,7 @@ export class FlagsComponent implements OnInit {
       const currentFlag = this.flags[i];
       for (let j = 0; j < flagTags.length; j++) {
         const currentTag = flagTags[j];
-        
+
         // If one of the tags does not match, skip to the next flag.
         if (!currentFlag.tags.includes(currentTag)) break;
 

@@ -179,12 +179,12 @@ p.quant {
   justify-content: space-around;
 }
 
-.checkboxLabel{
+.checkboxLabel {
   display: inline;
   margin: 0 0.5em;
 }
 
-.checkboxInput{
+.checkboxInput {
   display: inline;
   width: 15px;
   margin: 0;

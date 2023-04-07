@@ -12,20 +12,33 @@ import { CustomFlagService} from '../customflag.service';
 export class CustomflagComponent {
   
   constructor(
-    private customFlagService: CustomFlagService ){}
+    public customFlagService: CustomFlagService ){}
   
-  getRows(): void {
-    this.customFlagService.getHStripe();
-  }
 
-  setRows(): void{
-    //var x = (document.getElementById("a") as HTMLElement).value;
-    var x = document.getElementById("a")?.nodeValue;
+  public rows: number = 1;
+  public cols: number = 1;
+  private rcolors = [-1, -1, -1, -1, -1, -1];
+  private ccolors = [-1, -1, -1, -1, -1, -1];
+
+  getRows(): void {
+    this.rows;
+  }
+  setRows(x: any): void{
     if(x == null){ 
-      //(x as unknown) as number;
       let x = 0;
     }
-    this.customFlagService.setHStripe((x as unknown) as number);
-    //alert(x);
+    this.rows = x as number;
   }
+
+  
+  getCols(): void {
+    this.cols;
+  }
+  setCols(x: any): void{
+    if(x == null){ 
+      let x = 0;
+    }
+    this.cols = x as number;
+  }
+
 }

@@ -35,10 +35,12 @@ attributes: disabled (useful for ifadmin)
 </p>
 <p>the c thing:{{cols}}</p>
 
+    <input type="color" #r1 id="1" name="r1" value="#ff0000" (change)="setRColor(r1.id, r1.value)">
+<div class="colortest" id="colortest" [ngStyle]="{background: r1color}">
+    <p>aaaaaaa</p>
+</div>
 
-
-
-<!--<output id="thing" name="x" for="message"></output> -->
+<!-- <button [ngStyle]="calculateStyles()">Button</button>   -->
 
 <P>PICTURE</P>
 <p>PRICE AND Quantity</p>

@@ -17,8 +17,10 @@ export class CustomflagComponent {
 
   public rows: number = 1;
   public cols: number = 1;
-  private rcolors = [-1, -1, -1, -1, -1, -1];
-  private ccolors = [-1, -1, -1, -1, -1, -1];
+  public rcolors = ['none', 'none', 'none', 'none', 'none', 'none'];
+  private ccolors = ['none', 'none', 'none', 'none', 'none', 'none'];
+  public r1color: string = '#ff0000';
+  public styleOne = "#fea1c08";
 
   getRows(): void {
     this.rows;
@@ -30,7 +32,6 @@ export class CustomflagComponent {
     this.rows = x as number;
   }
 
-  
   getCols(): void {
     this.cols;
   }
@@ -40,5 +41,15 @@ export class CustomflagComponent {
     }
     this.cols = x as number;
   }
+
+  setRColor(i: any, hx: any): void{
+    var index = (i as number) -1;
+    this.rcolors[index] = hx as string;
+    if(index == 0){
+      this.r1color = hx as string;
+      console.log("setcolor called- r1color=" + this.r1color);
+    }
+  }
+
 
 }

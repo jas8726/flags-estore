@@ -22,7 +22,11 @@ attributes: disabled (useful for ifadmin)
         <option>6</option>
     </select>
 </p>
-<p>the r thing:{{rows}}</p>
+<div>
+    <p>PICTURE</p>
+    <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+                  (click)="addcustomtocart()">+</button>
+</div>
 
 <p># of cols: <select #c (change)="setCols(c.value)">
         <option default>1</option>
@@ -116,7 +120,3 @@ attributes: disabled (useful for ifadmin)
 </div>
 
 
-<div>
-<p>PICTURE</p>
-<p>PRICE AND Quantity</p>
-</div>

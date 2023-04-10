@@ -174,11 +174,18 @@ p.quant {
   padding-top: 20px;
 }
 
-li#goright {
-  width: 50%;
-  align-self: flex-end;
-  text-align: right;
-  position: relative;
-  direction: rtl;
+.filter-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
 
+.checkboxLabel {
+  display: inline;
+  margin: 0 0.5em;
+}
+
+.checkboxInput {
+  display: inline;
+  width: 15px;
+  margin: 0;
 }

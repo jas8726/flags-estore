@@ -1,0 +1,29 @@
+/*label {
+    color: #435960;
+    font-weight: bold;
+  }
+  input {
+    font-size: 1em;
+    padding: .5rem;
+  }*/
+
+  /*
+  div#colortest{
+    background-color: var(--r1color);
+    padding: 100px;
+    width: 100px;
+    height: 100px;
+  }
+*/
+
+div.flagimage{
+  align-content: center;
+  align-items: center;
+  /*display: grid;*/
+  position: absolute;
+}
+
+div.flagimage.cols{
+  display: inline;
+}
+

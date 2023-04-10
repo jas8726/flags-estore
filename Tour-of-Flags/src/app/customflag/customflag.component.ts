@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-
+import { AccountService } from '../account.service';
+import { Flag } from '../flag';
+import { FlagService } from '../flag.service';
 import { CustomFlagService} from '../customflag.service';
 
 
@@ -10,9 +12,12 @@ import { CustomFlagService} from '../customflag.service';
 })
 
 export class CustomflagComponent {
-  
+  customflag: Flag | undefined;
+
   constructor(
-    public customFlagService: CustomFlagService ){}
+    public customFlagService: CustomFlagService,
+    private flagService: FlagService,
+    public accountService: AccountService ){}
   
 
   public rows: number = 1;
@@ -21,6 +26,32 @@ export class CustomflagComponent {
   private ccolors = ['#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000'];
   private coltoggle = [false, false, false, false, false, false];
   public tmpclassname = "";
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    var newFlag: Flag = { name } as Flag;
+    newFlag.tags = [];
+    this.flagService.addFlag(newFlag)
+      .subscribe(flag => {
+        this.customflag = newFlag;
+      });
+  }
+
+  addToCart(flag: Flag): void {
+    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
+  }
+
+  ableToAddToCart(): boolean {
+    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
+  }
+
+  addcustomtocart():void{
+    this.add('custom');
+    this.addToCart(this.customflag as Flag);
+  }
+
+
 
     getRowHeight(): number{
       return 100/this.rows;

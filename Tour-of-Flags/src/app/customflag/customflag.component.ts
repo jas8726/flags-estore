@@ -17,10 +17,19 @@ export class CustomflagComponent {
 
   public rows: number = 1;
   public cols: number = 1;
-  public rcolors = ['none', 'none', 'none', 'none', 'none', 'none'];
-  private ccolors = ['none', 'none', 'none', 'none', 'none', 'none'];
-  public r1color: string = '#ff0000';
-  public styleOne = "#fea1c08";
+  public rcolors = ['#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000'];
+  private ccolors = ['#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000'];
+  private coltoggle = [false, false, false, false, false, false];
+  public tmpclassname = "";
+
+    getRowHeight(): number{
+      return 100/this.rows;
+    }
+
+    getCWidth(): number{
+      return 200/this.cols;
+    }
+
 
   getRows(): void {
     this.rows;
@@ -45,11 +54,37 @@ export class CustomflagComponent {
   setRColor(i: any, hx: any): void{
     var index = (i as number) -1;
     this.rcolors[index] = hx as string;
-    if(index == 0){
-      this.r1color = hx as string;
-      console.log("setcolor called- r1color=" + this.r1color);
-    }
+  }
+  setCColor(i: any, hx: any): void{
+    var index = (i as number) -1;
+    this.ccolors[index] = hx as string;
   }
 
 
+  getRColor(i: any): string{
+    return this.rcolors[i-1];
+  }
+  getCColor(i: any): string{
+    return this.ccolors[i-1];
+  }
+
+  validRIndex(i: number): boolean {
+    if(i-1 < this.rows){
+      return true;
+    }
+    return false
+  }
+
+  validCIndex(i: number): boolean {
+    if(i-1 < this.cols){
+      return true;
+    }
+    return false
+  }
+  isColToggle(i: number): boolean{
+    return this.coltoggle[i-1];
+  }
+  setToggle(i: number, x: any): void{
+    this.coltoggle[i-1] = x as boolean;
+  }
 }

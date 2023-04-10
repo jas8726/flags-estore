@@ -16,5 +16,14 @@
   }
 */
 
+div.flagimage{
+  align-content: center;
+  align-items: center;
+  /*display: grid;*/
+  position: absolute;
+}
 
+div.flaginage.cols{
+  display: inline;
+}
 

@@ -34,7 +34,7 @@ export class CustomflagComponent {
     newFlag.tags = [];
     this.flagService.addFlag(newFlag)
       .subscribe(flag => {
-        this.customflag = newFlag;
+        this.addToCart(flag);
       });
   }
 
@@ -47,8 +47,7 @@ export class CustomflagComponent {
   }
 
   addcustomtocart():void{
-    this.add('custom');
-    this.addToCart(this.customflag as Flag);
+    this.add('Custom Flag');
   }
 
 

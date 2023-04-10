@@ -12,13 +12,14 @@ public class Flag {
     private static final Logger LOG = Logger.getLogger(Flag.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Flag [id=%d, name=%s, price=%d, quantity=%d, tags=%s]";
+    static final String STRING_FORMAT = "Flag [id=%d, name=%s, price=%d, quantity=%d, tags=%s, image=%s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("price") private int price;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("tags") private String[] tags;
+    @JsonProperty("image") private String image;
 
     /**
      * Create a flag with the given id and name
@@ -30,12 +31,13 @@ public class Flag {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("price") int price, @JsonProperty("quantity") int quantity, @JsonProperty("tags") String[] tags) {
+    public Flag(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("price") int price, @JsonProperty("quantity") int quantity, @JsonProperty("tags") String[] tags, @JsonProperty("image") String image) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.tags = tags;
+        this.image = image;
     }
 
     /**
@@ -75,10 +77,16 @@ public class Flag {
     public String[] getTags() {return tags;}
 
     /**
+     * Retrieves the image of the flag
+     * @return The URL image of the flag, as string
+     */
+    public String getImage() {return image;}
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT,id,name,price,quantity,tags);
+        return String.format(STRING_FORMAT,id,name,price,quantity,tags,image);
     }
 }

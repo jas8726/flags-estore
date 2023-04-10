@@ -84,7 +84,7 @@ attributes: disabled (useful for ifadmin)
 
 <div class="flagimage">
     <div class="rows">
-    <div class="colortest" id="r1" *ngIf="validRIndex(1)" [ngStyle]="{background: getRColor(1), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    <div class="colortest" id="r1" *ngIf="validRIndex(1)" [ngStyle]="{background: getRColor(1), 'height': getRowHeight() + 'px', 'width': 200 + 'px', 'overflow': 'hidden'}"></div>
     <div class="colortest" id="r2" *ngIf="validRIndex(2)" [ngStyle]="{background: getRColor(2), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
     <div class="colortest" id="r3" *ngIf="validRIndex(3)" [ngStyle]="{background: getRColor(3), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
     <div class="colortest" id="r4" *ngIf="validRIndex(4)" [ngStyle]="{background: getRColor(4), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
@@ -94,28 +94,29 @@ attributes: disabled (useful for ifadmin)
 
     
 
-    <div class="colortest" id="c1" *ngIf="validCIndex(1) && isColToggle(1)" [ngStyle]="{background: getCColor(1), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c1" *ngIf="validCIndex(1) && !isColToggle(1)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c1" *ngIf="validCIndex(1) && isColToggle(1)" [ngStyle]="{background: getCColor(1), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c1" *ngIf="validCIndex(1) && !isColToggle(1)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
     
-    <div class="colortest" id="c2" *ngIf="validCIndex(2) && isColToggle(2)" [ngStyle]="{background: getCColor(2), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c2" *ngIf="validCIndex(2) && !isColToggle(2)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c2" *ngIf="validCIndex(2) && isColToggle(2)" [ngStyle]="{background: getCColor(2), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c2" *ngIf="validCIndex(2) && !isColToggle(2)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
     
-    <div class="colortest" id="c3" *ngIf="validCIndex(3) && isColToggle(3)" [ngStyle]="{background: getCColor(3), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c3" *ngIf="validCIndex(3) && !isColToggle(3)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c3" *ngIf="validCIndex(3) && isColToggle(3)" [ngStyle]="{background: getCColor(3), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c3" *ngIf="validCIndex(3) && !isColToggle(3)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
     
-    <div class="colortest" id="c4" *ngIf="validCIndex(4) && isColToggle(4)" [ngStyle]="{background: getCColor(4), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c4" *ngIf="validCIndex(4) && !isColToggle(4)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c4" *ngIf="validCIndex(4) && isColToggle(4)" [ngStyle]="{background: getCColor(4), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c4" *ngIf="validCIndex(4) && !isColToggle(4)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
     
-    <div class="colortest" id="c5" *ngIf="validCIndex(5) && isColToggle(5)" [ngStyle]="{background: getCColor(5), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c5" *ngIf="validCIndex(5) && !isColToggle(5)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c5" *ngIf="validCIndex(5) && isColToggle(5)" [ngStyle]="{background: getCColor(5), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c5" *ngIf="validCIndex(5) && !isColToggle(5)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
 
-    <div class="colortest" id="c6" *ngIf="validCIndex(6) && isColToggle(6)" [ngStyle]="{background: getCColor(6), 'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
-    <div class="colortest" id="c6" *ngIf="validCIndex(6) && !isColToggle(6)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px'}"></div>
+    <span class="colortest" id="c6" *ngIf="validCIndex(6) && isColToggle(6)" [ngStyle]="{background: getCColor(6), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c6" *ngIf="validCIndex(6) && !isColToggle(6)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
 
 
 </div>
 
 
-
-<P>PICTURE</P>
+<div>
+<p>PICTURE</p>
 <p>PRICE AND Quantity</p>
+</div>

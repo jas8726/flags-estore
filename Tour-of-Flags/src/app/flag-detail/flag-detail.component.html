@@ -1,4 +1,5 @@
 <div *ngIf="flag">
+  <img alt="Image of {{flag.name}} flag" src="{{flag.image}}">
   <h2>{{flag.name | uppercase}} Details</h2>
   <div>
     <span>id: </span>{{flag.id}}
@@ -13,23 +14,25 @@
   </div>
   <div *ngIf="isAdmin()">
     <label for="flag-name">Flag name: </label>
-    <input type="text" id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name"/>
+    <input type="text" id="flag-name" [(ngModel)]="flag.name" placeholder="Flag name" />
     <br>
     <label for="edit-price">Price: </label>
     <input type="number" id="flag-price" [(ngModel)]="flag.price" placeholder="Flag price" />
     <br>
     <label for="edit-quantity">Quantity: </label>
-    <input type="number" id="flag-quantity"[(ngModel)]="flag.quantity" placeholder="Flag quantity" />
+    <input type="number" id="flag-quantity" [(ngModel)]="flag.quantity" placeholder="Flag quantity" />
+    <br>
+    <label for="edit-image">Image: </label>
+    <input type="url" id="flag-image" [(ngModel)]="flag.image" placeholder="Flag image" />
   </div>
 
   <br>
-  
+
   <div *ngIf="flag.tags.length > 0">
     tags:
     <ul>
       <li *ngFor="let tag of flag.tags">{{tag}}
-        <button *ngIf="isAdmin()" type="button" title="delete tag"
-              (click)="deleteTag(tag)">X</button>
+        <button *ngIf="isAdmin()" type="button" title="delete tag" (click)="deleteTag(tag)">X</button>
       </li>
     </ul>
   </div>

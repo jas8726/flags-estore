@@ -25,6 +25,7 @@ input {
   flex-direction: column;
 }
 
+
 .flagTile div {
   background-color: bisque;
   background-clip: border-box;
@@ -33,6 +34,7 @@ input {
   cursor: pointer;
   display: inline;
   text-align: center;
+  position: relative;
   /*border: 5px outset red; */
   /*-webkit-box-sizing: border-box;
   box-sizing: border-box;*/
@@ -48,6 +50,7 @@ input {
   padding: 10px;
   margin: 0px;
   max-width: 380px;
+  height: 200px
 }
 
 .flagTile.tileDetails div {

@@ -31,6 +31,9 @@ export class CustomflagComponent {
     name = name.trim();
     if (!name) { return; }
     var newFlag: Flag = { name } as Flag;
+    newFlag.price = 20;
+    newFlag.image = "";
+    newFlag.quantity = 1;
     newFlag.tags = [];
     this.flagService.addFlag(newFlag)
       .subscribe(flag => {
@@ -112,9 +115,13 @@ export class CustomflagComponent {
     return false
   }
   isColToggle(i: number): boolean{
+    if(i ==  0){
+    console.log('iscoltoggle(1)= ' + this.coltoggle[i-1]);
+    }
     return this.coltoggle[i-1];
   }
   setToggle(i: number, x: any): void{
     this.coltoggle[i-1] = x as boolean;
+    console.log('toggle: ' + this.coltoggle)
   }
 }

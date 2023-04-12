@@ -31,6 +31,7 @@ export class CustomflagComponent {
     name = name.trim();
     if (!name) { return; }
     var newFlag: Flag = { name } as Flag;
+    newFlag.price = 100;
     newFlag.tags = [];
     this.flagService.addFlag(newFlag)
       .subscribe(flag => {

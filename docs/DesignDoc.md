@@ -1,6 +1,4 @@
----
-geometry: margin=1in
----
+
 # PROJECT Design Documentation
 
 ## Team Information
@@ -34,17 +32,14 @@ This section describes the features of the application.
 
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
 The MVP includes minimal authentication for customer and e-store owner to login and logout, customer functionality for purchasing flags, inventory management, data persistence, and two extra 10% features which for this project were flag tags for filtered search and customizable flags for the user. 
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
 Users should be able to login with a username and password. If they are a customer, they will have a customer login so they can be brought to their own page with their own shopping cart. If they are the owner, they will have an admin login. 
 The customers should be able to view and search the inventory of flags, add and remove flags from their shopping cart, and proceed to checkout to purchase the flags. 
 The owner of the e-store should be able to add, 
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
 Flags should also be equipped with filters. The owner should be able to add and remove filters from a flag. Users should be able to see a list of filters on the flags page, and they should be able to select the filters in order to narrow down the amount of flags. It was decided that the filters for the flags would be the flag colors.
 Users should be able to create their own custom flags and purchase it, accordingly. One can select specific options and pick from various shapes/templates for their custom flag. We originally planned to make it so that users can save their custom flags, but we believed that was out of scope for us.
 
@@ -80,35 +75,17 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 This section describes the web interface flow; this is how the user views and interacts
 with the e-store application.
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
-
 When the application opens, the user is brought to the dashboard. This is the main page of the application. Here, the user can view the top flags, create or login to an account, search for a specific flag using the search bar, and create and save a custom flag. When pressing on the Flags button, the current webstore inventory will be displayed. Each flag displays the price, current inventory quantity, and a picture of the flag. These details can also be shown when the user clicks on the flag name. If a user is logged in, they can add flags to the cart. If they click on the shopping cart button, the user will see the contents of their shopping cart, which they can buy using the checkout button.
 
 
 ### View Tier
-> _Provide a summary of the View Tier UI of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
 
-> _You must also provide sequence diagrams as is relevant to a particular aspects
-> of the design that you are describing.  For example, in e-store you might create a
-> sequence diagram of a customer searching for an item and adding to their cart.
-> Be sure to include a relevant HTTP requests from the client-side to the server-side
-> to help illustrate the end-to-end flow._
 The view tier of our architecture is the user interface, made up of several sets of classes, each responsible for a single component. Each component has an html class and a css class. The classes are responsible for displaying the component, and displaying the component, respectively. The app.component classes are responsible for the welcome message and navigation menu at the top of all pages. The homepage is made up of the dashboard.component classes and this component displays the top products, the search bar, and the custom button. The flags display tab is its own component and it displays the flags in a grid and includes an add to cart button. 
 
 The user can also click on the name of the flag to see details, displayed by flag-detail.component. There is also a component for the shopping cart, login, and register. 
 
 
 ### ViewModel Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
 The ViewModel tier refers to the classes that communicate between the view tier and the model tier. This would refer to the typescript classes that handle computation and the storing of information. Every component has a typescript file that can communicate with other components to display various data, for example the flags.component that displays the flags in the browse tab, communicates with the account typescript file to check if a user is logged in and displays the add to cart button accordingly. This tier also consists of the java controller files FlagController.java and AccountController.java that handle http requests. 
 
 ![View Model UML](viewmodel_UML.png)
@@ -117,12 +94,6 @@ The ViewModel tier refers to the classes that communicate between the view tier 
 
 
 ### Model Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
 The model tier refers to the back-end of the architecture. These classes are written in java and store data so that our product has data persistence. They load data from json files, and write to these files when data is changed. The files that handle these duties are DAO files and include AccountDAO, AccountFileDAO, FlagDAO, and FlagFileDAO. The files that store information when the program is running and send out data are java files. They include Account.java, Flag.java, and CartItem.java. 
 
 
@@ -131,11 +102,6 @@ The model tier refers to the back-end of the architecture. These classes are wri
 
 
 ### Static Code Analysis/Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements._
 
 Some improvements we would make to the project include perfecting the CSS and how the website looks. We also have some small bugs that are not visible on the website but affect some of the frontend components that we would fix.
 
@@ -145,17 +111,7 @@ Our Static Code Analysis exercise showed that we had 9 total bugs in our combine
 This section will provide information about the testing performed and the results of the testing.
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
 We had 28 different user stories that passed their acceptance criteria test. There was only 1 user story that did not pass. This was because it was for a feature that we ended up not implementing, which was saving a custom flag to a user’s account. There were no issues during acceptance testing. Our application at the time of the testing was working as expected, with practically no issues. The only issues were from our custom flag feature, which still works, but had some bugs thanks to the newness of the feature.
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
 Our unit testing strategy was to ensure that all of our code was tested. We focused mostly on testing the many different methods of our backend to ensure that everything on that front was working as intended. We had about 60-70 different unit tests in total for our entire application. Our code coverage percentage from our static code analysis was about 88%. I’d say that’s a pretty good marker. Although we were shooting for at least about 90%, I’d say with all of our team’s difficulties in completing the application, our recorded code coverage is pretty good. We selected a target of 90% since that still covers most of our code, but also gives ourselves realistic expectations for any minor sections we may have missed; according to our results, I’d say our reasoning for our target was pretty accurate. Our code analysis also showed a few small bugs and code smells, but for the most part there were no significant errors.

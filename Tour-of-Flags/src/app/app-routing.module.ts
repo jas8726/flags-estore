@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'shoppingCart', component: ShoppingCartComponent },
-  { path: 'custom', component: CustomflagComponent}
+  { path: 'customflag', component: CustomflagComponent}
 ];
 
 @NgModule({

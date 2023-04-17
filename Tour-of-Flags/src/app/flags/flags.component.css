@@ -8,6 +8,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 42px 15px;
+  place-items: center;
   margin: 0;
 }
 
@@ -19,14 +20,19 @@ input {
   box-sizing: border-box;
 }
 
+.flagTile {
+  display: flex;
+  flex-direction: column;
+}
+
 .flagTile div {
   background-color: bisque;
   background-clip: border-box;
-  margin: 10px;
-  position: relative;
+  margin: 0 10px;
   width: 400px;
   cursor: pointer;
   display: inline;
+  text-align: center;
   /*border: 5px outset red; */
   /*-webkit-box-sizing: border-box;
   box-sizing: border-box;*/
@@ -36,12 +42,12 @@ input {
   left: .1em;
 } */
 
-p#img {
+#img {
   background-color: bisque;
   text-align: center;
   padding: 10px;
-  height: 100px;
-  margin: 0;
+  margin: 0px;
+  max-width: 380px;
 }
 
 .flagTile.tileDetails div {
@@ -174,11 +180,19 @@ p.quant {
   padding-top: 20px;
 }
 
-li#goright {
-  width: 50%;
-  align-self: flex-end;
-  text-align: right;
-  position: relative;
-  direction: rtl;
+.filter-wrapper {
+  margin: 0 0 20px;
+  display: flex;
+  justify-content: space-around;
+}
 
+.checkboxLabel {
+  display: inline;
+  margin: 0 0.5em;
+}
+
+.checkboxInput {
+  display: inline;
+  width: 15px;
+  margin: 0;
 }

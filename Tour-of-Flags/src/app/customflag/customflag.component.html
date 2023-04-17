@@ -1,3 +1,121 @@
-<p>AAAAA</p>
-<h1>CUSTOM FLAG</h1>
-<p>MENU OF TAGS</p>
+<h2>CUSTOM FLAG</h2>
+<!-- forms- 
+    attribute: method="get" or post 
+drop-down menu is called a <select>
+        and it has <option>s where you can set value="" 
+output element has oninput="stuff"
+    <input type="" id="" ...>
+    <output name="" for="a b"></output>
+input type COLOR has a whole colorpicker
+
+attributes: disabled (useful for ifadmin)
+        -->
+
+
+<p># of rows: <select #r (change)="setRows(r.value)">
+        <option default>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+</p>
+<div>
+    <p></p>
+    <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+                  (click)="addcustomtocart()">ADD TO CART</button>
+</div>
+
+<p># of cols: <select #c (change)="setCols(c.value)">
+        <option default>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+</p>
+<p>colors for rows:</p>
+<input *ngIf="validRIndex(1)" type="color" #r1 id="1" name="r1" value="#ff0000" (change)="setRColor(r1.id, r1.value)">
+<input *ngIf="validRIndex(2)" type="color" #r2 id="2" name="r2" value="#ff0000" (change)="setRColor(r2.id, r2.value)">
+<input *ngIf="validRIndex(3)" type="color" #r3 id="3" name="r3" value="#ff0000" (change)="setRColor(r3.id, r3.value)">
+<input *ngIf="validRIndex(4)" type="color" #r4 id="4" name="r4" value="#ff0000" (change)="setRColor(r4.id, r4.value)">
+<input *ngIf="validRIndex(5)" type="color" #r5 id="5" name="r5" value="#ff0000" (change)="setRColor(r5.id, r5.value)">
+<input *ngIf="validRIndex(6)" type="color" #r6 id="6" name="r6" value="#ff0000" (change)="setRColor(r6.id, r6.value)">
+<!--<div class="choosercolors" *ngfor="let color of rcolors; let i = index"
+    [attr.id]="'r' + i">
+    <input type="color" ngIf*="lessthan(i, rows)" #r{i} id="i" (change)="setRColor(r{i}.id, r{i}.value)">
+</div> -->
+<p>Colors for columns: </p>
+<select *ngIf="validRIndex(1)" #c1 (change)="setToggle(1, c1.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(1)" type="color" #c1 id="1" name="c1" value="#ff0000" (change)="setCColor(c1.id, c1.value)">
+
+<select *ngIf="validCIndex(2)" #c2 (change)="setToggle(2, c2.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(2)" type="color" #c2 id="2" name="c2" value="#ff0000" (change)="setCColor(c2.id, c2.value)">
+
+<select *ngIf="validCIndex(3)" #c3 (change)="setToggle(3, c3.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(3)" type="color" #c3 id="3" name="c3" value="#ff0000" (change)="setCColor(c3.id, c3.value)">
+
+<select *ngIf="validCIndex(4)" #c4 (change)="setToggle(4, c4.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(4)" type="color" #c4 id="4" name="c4" value="#ff0000" (change)="setCColor(c4.id, c4.value)">
+
+<select *ngIf="validCIndex(5)" #c5 (change)="setToggle(5, c5.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(5)" type="color" #c5 id="5" name="c5" value="#ff0000" (change)="setCColor(c5.id, c5.value)">
+
+<select *ngIf="validCIndex(6)" #c6 (change)="setToggle(6, c6.value)">
+    <option default value="false">no</option>
+    <option value="true">yes</option>
+</select>
+<input *ngIf="validCIndex(6)" type="color" #c6 id="6" name="c6" value="#ff0000" (change)="setCColor(c6.id, c6.value)">
+
+
+<div class="flagimage">
+    <div class="rows">
+    <div class="colortest" id="r1" *ngIf="validRIndex(1)" [ngStyle]="{background: getRColor(1), 'height': getRowHeight() + 'px', 'width': 200 + 'px', 'overflow': 'hidden'}"></div>
+    <div class="colortest" id="r2" *ngIf="validRIndex(2)" [ngStyle]="{background: getRColor(2), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    <div class="colortest" id="r3" *ngIf="validRIndex(3)" [ngStyle]="{background: getRColor(3), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    <div class="colortest" id="r4" *ngIf="validRIndex(4)" [ngStyle]="{background: getRColor(4), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    <div class="colortest" id="r5" *ngIf="validRIndex(5)" [ngStyle]="{background: getRColor(5), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    <div class="colortest" id="r6" *ngIf="validRIndex(6)" [ngStyle]="{background: getRColor(6), 'height': getRowHeight() + 'px', 'width': 200 + 'px'}"></div>
+    </div>
+
+    
+
+    <span class="colortest" id="c1" *ngIf="validCIndex(1) && isColToggle(1)" [ngStyle]="{background: getCColor(1), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c1" *ngIf="validCIndex(1) && !isColToggle(1)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    
+    <span class="colortest" id="c2" *ngIf="validCIndex(2) && isColToggle(2)" [ngStyle]="{background: getCColor(2), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c2" *ngIf="validCIndex(2) && !isColToggle(2)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    
+    <span class="colortest" id="c3" *ngIf="validCIndex(3) && isColToggle(3)" [ngStyle]="{background: getCColor(3), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c3" *ngIf="validCIndex(3) && !isColToggle(3)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    
+    <span class="colortest" id="c4" *ngIf="validCIndex(4) && isColToggle(4)" [ngStyle]="{background: getCColor(4), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c4" *ngIf="validCIndex(4) && !isColToggle(4)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    
+    <span class="colortest" id="c5" *ngIf="validCIndex(5) && isColToggle(5)" [ngStyle]="{background: getCColor(5), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c5" *ngIf="validCIndex(5) && !isColToggle(5)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+
+    <span class="colortest" id="c6" *ngIf="validCIndex(6) && isColToggle(6)" [ngStyle]="{background: getCColor(6), 'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+    <span class="colortest" id="c6" *ngIf="validCIndex(6) && !isColToggle(6)" [ngStyle]="{'height': 100 + 'px', 'width': getCWidth() + 'px', 'float': 'left'}"></span>
+
+
+</div>
+
+

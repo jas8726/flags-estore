@@ -12,7 +12,7 @@ import { CustomFlagService} from '../customflag.service';
 })
 
 export class CustomflagComponent {
-  customflag: Flag | undefined;
+  customName: string = "";
 
   constructor(
     public customFlagService: CustomFlagService,
@@ -50,7 +50,8 @@ export class CustomflagComponent {
   }
 
   addcustomtocart():void{
-    this.add('Custom Flag');
+    this.customName = this.customName.trim();
+    if (this.customName !== "") this.add(this.customName + " (Custom)");
   }
 
 

@@ -13,6 +13,16 @@ attributes: disabled (useful for ifadmin)
 **opacity zero
         -->
 
+<div>
+    <p></p>
+    <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
+                    (click)="addcustomtocart()">ADD TO CART</button>
+</div>
+
+<div>
+    <label for="flag-name">Custom flag name: </label>
+    <input type="text" id="flag-name" [(ngModel)]="customName" placeholder="Custom flag name" />
+</div>
 
 <p># of rows: <select #r (change)="setRows(r.value)">
         <option default>1</option>
@@ -23,11 +33,6 @@ attributes: disabled (useful for ifadmin)
         <option>6</option>
     </select>
 </p>
-<div>
-    <p></p>
-    <button *ngIf="ableToAddToCart()" type="button" class="add-to-cart" title="addToCart flag"
-                  (click)="addcustomtocart()">ADD TO CART</button>
-</div>
 
 <p># of cols: <select #c (change)="setCols(c.value)">
         <option default>1</option>

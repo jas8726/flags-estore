@@ -21,5 +21,6 @@
 <div *ngIf="cart.length > 0">
     <p>Total price: ${{getTotalPrice()}}</p>
     <button type="button" (click)="checkout()">checkout</button>
-    <p>{{errorText}}</p>
 </div>
+
+<p>{{errorText}}</p>

@@ -13,6 +13,7 @@ import { CustomFlagService} from '../customflag.service';
 
 export class CustomflagComponent {
   customName: string = "";
+  errorText: String = "";
 
   constructor(
     public customFlagService: CustomFlagService,
@@ -42,7 +43,14 @@ export class CustomflagComponent {
   }
 
   addToCart(flag: Flag): void {
-    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
+    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe(success => {
+      if (success) {
+        this.errorText = "Successfully added " + flag.name + " to cart.";
+      }
+      else {
+        this.errorText = "Error adding flag to cart.";
+      }
+    });
   }
 
   ableToAddToCart(): boolean {
@@ -51,8 +59,14 @@ export class CustomflagComponent {
 
   addcustomtocart():void{
     this.customName = this.customName.trim();
-    if (this.customName !== "") this.add(this.customName + " (Custom)");
+    if (this.customName === "") {
+      this.errorText = "Please enter a name for your custom flag.";
+    }
+    else {
+      this.add(this.customName + " (Custom)");
+    }
   }
+      
 
 
 

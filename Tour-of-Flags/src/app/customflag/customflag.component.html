@@ -23,7 +23,7 @@ attributes: disabled (useful for ifadmin)
 
 <div>
     <label for="flag-name">Custom flag name: </label>
-    <input type="text" id="flag-name" [(ngModel)]="customName" placeholder="Custom flag name" />
+    <input type="text" id="flag-name" [(ngModel)]="customFlag.name" placeholder="Custom flag name" />
 </div>
 
 <p># of rows: <select #r (change)="setRows(r.value)">

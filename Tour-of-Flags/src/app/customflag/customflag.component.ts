@@ -12,8 +12,10 @@ import { CustomFlagService} from '../customflag.service';
 })
 
 export class CustomflagComponent {
-  customName: string = "";
+  customFlag: Flag = {} as Flag;
   errorText: String = "";
+
+  readonly CUSTOM_IMAGE: string = "https://cdn.discordapp.com/attachments/1070502517760335994/1097918011387687112/Sprint_4_Presentation.png";
 
   constructor(
     public customFlagService: CustomFlagService,
@@ -28,15 +30,26 @@ export class CustomflagComponent {
   private coltoggle = [false, false, false, false, false, false];
   public tmpclassname = "";
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    var newFlag: Flag = { name } as Flag;
-    newFlag.price = 20;
-    newFlag.image = "";
-    newFlag.quantity = 1;
-    newFlag.tags = [];
-    this.flagService.addFlag(newFlag)
+  ableToAddToCart(): boolean {
+    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
+  }
+
+  addcustomtocart():void{
+    if (this.customFlag.name.trim() === "") {
+      this.errorText = "Please enter a name for your custom flag.";
+    }
+    else {
+      this.add();
+    }
+  }
+
+  add(): void {
+    this.customFlag.name = this.customFlag.name + " (Custom)"
+    this.customFlag.price = 20;
+    this.customFlag.image = this.CUSTOM_IMAGE;
+    this.customFlag.quantity = 1;
+    this.customFlag.tags = [];
+    this.flagService.addFlag(this.customFlag)
       .subscribe(flag => {
         this.addToCart(flag);
       });
@@ -51,20 +64,6 @@ export class CustomflagComponent {
         this.errorText = "Error adding flag to cart.";
       }
     });
-  }
-
-  ableToAddToCart(): boolean {
-    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
-  }
-
-  addcustomtocart():void{
-    this.customName = this.customName.trim();
-    if (this.customName === "") {
-      this.errorText = "Please enter a name for your custom flag.";
-    }
-    else {
-      this.add(this.customName + " (Custom)");
-    }
   }
       
 

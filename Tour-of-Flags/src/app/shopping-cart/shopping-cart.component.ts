@@ -24,7 +24,12 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCart();
+    this.getFlags();
+  }
+
+  getFlags(): void {
+    this.flagService.getFlags()
+      .subscribe(_ => this.getCart());
   }
 
   getCart(): void {

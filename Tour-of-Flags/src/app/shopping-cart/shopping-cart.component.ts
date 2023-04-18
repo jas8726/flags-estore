@@ -76,8 +76,8 @@ export class ShoppingCartComponent implements OnInit {
       
       var flag = this.getFlagFromID(element);
       if (!flag) {
-        this.errorText = "One of your flags does not exist!";
-        return;
+        this.delete(element.flagID);
+        continue;
       }
       var newQuantity = flag.quantity - element.quantity;
       console.error("New quantity of " + flag.name + ": " + newQuantity);

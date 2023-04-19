@@ -21,9 +21,16 @@ div.flagimage{
   align-items: center;
   /*display: grid;*/
   position: absolute;
+  
 }
 
 div.flagimage.cols{
   display: inline;
 }
+
+span.colortest{
+  position: relative;
+  bottom: 100px;
+}
+
 

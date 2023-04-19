@@ -23,8 +23,9 @@
   <p *ngIf="tagFilter(tagFlags).length == 0">No flags match the selected filters.</p>
   <div class="flagTile" *ngFor="let flag of tagFilter(tagFlags)">
     <div id="tileMedia">
-      <img id="img" alt="No image for {{flag.name}}" src="{{flag.image}}">
-    </div>
+      
+      <img id="img" alt="No image for {{flag.name}}" src="{{flag.image}}"> 
+      </div>
     <div class="tileDetails">
       <ul>
         <li><a routerLink="/detail/{{flag.id}}">{{flag.name}}</a>

@@ -12,7 +12,10 @@ import { CustomFlagService} from '../customflag.service';
 })
 
 export class CustomflagComponent {
-  customflag: Flag | undefined;
+  customFlag: Flag = {} as Flag;
+  errorText: String = "";
+
+  readonly CUSTOM_IMAGE: string = "https://cdn.discordapp.com/attachments/1070502517760335994/1097918011387687112/Sprint_4_Presentation.png";
 
   constructor(
     public customFlagService: CustomFlagService,
@@ -27,28 +30,42 @@ export class CustomflagComponent {
   private coltoggle = [false, false, false, false, false, false];
   public tmpclassname = "";
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    var newFlag: Flag = { name } as Flag;
-    newFlag.tags = [];
-    this.flagService.addFlag(newFlag)
+  ableToAddToCart(): boolean {
+    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
+  }
+
+  addcustomtocart():void{
+    if (this.customFlag.name.trim() === "") {
+      this.errorText = "Please enter a name for your custom flag.";
+    }
+    else {
+      this.add();
+    }
+  }
+
+  add(): void {
+    this.customFlag.name = this.customFlag.name + " (Custom)"
+    this.customFlag.price = 20;
+    this.customFlag.image = this.CUSTOM_IMAGE;
+    this.customFlag.quantity = 1;
+    this.customFlag.tags = [];
+    this.flagService.addFlag(this.customFlag)
       .subscribe(flag => {
         this.addToCart(flag);
       });
   }
 
   addToCart(flag: Flag): void {
-    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe();
+    this.accountService.addFlagCart(this.accountService.getCurrentAccount()!.username, flag.id).subscribe(success => {
+      if (success) {
+        this.errorText = "Successfully added " + flag.name + " to cart.";
+      }
+      else {
+        this.errorText = "Error adding flag to cart.";
+      }
+    });
   }
-
-  ableToAddToCart(): boolean {
-    return (this.accountService.getCurrentAccount() != null) && !this.accountService.isAdmin();
-  }
-
-  addcustomtocart():void{
-    this.add('Custom Flag');
-  }
+      
 
 
 
@@ -112,9 +129,13 @@ export class CustomflagComponent {
     return false
   }
   isColToggle(i: number): boolean{
+    if(i ==  0){
+    console.log('iscoltoggle(1)= ' + this.coltoggle[i-1]);
+    }
     return this.coltoggle[i-1];
   }
   setToggle(i: number, x: any): void{
     this.coltoggle[i-1] = x as boolean;
+    console.log('toggle: ' + this.coltoggle)
   }
 }

@@ -1,6 +1,13 @@
 /* AppComponent's private CSS styles */
-h1 {
+
+html{
+  background-color: #bddadb;
+}
+
+h1{
   margin-bottom: 0;
+  text-align: center;
+  
 }
 
 nav a {
@@ -83,9 +90,3 @@ h2 {
   text-align: center;
 }
 
-marquee {
-  display: inline-block;
-  overflow: hidden;
-  text-align: initial;
-  white-space: nowrap;
-}

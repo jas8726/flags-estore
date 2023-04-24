@@ -11,7 +11,7 @@
 	<artifactId>flags-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>flags-api</name>
-	<description>API for Tour of Flags</description>
+	<description>API for Flag Store</description>
 	<properties>
 		<java.version>11</java.version>
 		<jacoco.version>0.8.7</jacoco.version>

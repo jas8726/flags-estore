@@ -65,7 +65,7 @@ public class FlagTest {
         String image = "";
 
         Flag flag = new Flag(id, name, price, quantity, tags, image);
-        String tostring = String.format(Flag.STRING_FORMAT, id, name, price, quantity, tags);
+        String tostring = String.format(Flag.STRING_FORMAT, id, name, price, quantity, tags, image);
 
         assertEquals(tostring, flag.toString(), "toString incorrect");
     }
